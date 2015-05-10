@@ -1,0 +1,12 @@
+Makefile
+Makefile.in
+afpd
+fce
+hash
+spot
+srp
+.deps
+.libs
+*.o
+*.la
+*.lo
