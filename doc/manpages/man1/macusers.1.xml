@@ -13,7 +13,7 @@
   <refnamediv id="name">
     <refname>macusers</refname>
 
-    <refpurpose>List the users connecting via AFP</refpurpose>
+    <refpurpose>AFP経由で接続しているユーザをリストする</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv id="synopsis">
@@ -39,19 +39,19 @@
   <refsect1 id="description">
     <title>DESCRIPTION</title>
 
-    <para><command>macusers</command> list the users connecting via AFP.</para>
+    <para><command>macusers</command>はAFP経由で接続しているユーザをリストします。</para>
 
   </refsect1>
 
   <refsect1>
-    <title>OPTIONS</title>
+    <title>オプション</title>
 
     <variablelist remap="TP">
       <varlistentry>
         <term><option>-v, -version, --version</option></term>
 
         <listitem>
-          <para>Show version and exit</para>
+          <para>バージョンを表示して終了する</para>
         </listitem>
 
       </varlistentry>
@@ -60,7 +60,7 @@
         <term><option>-h, -help, --help</option></term>
 
         <listitem>
-          <para>Display the help and exit</para>
+          <para>ヘルプを表示して終了する</para>
         </listitem>
 
       </varlistentry>
@@ -68,7 +68,7 @@
   </refsect1>
 
   <refsect1 id="see_also">
-    <title>SEE ALSO</title>
+    <title>参照</title>
 
     <para><citerefentry><refentrytitle>afpd</refentrytitle><manvolnum>8</manvolnum></citerefentry></para>
   </refsect1>
