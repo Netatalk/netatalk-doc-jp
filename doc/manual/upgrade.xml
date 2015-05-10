@@ -10,256 +10,259 @@
     </author>
 
     <pubdate>6 Sep, 2013</pubdate>
+    
+    <author>
+      <firstname>英一郎（日本語訳）</firstname>
+      
+      <surname>宇田</surname>
+    </author>
+    
+    <pubdate>2015 年 5 月 5 日（訳）</pubdate>
+    
   </chapterinfo>
 
-  <title>Upgrading from Netatalk 2</title>
+  <title>Netatalk 2 からのアップグレード</title>
 
   <sect1>
-    <title>Overview</title>
+    <title>概要</title>
 
-    <para>There are two major changes in Netatalk:<orderedlist>
+    <para>Netatalk の主要な変更は以下の二点：<orderedlist>
         <listitem>
-          <para>New configuration file <filename><link
-          linkend="afp.conf.5">afp.conf</link></filename>, obsoleting all
-          previous configuration files</para>
+          <para>これまでの設定ファイルすべてが廃止された，全く新しい設定ファイルとしての 
+          <filename><link linkend="afp.conf.5">afp.conf</link></filename></para>        
         </listitem>
 
         <listitem>
-          <para>New AppleDouble backend "<option>appledouble = ea</option>"
-          which stores Mac metadata and resource forks in extended attributes
-          of the filesystem</para>
+          <para>マックのメタデータとリソースフォークをファイルシステムの拡張属性に保存する 
+          "<option>appledouble = ea</option>" という新しい AppleDouble のバックエンド．</para>
         </listitem>
       </orderedlist></para>
 
     <sect2>
-      <title>New configuration</title>
+      <title>設定まわりの変更点</title>
 
       <para><itemizedlist>
           <listitem>
-            <para>ini style syntax (like Samba’s smb.conf)</para>
+            <para>（Samba の smb.conf のような） "ini" スタイルの構文</para>
           </listitem>
 
           <listitem>
-            <para>one to rule them all: configure AFP settings and volumes in
-            one file</para>
+            <para>一つで設定すべてを指示するという点：
+            AFP 及びボリュームの構成を共に一つのファイルで設定することになるという点</para>
           </listitem>
 
           <listitem>
-            <para>obsoletes <filename>afpd.conf</filename>,
-            <filename>netatalk.conf</filename>,
-            <filename>AppleVolumes.default</filename> and
-            <filename>afp_ldap.conf</filename></para>
+            <para><filename>afpd.conf</filename>，
+            <filename>netatalk.conf</filename>，
+            <filename>AppleVolumes.default</filename> 及び，
+            <filename>afp_ldap.conf</filename> の廃止</para>
           </listitem>
         </itemizedlist><warning>
-          <para>most option names have changed, read the full manpage <link
-          linkend="afp.conf.5">afp.conf</link> for details</para>
+          <para>ほとんどのオプション名は変更されたので，
+          詳細については <link linkend="afp.conf.5">afp.conf</link> の manpage 全体を読むこと</para>
         </warning></para>
     </sect2>
 
     <sect2>
-      <title>New AppleDouble backend</title>
+      <title>新たな AppleDouble バックエンド</title>
 
-      <para>New AppleDouble backend "<option>appledouble = ea</option>" which
-      stores Mac metadata and resource forks in extended attributes of the
-      filesystem.<itemizedlist>
+      <para>マックのメタデータとリソースフォークをファイルシステムの拡張属性に保存する 
+      "<option>appledouble = ea</option>" という新しい AppleDouble のバックエンド．<itemizedlist>
           <listitem>
-            <para>default backend (!)</para>
+            <para>デフォルトのバックエンドである（！）</para>
           </listitem>
 
           <listitem>
-            <para>requires a filesystem with Extended Attributes, fallback is
-            "<option>appledouble = v2</option>"</para>
+            <para>拡張属性のあるファイルシステムが必須．
+            さもなくば "<option>appledouble = v2</option>" オプションの使用が代替となる</para>
           </listitem>
 
           <listitem>
-            <para>converts filesystems from "<option>appledouble = v2</option>"
-            to "<option>appledouble = ea</option>" on the fly when accessed
-            (can be disabled)</para>
+            <para>"<option>appledouble = v2</option>" から "<option>appledouble = ea</option>" 
+            ファイルシステムへの変換はアクセス時，その都度行われる（無効にすることも可能）</para>
           </listitem>
 
           <listitem>
-            <para><command><link linkend="dbd.1">dbd</link></command> can be
-            used to do conversion in one shot</para>
+            <para>一括で変換する場合<command><link linkend="dbd.1">dbd</link></command> 
+            を用いることができる</para>
           </listitem>
         </itemizedlist></para>
 
-      <para>Implementation details:<itemizedlist>
+      <para>実装の詳細：<itemizedlist>
           <listitem>
-            <para>stores Mac Metadata (eg FinderInfo, AFP Flags, Comment,
-            CNID) in an Extended Attributed named
-            “<filename>org.netatalk.Metadata</filename>”</para>
+            <para>Mac のメタデータ（すなわち FinderInfo，AFP フラグ，コメント，CNID）は 
+            “<filename>org.netatalk.Metadata</filename>” という名前の拡張属性に保存される．</para>
           </listitem>
 
           <listitem>
-            <para>stores Mac ResourceFork either in<itemizedlist>
+            <para>マックのリソースフォークは：<itemizedlist>
                 <listitem>
-                  <para>an Extended Attribute named
-                  “<filename>org.netatalk.ResourceFork</filename>”
-                  on Solaris w. ZFS, or in</para>
+                  <para>ZFS を用いた Solaris では 
+                  “<filename>org.netatalk.ResourceFork</filename>” 
+                  という拡張属性に保存される．</para>
                 </listitem>
 
                 <listitem>
-                  <para>an extra AppleDouble file named “<filename>._file</filename>” for a file
-                  named “<filename>file</filename>”</para>
+                  <para>ないしは，ファイル名が “<filename>._file</filename>” 
+                  であるものに対して各々， “<filename>file</filename>” 
+                  という名の別の AppleDouble ファイルに保存される．</para>
                 </listitem>
               </itemizedlist></para>
           </listitem>
 
           <listitem>
-            <para>the format of the ._ file is exactly as the Mac’s CIFS
-            client expects it when accessing the same filesystem via a CIFS
-            server (Samba), thus you can have parallel access from Macs to the
-            same dataset via AFP and CIFS without the risk of loosing data
-            (resources or metadata). Accessing the same dataset with CIFS
-            from Windows clients will still break the coupling of
-            “<filename>file</filename>” and “<filename>._file</filename>”
-            on non ZFS filesystems (see above), so for this we still
-            need an enhanced Samba VFS module (in the works).</para>
+            <para>"._" ファイルのフォーマットは，
+            たとえそのファイルシステムに CIFS サーバー (Samba) 経由でアクセスした場合でも，
+            マックの CIFS クライアントが想定しているフォーマットと全く同じである．
+            なので，データを失う危険性（リソースもメタデータも）なく，
+            マックから同じデータセットに AFP 経由と CIFS 経由と並行してアクセスすることができる．
+            一方，ウィンドウズから当該データセットに CIFS 経由でアクセスした場合は，未だに 
+            “<filename>file</filename>” と “<filename>file</filename>” 
+            の紐付けを失うこととなるであろう（非 ZFS ファイルシステムの場合．上記参照）．
+            今のところその点で拡張 Samba VFS モジュールが必要である（改善中）．</para>
           </listitem>
         </itemizedlist></para>
 
-      <para>As these days the only applications making use of Resource Forks
-      are Adobe Photoshop (image preview) and Postscript Type 1 fonts, even on
-      eg Linux you’ll get rid of 99% of any extra Netatalk AppleDouble files
-      (and folders).</para>
+
+      <para>昨今，リソースフォークを使用しているアプリケーションは　
+      Adobe Photoshop（イメージプレビュー）と Postscript Type 1 フォントのみなので，
+      例えば Linux 上においても，あらゆる余分な Netatalk AppleDouble ファイル（及びフォルダー）からは 
+      99% 無関係でいられる．</para>
     </sect2>
 
     <sect2>
-      <title>Other major changes</title>
+      <title>そのほかの主要な変更点</title>
 
       <para><itemizedlist>
           <listitem>
-            <para>New service controller daemon <link
-            linkend="netatalk.8">netatalk</link> which is responsible for
-            starting and restarting the AFP and CNID daemons. All bundled
-            start scripts have been updated, make sure to update yours!</para>
+            <para>AFP 及び CNID デーモンの起動・再起動を担う新しいサービスコントローラデーモン 
+            <link linkend="netatalk.8">netatalk</link> の導入．バンドルされているスタートスクリプトが
+            すべて更新されているため，自分の環境でもアップデートされているか確認する必要あり！</para>
           </listitem>
 
           <listitem>
-            <para>The CNID databases are now stored under
-              <filename>/var/netatalk/CNID/</filename>
-              by default. You can use configure --localstatedir=PATH at
-              compile time to change the location.</para>
+            <para>CNID データベースはデフォルトで <filename>/var/netatalk/CNID/</filename> 
+            以下に保存される．保存場所を変更するには，コンパイル時に --localstatedir=PATH 
+            のコンフィグオプションを使用する．</para>
           </listitem>
 
           <listitem>
-            <para>Netatalk 2.x volume options “usedots” and “upriv” now
-            enabled by default</para>
+            <para>Netatalk 2.x のボリュームオプション “usedots” 及び “upriv” 
+            はデフォルトとなった．</para>
           </listitem>
 
           <listitem>
-            <para>Removed SLP and AFP proxy support</para>
+            <para>SLP 及び AFP プロキシのサポート機能は削除．</para>
           </listitem>
 
           <listitem>
-            <para>Removed type/creator extension mapping
-            support</para>
+            <para>type/creator と拡張子の関連付けサポート機能は削除</para>
           </listitem>
         </itemizedlist></para>
     </sect2>
   </sect1>
 
   <sect1>
-    <title>Upgrading</title>
+    <title>アップグレード</title>
 
     <para><orderedlist>
         <listitem>
-          <para>Stop Netatalk 2.x</para>
+          <para>Netatalk 2.x を停止する</para>
         </listitem>
 
         <listitem>
-          <para>Install Netatalk 3</para>
+          <para>Netatalk 3 をインストールする</para>
         </listitem>
 
         <listitem>
-          <para>Manually recreate configuration in
-          <option>afp.conf</option> and <option>extmap.conf</option></para>
+          <para>設定 <option>afp.conf</option> 及び <option>extmap.conf</option> 
+          を自力で書き換える</para>
         </listitem>
 
         <listitem>
-          <para>Update your Netatalk start script (SMF, systemd, whatever...)
-          to only start <link linkend="netatalk.8">netatalk</link></para>
+          <para><link linkend="netatalk.8">netatalk</link> 起動にのみ関連している，
+          Netatalk 起動スクリプト（SMF，systemd，ほかすべて…）を更新する</para>
         </listitem>
 
         <listitem>
-          <para>Move <filename>afp_voluuid.conf</filename> and
-          <filename>afp_signature.conf</filename> to the localstate directory (default
-          <filename>/var/netatalk/</filename>), you can use <command>afpd -v</command>
-          in order to find the correct path</para>
+          <para><filename>afp_voluuid.conf</filename> 及び 
+          <filename>afp_signature.conf</filename>  を localstate ディレクトリ
+          （デフォルトでは <filename>/var/netatalk/</filename>），に移動．
+          正しいパスを見つけるために  <command>afpd -v</command> コマンドが有用</para>
         </listitem>
 
         <listitem>
-          <para>Start Netatalk 3</para>
         </listitem>
+          <para>Netatalk 3 を起動する</para>
       </orderedlist></para>
   </sect1>
 
   <sect1>
-    <title>Table with old and new configuration file names</title>
+    <title>新旧設定ファイル名対照表</title>
     <para><table frame="all">
-        <title>old and new configuration file names</title>
+        <title>設定ファイル名対照表</title>
         <tgroup cols="3">
           <colspec colname="c1" colnum="1" colwidth="1.0*"/>
           <colspec colname="c2" colnum="2" colwidth="1.0*"/>
           <colspec colname="c3" colnum="3" colwidth="1.0*"/>
           <thead>
             <row>
-              <entry>Old File Name</entry>
-              <entry>New File Name</entry>
-              <entry>Description</entry>
+              <entry>旧ファイル名</entry>
+              <entry>新ファイル名</entry>
+              <entry>注記</entry>
             </row>
           </thead>
           <tbody>
             <row>
               <entry>-</entry>
               <entry><filename>etc/afp.conf</filename></entry>
-              <entry>new ini-style format</entry>
+              <entry>新しい "ini" 様式のフォーマット</entry>
             </row>
             <row>
               <entry>-</entry>
               <entry><filename>etc/extmap.conf</filename></entry>
-              <entry>starting with netatalk 3.0.2</entry>
+              <entry>netatalk 3.0.2 から採用</entry>
             </row>
             <row>
               <entry><filename>etc/netatalk/afp_signature.conf</filename></entry>
               <entry><filename>var/netatalk/afp_signature.conf</filename></entry>
-              <entry>moved to $localstatedir</entry>
+              <entry>厳密には $localstatedir に移動</entry>
             </row>
             <row>
               <entry><filename>etc/netatalk/afp_voluuid.conf</filename></entry>
               <entry><filename>var/netatalk/afp_voluuid.conf</filename></entry>
-              <entry>moved to $localstatedir</entry>
+              <entry>厳密には $localstatedir に移動</entry>
             </row>
             <row>
               <entry><filename>etc/netatalk/netatalk.conf</filename>
               (<filename>/etc/default/netatalk</filename>)</entry>
               <entry>-</entry>
-              <entry>obsolete</entry>
+              <entry>廃止</entry>
             </row>
             <row>
               <entry><filename>etc/netatalk/afpd.conf</filename></entry>
               <entry>-</entry>
-              <entry>obsolete</entry>
+              <entry>廃止</entry>
             </row>
             <row>
               <entry><filename>etc/netatalk/afp_ldap.conf</filename></entry>
               <entry>-</entry>
-              <entry>obsolete</entry>
+              <entry>廃止</entry>
             </row>
             <row>
               <entry><filename>etc/netatalk/AppleVolumes.default</filename></entry>
               <entry>-</entry>
-              <entry>obsolete</entry>
+              <entry>廃止</entry>
             </row>
             <row>
               <entry><filename>etc/netatalk/AppleVolumes.system</filename></entry>
               <entry>-</entry>
-              <entry>obsolete</entry>
+              <entry>廃止</entry>
             </row>
             <row>
               <entry><filename>~/.AppleVolumes</filename></entry>
               <entry>-</entry>
-              <entry>obsolete</entry>
+              <entry>廃止</entry>
             </row>
           </tbody>
         </tgroup>
@@ -267,9 +270,9 @@
   </sect1>
 
   <sect1>
-    <title>Table with old and new option names</title>
+    <title>新旧オプション対応表</title>
     <para><table frame="all">
-        <title>from netatalk.conf (/etc/default/netatalk) to afp.conf</title>
+        <title>netatalk.conf (/etc/default/netatalk) から afp.conf</title>
         <tgroup cols="6">
           <colspec colname="c1" colnum="1" colwidth="1.0*"/>
           <colspec colname="c2" colnum="2" colwidth="1.0*"/>
@@ -279,12 +282,12 @@
           <colspec colname="c6" colnum="6" colwidth="1.0*"/>
           <thead>
             <row>
-              <entry>Old netatalk.conf</entry>
-              <entry>New afp.conf</entry>
-              <entry>Old Default Value</entry>
-              <entry>New Default Value</entry>
-              <entry>Section</entry>
-              <entry>Description</entry>
+              <entry>旧 netatalk.conf</entry>
+              <entry>新 afp.conf</entry>
+              <entry>旧デフォルト値</entry>
+              <entry>新デフォルト値</entry>
+              <entry>セクション</entry>
+              <entry>詳細</entry>
             </row>
           </thead>
           <tbody>
@@ -294,7 +297,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry>use gethostname() by default</entry>
+              <entry>デフォルトでは gethostname() を使用</entry>
             </row>
             <row>
               <entry>ATALK_UNIX_CHARSET</entry>
@@ -318,7 +321,7 @@
               <entry>yes</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>controlled by netatalk(8)</entry>
+              <entry>netatalk(8) で制御</entry>
             </row>
             <row>
               <entry>AFPD_RUN</entry>
@@ -326,7 +329,7 @@
               <entry>yes</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>controlled by netatalk(8)</entry>
+              <entry>netatalk(8) で制御</entry>
             </row>
             <row>
               <entry>AFPD_MAX_CLIENTS</entry>
@@ -374,7 +377,7 @@
               <entry>no</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>AppleTalk is obsoleted</entry>
+              <entry>AppleTalk が廃止</entry>
             </row>
             <row>
               <entry>PAPD_RUN</entry>
@@ -382,7 +385,7 @@
               <entry>no</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>AppleTalk is obsoleted</entry>
+              <entry>AppleTalk が廃止</entry>
             </row>
             <row>
               <entry>TIMELORD_RUN</entry>
@@ -390,7 +393,7 @@
               <entry>no</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>AppleTalk is obsoleted</entry>
+              <entry>AppleTalk が廃止</entry>
             </row>
             <row>
               <entry>A2BOOT_RUN</entry>
@@ -398,7 +401,7 @@
               <entry>no</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>AppleTalk is obsoleted</entry>
+              <entry>AppleTalk が廃止</entry>
             </row>
             <row>
               <entry>ATALK_BGROUND</entry>
@@ -406,7 +409,7 @@
               <entry>no</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>AppleTalk is obsoleted</entry>
+              <entry>AppleTalk が廃止</entry>
             </row>
             <row>
               <entry>ATALK_ZONE</entry>
@@ -414,12 +417,12 @@
               <entry>no</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>AppleTalk is obsoleted</entry>
+              <entry>AppleTalk が廃止</entry>
             </row>
           </tbody>
         </tgroup>
       </table><table frame="all">
-        <title>from afpd.conf to afp.conf</title>
+        <title>afpd.conf から afp.conf</title>
         <tgroup cols="6">
           <colspec colname="c1" colnum="1" colwidth="1.0*"/>
           <colspec colname="c2" colnum="2" colwidth="1.0*"/>
@@ -429,22 +432,22 @@
           <colspec colname="c6" colnum="6" colwidth="1.0*"/>
           <thead>
             <row>
-              <entry>Old afpd.conf</entry>
-              <entry>New afp.conf</entry>
-              <entry>Old Default Value</entry>
-              <entry>New Default Value</entry>
-              <entry>Section</entry>
-              <entry>Description</entry>
+              <entry>旧 afpd.conf</entry>
+              <entry>新 afp.conf</entry>
+              <entry>旧デフォルト値</entry>
+              <entry>新デフォルト値</entry>
+              <entry>セクション</entry>
+              <entry>詳細</entry>
             </row>
           </thead>
           <tbody>
             <row>
-              <entry>1st field ("-" or "server name")</entry>
+              <entry>一番目のフィールド（"-" あるいは“サーバー名”)</entry>
               <entry>hostname</entry>
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry>use gethostname() by default</entry>
+              <entry>デフォルトでは gethostname() を使用</entry>
             </row>
             <row>
               <entry>-uamlist</entry>
@@ -458,7 +461,7 @@
               <entry>-nozeroconf</entry>
               <entry>zeroconf</entry>
               <entry>-</entry>
-              <entry>yes (if supported)</entry>
+              <entry>（サポートされていれば） yes</entry>
               <entry>(G)</entry>
               <entry>-</entry>
             </row>
@@ -500,7 +503,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry>use gethostname() by default</entry>
+              <entry>デフォルトでは gethostname() を使用</entry>
             </row>
             <row>
               <entry>-loginmesg</entry>
@@ -636,7 +639,7 @@
               <entry><emphasis role="bold">etc/netatalk/uams/</emphasis></entry>
               <entry><emphasis role="bold">lib/netatalk/</emphasis></entry>
               <entry>(G)</entry>
-              <entry>moved to $libdir</entry>
+              <entry>厳密には $libdir に移動</entry>
             </row>
             <row>
               <entry>-ipaddr</entry>
@@ -732,7 +735,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry>OS default</entry>
+              <entry>OS のデフォルト</entry>
             </row>
             <row>
               <entry>-tcprcvbuf</entry>
@@ -740,7 +743,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry>OS default</entry>
+              <entry>OS のデフォルト</entry>
             </row>
             <row>
               <entry>-fcelistener</entry>
@@ -804,7 +807,7 @@
               <entry>-tcp</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>always TCP only</entry>
+              <entry>常に TCP のみ</entry>
             </row>
             <row>
               <entry>-[no]ddp</entry>
@@ -812,7 +815,7 @@
               <entry>-noddp</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>AppleTalk is obsoleted</entry>
+              <entry>AppleTalk が廃止</entry>
             </row>
             <row>
               <entry>-[no]transall</entry>
@@ -820,7 +823,7 @@
               <entry>-tcp -noddp</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>always TCP only</entry>
+              <entry>常に TCP のみ</entry>
             </row>
             <row>
               <entry>-nodebug</entry>
@@ -828,7 +831,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>obsolete</entry>
+              <entry>廃止</entry>
             </row>
             <row>
               <entry>-[no]slp</entry>
@@ -836,7 +839,7 @@
               <entry>-noslp</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>SLP support is obsoleted</entry>
+              <entry>SLP サポートが廃止</entry>
             </row>
             <row>
               <entry>-[no]uservolfirst</entry>
@@ -844,7 +847,7 @@
               <entry>-nouservolfirst</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>uservol is obsoleted</entry>
+              <entry>uservol が廃止</entry>
             </row>
             <row>
               <entry>-[no]uservol</entry>
@@ -852,7 +855,7 @@
               <entry>-uservol</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>uservol is obsoleted</entry>
+              <entry>uservol が廃止</entry>
             </row>
             <row>
               <entry>-proxy</entry>
@@ -860,7 +863,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>AppleTalk is obsoleted</entry>
+              <entry>AppleTalk が廃止</entry>
             </row>
             <row>
               <entry>-defaultvol</entry>
@@ -868,7 +871,7 @@
               <entry>AppleVolumes.default</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>afp.conf only</entry>
+              <entry>afp.conf のみ</entry>
             </row>
             <row>
               <entry>-systemvol</entry>
@@ -876,7 +879,7 @@
               <entry>AppleVolumes.system</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>afp.conf only</entry>
+              <entry>afp.conf のみ</entry>
             </row>
             <row>
               <entry>-loginmaxfail</entry>
@@ -884,7 +887,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>not supported from the biginning</entry>
+              <entry>そもそも最初からサポートされていない</entry>
             </row>
             <row>
               <entry>-unsetuplog</entry>
@@ -892,7 +895,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>obsolete</entry>
+              <entry>廃止</entry>
             </row>
             <row>
               <entry>-authprintdir</entry>
@@ -900,7 +903,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>AppleTalk is obsoleted</entry>
+              <entry>AppleTalk が廃止</entry>
             </row>
             <row>
               <entry>-ddpaddr</entry>
@@ -908,7 +911,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>AppleTalk is obsoleted</entry>
+              <entry>AppleTalk が廃止</entry>
             </row>
             <row>
               <entry>-[no]icon</entry>
@@ -916,7 +919,7 @@
               <entry>-noicon</entry>
               <entry></entry>
               <entry>-</entry>
-              <entry>obsolete</entry>
+              <entry>廃止</entry>
             </row>
             <row>
               <entry>-keepsessions</entry>
@@ -924,12 +927,12 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>obsolete. Use kill -HUP.</entry>
+              <entry>廃止．kill -HUP を使用</entry>
             </row>
           </tbody>
         </tgroup>
       </table><table frame="all">
-        <title>from afp_ldap.conf to afp.conf</title>
+        <title>from afp_ldap.conf から afp.conf</title>
         <tgroup cols="6">
           <colspec colname="c1" colnum="1" colwidth="1.0*"/>
           <colspec colname="c2" colnum="2" colwidth="1.0*"/>
@@ -939,12 +942,12 @@
           <colspec colname="c6" colnum="6" colwidth="1.0*"/>
           <thead>
             <row>
-              <entry>Old afp_ldap.conf</entry>
-              <entry>New afp.conf</entry>
-              <entry>Old Default Value</entry>
-              <entry>New Defalut Value</entry>
-              <entry>Section</entry>
-              <entry>Description</entry>
+              <entry>旧 afp_ldap.conf</entry>
+              <entry>新 afp.conf</entry>
+              <entry>旧デフォルト値</entry>
+              <entry>新デフォルト値</entry>
+              <entry>セクション</entry>
+              <entry>詳細</entry>
             </row>
           </thead>
           <tbody>
@@ -1047,7 +1050,7 @@
           </tbody>
         </tgroup>
       </table><table frame="all">
-        <title>from AppleVolumes.* to afp.conf</title>
+        <title>AppleVolumes.* から afp.conf</title>
         <tgroup cols="6">
           <colspec colname="c1" colnum="1" colwidth="1.0*"/>
           <colspec colname="c2" colnum="2" colwidth="1.0*"/>
@@ -1057,22 +1060,22 @@
           <colspec colname="c6" colnum="6" colwidth="1.0*"/>
           <thead>
             <row>
-              <entry>Old AppleVolumes.*</entry>
-              <entry>New afp.conf</entry>
-              <entry>Old Default Value</entry>
-              <entry>New Defalut Value</entry>
-              <entry>Section</entry>
-              <entry>Description</entry>
+              <entry>旧 AppleVolumes.*</entry>
+              <entry>新 afp.conf</entry>
+              <entry>旧デフォルト値</entry>
+              <entry>新デフォルト値</entry>
+              <entry>セクション</entry>
+              <entry>詳細</entry>
             </row>
           </thead>
           <tbody>
             <row>
-              <entry>(leading-dot lines)</entry>
+              <entry>（ピリオドで始まる行）</entry>
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>move to extmap.conf</entry>
+              <entry>extmap.conf で使用する</entry>
             </row>
             <row>
               <entry>:DEFAULT:</entry>
@@ -1080,18 +1083,18 @@
               <entry>options:upriv,usedots</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>use "vol preset ="</entry>
+              <entry>"vol preset =" を使用する</entry>
             </row>
             <row>
-              <entry>1st field ("~")</entry>
+              <entry>一番目のフィールド ("~")</entry>
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>use [Homes] section</entry>
+              <entry>[Homes] セクションを使用する</entry>
             </row>
             <row>
-              <entry>1st field ("/path")</entry>
+              <entry>一番目のフィールド ("/path")</entry>
               <entry>path</entry>
               <entry>-</entry>
               <entry>-</entry>
@@ -1099,12 +1102,12 @@
               <entry>-</entry>
             </row>
             <row>
-              <entry>2nd field</entry>
+              <entry>二番目のフィールド</entry>
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>use section name</entry>
+              <entry>セクション名を使用する</entry>
             </row>
             <row>
               <entry>allow:</entry>
@@ -1142,7 +1145,7 @@
               <entry>volcharset:</entry>
               <entry>vol charset</entry>
               <entry><emphasis role="bold">UTF8</emphasis></entry>
-              <entry><emphasis role="bold">(same as unix charset)</emphasis></entry>
+              <entry><emphasis role="bold">（unix charset と同じ）</emphasis></entry>
               <entry>(G)/(V)</entry>
               <entry>-</entry>
             </row>
@@ -1184,7 +1187,7 @@
               <entry><emphasis role="bold">v2</emphasis></entry>
               <entry><emphasis role="bold">ea</emphasis></entry>
               <entry>(V)</entry>
-              <entry>v1, osx and sfm are obsoleted</entry>
+              <entry>v1，osx 及び sfm は廃止</entry>
             </row>
             <row>
               <entry>cnidserver:</entry>
@@ -1197,10 +1200,10 @@
             <row>
               <entry>dbpath:</entry>
               <entry>vol dbpath</entry>
-              <entry><emphasis role="bold">(volume directory)</emphasis></entry>
+              <entry><emphasis role="bold">（ボリュームディレクトリ）</emphasis></entry>
               <entry><emphasis role="bold">var/netatalk/CNID/</emphasis></entry>
               <entry>(G)</entry>
-              <entry>moved to $localstatedir</entry>
+              <entry>厳密には $localstatedir に移動</entry>
             </row>
             <row>
               <entry>umask:</entry>
@@ -1304,7 +1307,8 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>Use "directory perm" and "file perm"</entry>
+              <entry>"directory perm" 及び "file perm" を使用する</entry>
+              
             </row>
             <row>
               <entry>forceuid:</entry>
@@ -1312,7 +1316,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>obsolete</entry>
+              <entry>廃止</entry>
             </row>
             <row>
               <entry>forcegid:</entry>
@@ -1320,7 +1324,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>obsolete</entry>
+              <entry>廃止</entry>
             </row>
             <row>
               <entry>options:ro</entry>
@@ -1432,7 +1436,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>auto-convert from ":2f" to ":"</entry>
+              <entry>":2f" は ":" に自動変換される</entry>
             </row>
             <row>
               <entry>options:usedots</entry>
@@ -1440,7 +1444,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>auto-convert from ":2e" to "."</entry>
+              <entry>":2e" は "." に自動変換される</entry>
             </row>
             <row>
               <entry>options:nofileid</entry>
@@ -1448,7 +1452,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>obsolete</entry>
+              <entry>廃止</entry>
             </row>
             <row>
               <entry>options:prodos</entry>
@@ -1456,7 +1460,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>obsolete</entry>
+              <entry>廃止</entry>
             </row>
             <row>
               <entry>options:mswindows</entry>
@@ -1464,7 +1468,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>obsolete</entry>
+              <entry>廃止</entry>
             </row>
             <row>
               <entry>options:crlf</entry>
@@ -1472,7 +1476,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>obsolete</entry>
+              <entry>廃止</entry>
             </row>
             <row>
               <entry>options:noadouble</entry>
@@ -1480,7 +1484,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>obsolete</entry>
+              <entry>廃止</entry>
             </row>
             <row>
               <entry>options:limitsize</entry>
@@ -1488,7 +1492,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>obsolete</entry>
+              <entry>廃止</entry>
             </row>
             <row>
               <entry>options:dropbox</entry>
@@ -1496,7 +1500,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>obsolete</entry>
+              <entry>廃止</entry>
             </row>
             <row>
               <entry>options:dropkludge</entry>
@@ -1504,7 +1508,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>obsolete</entry>
+              <entry>廃止</entry>
             </row>
             <row>
               <entry>options:nocnidcache</entry>
@@ -1512,7 +1516,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>obsolete</entry>
+              <entry>廃止</entry>
             </row>
             <row>
               <entry>options:caseinsensitive</entry>
@@ -1520,7 +1524,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry>obsolete</entry>
+              <entry>廃止</entry>
             </row>
           </tbody>
         </tgroup>
@@ -1532,8 +1536,8 @@
 
     <para><itemizedlist>
         <listitem>
-          <para>test <command>ad</command> utils with <option>appledouble =
-          ea</option></para>
+          <para><command>ad</command> ユーティリティーを <option>appledouble = ea</option> 
+          のもとでテスト</para>
         </listitem>
       </itemizedlist></para>
   </sect1>
