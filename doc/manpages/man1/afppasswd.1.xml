@@ -13,7 +13,7 @@
   <refnamediv>
     <refname>afppasswd</refname>
 
-    <refpurpose>netatalk password maintenance utility</refpurpose>
+    <refpurpose>netatalkパスワード保守ユーティリティ</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
@@ -39,50 +39,38 @@
   </refsynopsisdiv>
 
   <refsect1>
-    <title>DESCRIPTION</title>
+    <title>説明</title>
 
-    <para><command>afppasswd</command> allows the maintenance of afppasswd
-    files created by netatalk for use by the uams_randnum.so UAM (providing
-    the "Randnum exchange" and "2-Way Randnum exchange" User Authentication
-    Modules).</para>
+    <para><command>afppasswd</command>は、uams_randnum.so UAMで使うために、netatalkが作るafppasswdファイルを保守する。(このUAMは"Randnum exchange"と"2-Way Randnum exchange"ユーザ認証モジュールを提供する)</para>
 
-    <para><command>afppasswd</command> can either be called by root with
-    parameters, or can be called by local system users with no parameters to
-    change their AFP passwords.</para>
+    <para><command>afppasswd</command>は、rootがパラメータ付きで呼び出すことも、ローカルシステムのユーザが自分のAFPパスワードを変更するためにパラメータなしで呼び出すこともできる。</para>
 
     <note>
-      <para>With this utility you can only change the passwords used by two
-      specific UAMs. As they provide only weak password encryption, the use of
-      the "Randnum exchange" and "2-Way Randnum exchange" UAMs is deprecated
-      unless one has to support very old AFP clients, that can not deal with
-      the more secure "DHCAST128" and "DHX2" UAM instead. Please compare with
-      the <link linkend="authentication">Authentication chapter</link> inside
-      Netatalk's documentation.</para>
+      <para>このユーティリティでは、あなたは特定の2つのUAMが利用するパスワードを変更できるにすぎない。これらは弱いパスワード暗号化を提供するだけなので、より安全な"DHCAST128"と"DHX2" UAMを代わりに使えないような極めて古いAFPクライアントをサポートしなければならない場合を除いて、"Randnum exchange"と"2-Way Randnum exchange" UAMの利用は廃止すべきである。Netatalkドキュメントの<link linkend="authentication">認証の章</link>で比較してください。</para>
     </note>
   </refsect1>
 
   <refsect1>
-    <title>EXAMPLE</title>
+    <title>例</title>
 
-    <para>Local user changing their own password:</para>
+    <para>ローカルユーザが自分のパスワードを変更する:</para>
 
     <screen><prompt>example%</prompt> <userinput>afppasswd</userinput>
-<computeroutput>Enter NEW AFP password:</computeroutput> <userinput>(hidden)</userinput>
-<computeroutput>Enter NEW AFP password again:</computeroutput> <userinput>(hidden)</userinput>
+<computeroutput>Enter NEW AFP password:</computeroutput> <userinput>(非表示)</userinput>
+<computeroutput>Enter NEW AFP password again:</computeroutput> <userinput>(非表示)</userinput>
 <computeroutput>afppasswd: updated password.</computeroutput>
 </screen>
   </refsect1>
 
   <refsect1>
-    <title>OPTIONS</title>
+    <title>オプション</title>
 
     <variablelist remap="TP">
       <varlistentry>
         <term><option>-a</option></term>
 
         <listitem>
-          <para>Add a new user to the <command>afppasswd</command>
-          file.</para>
+          <para><command>afppasswd</command>ファイルに新しいユーザを追加する。</para>
         </listitem>
       </varlistentry>
 
@@ -90,8 +78,7 @@
         <term><option>-c</option></term>
 
         <listitem>
-          <para>Create and/or initialize <command>afppasswd</command> file or
-          specific user.</para>
+          <para><command>afppasswd</command>ファイルまたは特定ユーザを作成する。(さらに/または)初期化する。</para>
         </listitem>
       </varlistentry>
 
@@ -99,7 +86,7 @@
         <term><option>-f</option></term>
 
         <listitem>
-          <para>Force the current action.</para>
+          <para>現在の動作を強制する。</para>
         </listitem>
       </varlistentry>
 
@@ -107,7 +94,7 @@
         <term><option>-p</option><replaceable> path</replaceable></term>
 
         <listitem>
-          <para>Path to <command>afppasswd</command> file.</para>
+          <para><command>afppasswd</command>ファイルのパス。</para>
         </listitem>
       </varlistentry>
 
@@ -115,10 +102,7 @@
         <term><option>-n</option></term>
 
         <listitem>
-          <para>If cracklib support is built into <emphasis
-          remap="B">netatalk</emphasis> this option will cause cracklib
-          checking to be disabled, if the superuser does not want to have the
-          password run against the cracklib dictionary.</para>
+          <para>もしcracklibサポートが<emphasis remap="B">netatalk</emphasis>に組み込まれており、cracklib辞書に対して実行されたパスワードを持つことをスーパユーザが望まないなら、このオプションはcracklibチェックを無効にできるだろう。</para>
         </listitem>
       </varlistentry>
 
@@ -127,16 +111,14 @@
         uid</replaceable></term>
 
         <listitem>
-          <para>This is the minimum <emphasis remap="I">user id</emphasis>
-          (uid) that <command>afppasswd</command> will use when creating
-          users.</para>
+          <para>これは、<command>afppasswd</command>がユーザを作成するときに使う最小の<emphasis remap="I">ユーザid</emphasis> (uid)である。</para>
         </listitem>
       </varlistentry>
     </variablelist>
   </refsect1>
 
   <refsect1>
-    <title>SEE ALSO</title>
+    <title>参照</title>
 
     <para><citerefentry>
         <refentrytitle>afpd</refentrytitle>
