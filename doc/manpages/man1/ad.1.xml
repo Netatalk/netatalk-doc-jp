@@ -13,7 +13,7 @@
   <refnamediv>
     <refname>ad</refname>
 
-    <refpurpose>Netatalk compatible UNIX file utility suite.</refpurpose>
+    <refpurpose>Netatalk互換UNIXファイルユーティリティ 一式</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
@@ -33,17 +33,15 @@
   </refsynopsisdiv>
 
   <refsect1>
-    <title>Description</title>
+    <title>説明</title>
 
-    <para><command>ad</command> is a UNIX file utility suite with Netatalk
-    compatibility. AppleDouble<indexterm>
+    <para><command>ad</command>は、Netatalk互換のUNIXファイルユーティリティ一式である。<filename>.AppleDouble</filename>ディレクトリのAppleDouble<indexterm>
         <primary>AppleDouble</primary>
-      </indexterm> files in <filename>.AppleDouble</filename> directories and
-    the CNID databases are updated as appropriate.</para>
+      </indexterm>ファイルとCNIDデータベースを適切に更新する。</para>
   </refsect1>
 
   <refsect1>
-    <title>Available Commands</title>
+    <title>有効なコマンド</title>
 
     <cmdsynopsis>
       <command>ad ls</command>
@@ -53,7 +51,7 @@
       <arg choice="req">file|dir <arg>...</arg></arg>
     </cmdsynopsis>
 
-    <para>List files and directories.</para>
+    <para>ファイルやディレクトリをリストする。</para>
 
     <cmdsynopsis>
       <command>ad cp</command>
@@ -75,7 +73,7 @@
       <arg choice="req">dst_directory</arg>
     </cmdsynopsis>
 
-    <para>Copy files and directories.</para>
+    <para>ファイルやディレクトリをコピーする。</para>
 
     <cmdsynopsis>
       <command>ad mv</command>
@@ -97,7 +95,7 @@
       <arg choice="req">dst_directory</arg>
     </cmdsynopsis>
 
-    <para>Move files and directories.</para>
+    <para>ファイルやディレクトリを移動する。</para>
 
     <cmdsynopsis>
       <command>ad rm</command>
@@ -111,20 +109,20 @@
       <command>ad -v|--version</command>
     </cmdsynopsis>
 
-    <para>Show version.</para>
+    <para>バージョンを表示する。</para>
   </refsect1>
 
   <refsect1>
     <title>ad ls</title>
 
-    <para>List files and directories. Options:</para>
+    <para>ファイルやディレクトリをリストする。 オプション:</para>
 
     <variablelist>
       <varlistentry>
         <term>-d</term>
 
         <listitem>
-          <para>Directories are listed as plain files</para>
+          <para>ディレクトリを単純なファイルとしてリストする</para>
         </listitem>
       </varlistentry>
 
@@ -132,7 +130,7 @@
         <term>-R</term>
 
         <listitem>
-          <para>list subdirectories recursively</para>
+          <para>サブディレクトリを再帰的にリストする</para>
         </listitem>
       </varlistentry>
 
@@ -140,7 +138,7 @@
         <term>-l</term>
 
         <listitem>
-          <para>Long output, list AFP info</para>
+          <para>長い出力。AFP infoをリストする</para>
         </listitem>
       </varlistentry>
 
@@ -148,12 +146,12 @@
         <term>-u</term>
 
         <listitem>
-          <para>List UNIX info</para>
+          <para>UNIX infoをリストする</para>
         </listitem>
       </varlistentry>
     </variablelist>
 
-    <para><emphasis>Long output description</emphasis></para>
+    <para><emphasis>長い出力の説明</emphasis></para>
 
     <programlisting>&lt;unixinfo&gt; &lt;FinderFlags&gt; &lt;AFP Attributes&gt; &lt;Color&gt; &lt;Type&gt; &lt;Creator&gt; &lt;CNID from AppleDouble&gt; &lt;name&gt;
 
@@ -186,28 +184,20 @@ Note: any letter appearing in uppercase means the flag is set but it's a directo
   <refsect1>
     <title>ad cp</title>
 
-    <para>Copy files and directories.</para>
+    <para>ファイルやディレクトリをコピーする。</para>
 
-    <para>In the first synopsis form, the cp utility copies the contents of
-    the source_file to the target_file. In the second synopsis form, the
-    contents of each named source_file is copied to the destination
-    target_directory. The names of the files themselves are not changed. If cp
-    detects an attempt to copy a file to itself, the copy will fail.</para>
+    <para>上の概要で示した一番目の形式では、cpユーティリティはsrc_fileの内容をdst_fileへコピーする。二番目の形式では、それぞれの名前のsrc_fileの内容は配布先のdst_directoryにコピーされる。ファイル自身の名前は変更されない。ファイルを自分自身へコピーしようとしているのをcpが検出したら、コピーは失敗する。</para>
 
-    <para>Netatalk AFP volumes are detected by means of their ".AppleDesktop"
-    directory which is located in their volume root. When a copy targeting an
-    AFP volume is detected, its CNID database daemon is connected and all
-    copies will also go through the CNID database. AppleDouble files are also
-    copied and created as needed when the target is an AFP volume.</para>
+    <para>ボリュームルートに".AppleDesktop"ディレクトリがあることで、Netatlak AFPボリュームであることが検出される。(訳注: この説明は古い。現在は別の方法で検出する。) AFPボリュームへのコピーであると検出された場合、CNIDデータベースデーモンに接続し、全てのコピーはCNIDデータベースの手続きを踏む。ターゲットがAFPボリュームの場合はAppleDoubleファイルもまたコピーされ、必要なら作成される。(訳注: この説明も古い。メタデータはAppleDoubleファイルとは限らず、拡張属性に入っている場合もある。)</para>
 
-    <para>Options:</para>
+    <para>オプション:</para>
 
     <variablelist>
       <varlistentry>
         <term>-a</term>
 
         <listitem>
-          <para>Archive mode. Same as -Rp.</para>
+          <para>アーカイブモード。-Rpと同じ。</para>
         </listitem>
       </varlistentry>
 
@@ -215,10 +205,7 @@ Note: any letter appearing in uppercase means the flag is set but it's a directo
         <term>-f</term>
 
         <listitem>
-          <para>For each existing destination pathname, remove it and create a
-          new file, without prompting for confirmation regardless of its
-          permis- sions. (The -f option overrides any previous -i or -n
-          options.)</para>
+          <para>それぞれの配布先パス名が既に存在している場合、それを削除してから新しいファイルを作成する。パーミッションに関わらず確認プロンプトを出しません。(-fオプションは手前の-iオプションと-nオプションを上書きします。)</para>
         </listitem>
       </varlistentry>
 
