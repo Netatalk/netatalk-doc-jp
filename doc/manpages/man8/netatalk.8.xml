@@ -13,7 +13,7 @@
   <refnamediv>
     <refname>netatalk</refname>
 
-    <refpurpose>Netatalk AFP server service controller daemon</refpurpose>
+    <refpurpose>Netatalk AFPサーバのサービス コントローラ デーモン</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
@@ -31,23 +31,20 @@
   </refsynopsisdiv>
 
   <refsect1>
-    <title>Description</title>
+    <title>説明</title>
 
-    <para><command>netatalk</command> is the service controller daemon
-    responsible for starting and restarting the AFP daemon
-    <command>afpd</command> and the CNID daemon <command>cnid_metad</command>.
-    It is normally started at boot time from /etc/rc.</para>
+    <para><command>netatalk</command>は、AFPデーモン<command>afpd</command>とCNIDデーモン<command>cnid_metad</command>の起動と再起動を請け負うサービスコントローラデーモンである。これは通常、ブート時に/etc/rcから起動される。</para>
   </refsect1>
 
   <refsect1>
-    <title>SIGNALS</title>
+    <title>シグナル</title>
 
     <variablelist>
       <varlistentry>
         <term>SIGTERM</term>
 
         <listitem>
-          <para>Stop Netatalk service, AFP and CNID daemons</para>
+          <para>Netatalkサービス、AFPデーモンとCNIDデーモンを停止する</para>
         </listitem>
       </varlistentry>
 
@@ -55,29 +52,28 @@
         <term>SIGHUP</term>
 
         <listitem>
-          <para>Sending a <command>SIGHUP</command> will cause the AFP daemon
-          reload its configuration file.</para>
+          <para><command>SIGHUP</command>を送るとAFPデーモンが設定ファイルを再読み込みします。</para>
         </listitem>
       </varlistentry>
     </variablelist>
   </refsect1>
 
   <refsect1>
-    <title>FILES</title>
+    <title>ファイル</title>
 
     <variablelist>
       <varlistentry>
         <term><filename>@pkgconfdir@/afp.conf</filename></term>
 
         <listitem>
-          <para>configuration file used by afpd and cnid_metad</para>
+          <para>afpdとcnid_metadが使う設定ファイル</para>
         </listitem>
       </varlistentry>
     </variablelist>
   </refsect1>
 
   <refsect1>
-    <title>SEE ALSO</title>
+    <title>参照</title>
 
     <para><citerefentry>
         <refentrytitle>afpd</refentrytitle>
