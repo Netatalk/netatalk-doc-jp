@@ -13,7 +13,7 @@
   <refnamediv id="name">
     <refname>afpstats</refname>
 
-    <refpurpose>List AFP statistics</refpurpose>
+    <refpurpose>AFPの統計をリストする</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv id="synopsis">
@@ -23,25 +23,23 @@
   </refsynopsisdiv>
 
   <refsect1 id="description">
-    <title>DESCRIPTION</title>
+    <title>説明</title>
 
-    <para><command>afpstats</command> list AFP statistics via D-Bus IPC.</para>
+    <para><command>afpstats</command>はD-Bus IPC経由でAFPの統計をリストします。</para>
 
   </refsect1>
 
   <refsect1>
-    <title>NOTE</title>
+    <title>注記</title>
 
-    <para><command>afpd</command> must support D-Bus. Check it by
-    "<command>afpd -V</command>".</para>
+    <para><command>afpd</command>がD-Busをサポートしなければならない。"<command>afpd -V</command>"でそれをチェックしてください。</para>
 
-    <para>"<option>afpstats = yes</option>" must be set in
-    <filename>@pkgconfdir@/afp.conf</filename>.</para>
+    <para><filename>@pkgconfdir@/afp.conf</filename>で"<option>afpstats = yes</option>"を設定しなければならない。</para>
 
   </refsect1>
 
   <refsect1 id="see_also">
-    <title>SEE ALSO</title>
+    <title>参照</title>
 
     <para><citerefentry><refentrytitle>afpd</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
     <citerefentry><refentrytitle>afp.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
