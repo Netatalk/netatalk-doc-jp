@@ -13,7 +13,7 @@
   <refnamediv id="name">
     <refname>afpldaptest</refname>
 
-    <refpurpose>Syntactically check ldap parameters in afp.conf</refpurpose>
+    <refpurpose>afp.confのldapパラメータを構文チェックする</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv id="synopsis">
@@ -40,10 +40,9 @@
   </refsynopsisdiv>
 
   <refsect1 id="description">
-    <title>DESCRIPTION</title>
+    <title>説明</title>
 
-    <para><command>afpldaptest</command> is a simple command to syntactically
-    check ldap parameters in @pkgconfdir@/afp.conf.</para>
+    <para><command>afpldaptest</command>は@pkgconfdir@/afp.confのldapパラメータを構文チェックするシンプルなコマンドです。</para>
 
   </refsect1>
 
@@ -55,7 +54,7 @@
         <term><option>-u</option> <replaceable>USER</replaceable></term>
 
         <listitem>
-          <para>Show uuid for <replaceable>USER</replaceable>.</para>
+          <para><replaceable>USER</replaceable>のためのuuidを表示する。</para>
         </listitem>
       </varlistentry>
 
@@ -63,7 +62,7 @@
         <term><option>-g</option> <replaceable>GROUP</replaceable></term>
 
         <listitem>
-          <para>Show uuid for <replaceable>GROUP</replaceable>.</para>
+          <para><replaceable>GROUP</replaceable>のためのuuidを表示する。</para>
         </listitem>
       </varlistentry>
 
@@ -71,8 +70,7 @@
         <term><option>-i</option> <replaceable>UUID</replaceable></term>
 
         <listitem>
-          <para>Show user, group or local-uuid for
-	  <replaceable>UUID</replaceable>.</para>
+          <para><replaceable>UUID</replaceable>のためのuserかgroupかlocal-uuidを表示する。</para>
         </listitem>
 
       </varlistentry>
@@ -81,7 +79,7 @@
         <term><option>-h, -?, -:</option></term>
 
         <listitem>
-          <para>Show the help and exit.</para>
+          <para>ヘルプを表示して終了する。</para>
         </listitem>
 
       </varlistentry>
