@@ -6,6 +6,9 @@ stamp-h.in
 confdefs.h
 configure.lineno
 configure.scan
+config.h
+config.log
+config.status
 compile
 mkinstalldirs
 install-sh
