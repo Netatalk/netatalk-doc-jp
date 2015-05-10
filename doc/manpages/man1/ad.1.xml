@@ -37,7 +37,7 @@
 
     <para><command>ad</command>は、Netatalk互換のUNIXファイルユーティリティ一式である。<filename>.AppleDouble</filename>ディレクトリのAppleDouble<indexterm>
         <primary>AppleDouble</primary>
-      </indexterm>ファイルとCNIDデータベースを適切に更新する。</para>
+      </indexterm>ファイルとCNIDデータベースを適切に更新する。(訳注: 説明が古い。AppleDoubleファイルは.AppleDoubleディレクトリとは限らないし、拡張属性に保存する場合もある。)</para>
   </refsect1>
 
   <refsect1>
@@ -205,7 +205,7 @@ Note: any letter appearing in uppercase means the flag is set but it's a directo
         <term>-f</term>
 
         <listitem>
-          <para>それぞれの配布先パス名が既に存在している場合、それを削除してから新しいファイルを作成する。パーミッションに関わらず確認プロンプトを出しません。(-fオプションは手前の-iオプションと-nオプションを上書きします。)</para>
+          <para>それぞれの配布先パス名が既に存在している場合、それを削除してから新しいファイルを作成する。パーミッションに関わらず確認プロンプトを出しません。(-fオプションは手前の-iオプションと-nオプションを無効にします。)</para>
         </listitem>
       </varlistentry>
 
@@ -213,11 +213,7 @@ Note: any letter appearing in uppercase means the flag is set but it's a directo
         <term>-i</term>
 
         <listitem>
-          <para>Cause cp to write a prompt to the standard error output before
-          copying a file that would overwrite an existing file. If the
-          response from the standard input begins with the character 'y' or
-          'Y', the file copy is attempted. (The -i option overrides any pre-
-          vious -f or -n options.)</para>
+          <para>存在するファイルに上書きする前に、標準エラー出力にプロンプトを出す。もし標準入力からの返答が'y'または'Y'ならばファイルコピーを試みる。(-iオプションは手前の-fオプションと-nオプションを無効にします。)</para>
         </listitem>
       </varlistentry>
 
@@ -225,8 +221,7 @@ Note: any letter appearing in uppercase means the flag is set but it's a directo
         <term>-n</term>
 
         <listitem>
-          <para>Do not overwrite an existing file. (The -n option overrides
-          any previous -f or -i options.)</para>
+          <para>存在するファイルを上書きしない。 (-nオプションは手前の-fオプションと-iオプションを無効にします。)</para>
         </listitem>
       </varlistentry>
 
@@ -234,11 +229,7 @@ Note: any letter appearing in uppercase means the flag is set but it's a directo
         <term>-p</term>
 
         <listitem>
-          <para>Cause cp to preserve the following attributes of each source
-          file in the copy: modification time, access time, file flags, file
-          mode, user ID, and group ID, as allowed by permissions. If the user
-          ID and group ID cannot be preserved, no error message is displayed
-          and the exit value is not altered.</para>
+          <para>以下に示すそれぞれのコピー元ファイルの属性を、パーミッションが許す限り維持する: 変更時刻、アクセス時刻、ファイルフラグ、ファイルモード、ユーザIDグループID。ユーザIDとグループIDが維持されない場合、エラーメッセージは表示されず、終了コードは変更されない。</para>
         </listitem>
       </varlistentry>
 
@@ -246,10 +237,7 @@ Note: any letter appearing in uppercase means the flag is set but it's a directo
         <term>-R</term>
 
         <listitem>
-          <para>If source_file designates a directory, cp copies the directory
-          and the entire subtree connected at that point.If the source_file
-          ends in a /, the contents of the directory are copied rather than
-          the directory itself.</para>
+          <para>もしsrc_fileでディレクトリを指定した場合、cpはそのディレクトリと全体のサブツリーをコピーする。もしsrc_fileが「/」で終わっている場合、ディレクトリ自身ではなく中身をコピーする。</para>
         </listitem>
       </varlistentry>
 
@@ -257,8 +245,7 @@ Note: any letter appearing in uppercase means the flag is set but it's a directo
         <term>-v</term>
 
         <listitem>
-          <para>Cause cp to be verbose, showing files as they are
-          copied.</para>
+          <para>コピーされたファイルを詳細に表示する。</para>
         </listitem>
       </varlistentry>
 
@@ -266,7 +253,7 @@ Note: any letter appearing in uppercase means the flag is set but it's a directo
         <term>-x</term>
 
         <listitem>
-          <para>File system mount points are not traversed.</para>
+          <para>ファイルシステムのマウントポイントを横断しない。</para>
         </listitem>
       </varlistentry>
     </variablelist>
