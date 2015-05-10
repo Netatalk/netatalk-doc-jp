@@ -14,50 +14,39 @@
   <refnamediv>
     <refname>afp_voluuid.conf</refname>
 
-    <refpurpose>Configuration file used by afpd(8) to specify UUID
-        for Time Machine volume<indexterm>
+    <refpurpose>Time MachineボリュームのUUIDを指定するためにafpd(8)が利用する設定ファイル<indexterm>
         <primary>afp_voluuid.conf</primary>
       </indexterm></refpurpose>
   </refnamediv>
 
   <refsect1>
-    <title>Description</title>
+    <title>説明</title>
 
-    <para><filename>@localstatedir@/netatalk/afp_voluuid.conf</filename> is the
-    configuration file used by <command>afpd</command> to specify
-    UUID of Time Machine volume automagically. The configuration
-    lines are composed like:</para>
+    <para><filename>@localstatedir@/netatalk/afp_voluuid.conf</filename>はTime MachineボリュームのUUIDを魔法のように自動的に指定するために<command>afpd</command>が利用する設定ファイルである。設定行は以下のように構成される。</para>
 
     <para><replaceable>"volume name"</replaceable>
     <replaceable>uuid-string</replaceable></para>
 
-    <para>The first field is volume name. Volume names must be quoted
-    if they contain spaces. The second field is the 36 character
-    hexadecimal ASCII string representation of a UUID.</para>
-    <para>The leading spaces and tabs are ignored. Blank lines are ignored.
-    The lines prefixed with # are ignored. The illegal lines are ignored.
+    <para>最初のフィールドはボリューム名である。ボリューム名がスペースを含む場合、それを引用符で囲まなければならない。第二のフィールドは36文字からなるUUIDの16進数ASCII文字列表現である。</para>
+    <para>先頭のスペースとタブは無視される。空行は無視される。頭に#が付いた行は無視される。不正な行は無視される。
     </para>
 
     <note>
-        <para>This UUID is advertised by Zeroconf in order to provide
-        robust disambiguation of Time Machine volume.</para>
-        <para>The afpd generates the UUID from random numbers and saves it
-        into afp_voluuid.conf, only when setting "time machine = yes" option
-        in afp.conf.</para>
-        <para>This file should not be thoughtlessly edited and be copied
-        onto another server.</para>
+      <para>このUUIDはTime Machineボリュームの強固な曖昧さ除去を提供する目的でZeroconfによって宣伝される。</para>
+      <para>afp.confで"time machine = yes"オプションを設定した場合のみ、afpdは乱数からUUIDを生成し、それをafp_voluuid.confに保存する。</para>
+      <para>このファイルを軽率に編集すべきでないし、他のサーバにコピーすべきでもない。</para>
     </note>
 
     <para></para>
   </refsect1>
 
   <refsect1>
-    <title>Examples</title>
+    <title>例</title>
 
     <example>
-      <title>afp_voluuid.conf three TM volumes on one netatalk</title>
+      <title>afp_voluuid.conf 1つのnetatalk上の3つのTime Machineボリューム</title>
 
-      <programlisting># This is a comment.
+      <programlisting># これはコメントです。
 "Backup for John Smith" 1573974F-0ABD-69CC-C40A-8519B681A0E1
 "bob" 39A487F4-55AA-8240-E584-69AA01800FE9
 mary 6331E2D1-446C-B68C-3066-D685AADBE911</programlisting>
@@ -65,7 +54,7 @@ mary 6331E2D1-446C-B68C-3066-D685AADBE911</programlisting>
   </refsect1>
 
   <refsect1>
-    <title>See also</title>
+    <title>参照</title>
 
     <para><citerefentry>
         <refentrytitle>afpd</refentrytitle>
