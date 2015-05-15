@@ -213,7 +213,7 @@ Note: any letter appearing in uppercase means the flag is set but it's a directo
         <term>-i</term>
 
         <listitem>
-          <para>存在するファイルに上書きする前に、標準エラー出力にプロンプトを出す。もし標準入力からの返答が'y'または'Y'ならばファイルコピーを試みる。(-iオプションは手前の-fオプションと-nオプションを無効にします。)</para>
+          <para>存在するファイルに上書きする前に、標準エラー出力にプロンプトを出す。もし標準入力からの返答が'y'または'Y'で始まるならばファイルコピーを試みる。(-iオプションは手前の-fオプションと-nオプションを無効にします。)</para>
         </listitem>
       </varlistentry>
 
@@ -245,7 +245,7 @@ Note: any letter appearing in uppercase means the flag is set but it's a directo
         <term>-v</term>
 
         <listitem>
-          <para>コピーされたファイルを詳細に表示する。</para>
+          <para>コピーしたファイルを詳細に表示する。</para>
         </listitem>
       </varlistentry>
 
@@ -262,29 +262,26 @@ Note: any letter appearing in uppercase means the flag is set but it's a directo
   <refsect1>
     <title>ad mv</title>
 
-    <para>Move files and directories.</para>
+    <para>ファイルやディレクトリを移動する。</para>
 
-    <para>Move files around within an AFP volume, updating the CNID database
-    as needed. If either:<itemizedlist>
+    <para>AFPボリューム内のファイルを移動し、必要に応じてCNIDデータベースを更新する。以下のどちらかの場合はファイルをコピーしてからコピー元を削除する。<itemizedlist>
         <listitem>
-          <para>source or destination is not an AFP volume</para>
+          <para>移動元または移動先がAFPボリュームでない</para>
         </listitem>
 
         <listitem>
-          <para>source AFP volume != destination AFP volume</para>
+          <para>移動元AFPボリュームと移動先AFPボリュームが異なる</para>
         </listitem>
-      </itemizedlist>the files are copied and removed from the source.</para>
+      </itemizedlist></para>
 
-    <para>Options:</para>
+    <para>オプション:</para>
 
     <variablelist>
       <varlistentry>
         <term>-f</term>
 
         <listitem>
-          <para>Do not prompt for confirmation before overwriting the
-          destination path. (The -f option overrides any previous -i or -n
-          options.)</para>
+          <para>配布先パスに上書きする前に確認プロンプトを出さない。(-fオプションは手前の-iオプションと-nオプションを無効にします。)</para>
         </listitem>
       </varlistentry>
 
@@ -292,11 +289,7 @@ Note: any letter appearing in uppercase means the flag is set but it's a directo
         <term>-i</term>
 
         <listitem>
-          <para>Cause mv to write a prompt to standard error before moving a
-          file that would overwrite an existing file. If the response from the
-          standard input begins with the character `y' or `Y', the move is
-          attempted. (The -i option overrides any previous -f or -n
-          options.)</para>
+          <para>存在するファイルに上書きする前に、標準エラー出力にプロンプトを出す。もし標準入力からの返答が'y'または'Y'で始まるならば移動を試みる。(-iオプションは手前の-fオプションと-nオプションを無効にします。)</para>
         </listitem>
       </varlistentry>
 
@@ -304,8 +297,7 @@ Note: any letter appearing in uppercase means the flag is set but it's a directo
         <term>-n</term>
 
         <listitem>
-          <para>Do not overwrite an existing file. (The -n option overrides
-          any previous -f or -i options.)</para>
+          <para>存在するファイルを上書きしない。 (-nオプションは手前の-fオプションと-iオプションを無効にします。)</para>
         </listitem>
       </varlistentry>
 
@@ -313,8 +305,7 @@ Note: any letter appearing in uppercase means the flag is set but it's a directo
         <term>-v</term>
 
         <listitem>
-          <para>Cause mv to be verbose, showing files after they are
-          moved.</para>
+          <para>移動したファイルを詳細に表示する。</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -323,22 +314,18 @@ Note: any letter appearing in uppercase means the flag is set but it's a directo
   <refsect1>
     <title>ad rm</title>
 
-    <para>Remove files and directories.</para>
+    <para>ファイルやディレクトリを削除する。</para>
 
-    <para>The rm utility attempts to remove the non-directory type files
-    specified on the command line. If the files and directories reside on an
-    AFP volume, the corresponding CNIDs are deleted from the volumes
-    database.</para>
+    <para>rmユーティリティはコマンドラインで指定した非ディレクトリ型のファイルを削除しようと試みる。もしファイルやディレクトリがAFPボリューム上にあるなら、対応するCNIDをボリュームデータベースから削除する。</para>
 
-    <para>The options are as follows:</para>
+    <para>オプションは以下のとおり:</para>
 
     <variablelist>
       <varlistentry>
         <term>-R</term>
 
         <listitem>
-          <para>Attempt to remove the file hierarchy rooted in each file
-          argument.</para>
+          <para>それぞれのファイル引数の下のファイル階層を削除しようと試みる。</para>
         </listitem>
       </varlistentry>
 
@@ -346,22 +333,22 @@ Note: any letter appearing in uppercase means the flag is set but it's a directo
         <term>-v</term>
 
         <listitem>
-          <para>Be verbose when deleting files, showing them as they are
-          removed.</para>
+          <para>ファイルを削除するときに詳細を表示する。</para>
         </listitem>
       </varlistentry>
     </variablelist>
   </refsect1>
 
   <refsect1>
-    <title>Reporting Bugs</title>
+    <title>バグの報告</title>
 
-    <para>Report bugs to the Netatalk-devel list
-    &lt;netatalk-devel@lists.sourceforge.net&gt;.</para>
+    <para>バグはNetatalk-develメーリングリスト
+    &lt;netatalk-devel@lists.sourceforge.net&gt;
+    に報告してください。</para>
   </refsect1>
 
   <refsect1>
-    <title>See also</title>
+    <title>参照</title>
 
     <para><citerefentry>
         <refentrytitle>dbd</refentrytitle>
