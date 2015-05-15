@@ -13,7 +13,7 @@
   <refnamediv>
     <refname>cnid_metad</refname>
 
-    <refpurpose>start cnid_dbd daemons on request</refpurpose>
+    <refpurpose>要求に応じてcnid_dbdデーモンを起動する</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
@@ -41,19 +41,13 @@
   </refsynopsisdiv>
 
   <refsect1>
-    <title>DESCRIPTION</title>
+    <title>説明</title>
 
-    <para><command>cnid_metad</command> waits for requests from <emphasis
-    remap="B">afpd</emphasis> to start up instances of the <emphasis
-    remap="B">cnid_dbd</emphasis> daemon. It keeps track of the status of a
-    <emphasis remap="B">cnid_dbd</emphasis> instance once started and will
-    restart it if necessary. <command>cnid_metad</command> is normally started
-    at boot time by <command>netatalk</command>(8) and runs
-    until shutdown.</para>
+    <para><command>cnid_metad</command>は<emphasis remap="B">afpd</emphasis>からの要求を待ち、<emphasis remap="B">cnid_dbd</emphasis>デーモンのインスタンスを起動する。一度起動した<emphasis remap="B">cnid_dbd</emphasis>インスタンスの状態を絶えず把握し、もし必要なら再起動する。<command>cnid_metad</command>は通常、<command>netatalk</command>(8)によってブート時に起動され、シャットダウンまでずっと動作する。</para>
   </refsect1>
 
   <refsect1>
-    <title>OPTIONS</title>
+    <title>オプション</title>
 
     <variablelist remap="TP">
  
@@ -61,10 +55,7 @@
         <term><option>-d</option></term>
 
         <listitem>
-          <para><emphasis remap="B">cnid_metad will remain in the foreground
-          and</emphasis> will also leave the standard input, standard output
-          and standard error file descriptors open. Useful for
-          debugging.</para>
+          <para><emphasis remap="B">cnid_metadはフォアグラウンドに留まり、</emphasis>更に標準入力、標準出力、標準エラー出力のファイル記述子を開いたままにする。デバッグに有用。</para>
         </listitem>
       </varlistentry>
 
@@ -72,9 +63,7 @@
         <term><option>-F</option> <replaceable>configuration file</replaceable></term>
 
         <listitem>
-          <para>Use <emphasis remap="I">configuration file</emphasis> as the
-            configuration file. The default is
-            <emphasis remap="I">@pkgconfdir@/afp.conf</emphasis>.</para>
+          <para>設定ファイルとして<emphasis remap="I">configuration file</emphasis>を使う。デフォルトは<emphasis remap="I">@pkgconfdir@/afp.conf</emphasis>である。</para>
         </listitem>
       </varlistentry>
 
@@ -82,27 +71,24 @@
         <term><option>-v, -V</option></term>
 
         <listitem>
-          <para>Show version and exit.</para>
+          <para>バージョンを表示してから終了する。</para>
         </listitem>
       </varlistentry>
     </variablelist>
   </refsect1>
 
   <refsect1>
-    <title>CAVEATS</title>
+    <title>警告</title>
 
-    <para><command>cnid_metad</command> does not block or catch any signals
-    apart from SIGPIPE. It will therefore exit on most signals received. This
-    will also cause all instances of <emphasis remap="B">cnid_dbd's</emphasis>
-    started by that <command>cnid_metad</command> to exit gracefully. Since
+    <para><command>cnid_metad</command>はSIGPIPEを除くいかなるシグナルもブロックしないし補足もしない。従って、受け取ったほとんどのシグナルにより終了する。これは、<command>cnid_metad</command>により起動した全ての<emphasis remap="B">cnid_dbd</emphasis>のインスタンスを優雅に終了させる。
+    Since
     state about and IPC access to the subprocesses is only maintained in
-    memory by <command>cnid_metad</command> this is desired behaviour. As soon
-    as <command>cnid_metad</command> is restarted <emphasis
-    remap="B">afpd</emphasis> processes will transparently reconnect.</para>
+    memory by <command>cnid_metad</command> this is desired behaviour.
+    <command>cnid_metad</command>が再起動したあとすぐ、<emphasis remap="B">afpd</emphasis>プロセスは透過的に再接続する。</para>
   </refsect1>
 
   <refsect1>
-    <title>SEE ALSO</title>
+    <title>参照</title>
 
     <para><citerefentry>
         <refentrytitle>netatalk</refentrytitle>
