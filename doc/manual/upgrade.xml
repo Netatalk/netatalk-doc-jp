@@ -3,7 +3,7 @@
   <chapterinfo>
     <date>9.6.2013</date>
 
-    <author>
+    <author role="first-last">
       <firstname>Frank</firstname>
 
       <surname>Lahm</surname>
@@ -11,10 +11,10 @@
 
     <pubdate>6 Sep, 2013</pubdate>
     
-    <author>
-      <firstname>英一郎（日本語訳）</firstname>
+    <author role="first-last">
+      <firstname>Eiichirou</firstname>
       
-      <surname>宇田</surname>
+      <surname>UDA（日本語訳）</surname>
     </author>
     
     <pubdate>2015 年 5 月 5 日（訳）</pubdate>
