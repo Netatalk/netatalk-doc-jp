@@ -103,8 +103,8 @@
                 </listitem>
 
                 <listitem>
-                  <para>ないしは，ファイル名が “<filename>._file</filename>” 
-                  であるものに対して各々， “<filename>file</filename>” 
+                  <para>ないしは，ファイル名が “<filename>file</filename>” 
+                  であるものに対して各々， “<filename>._file</filename>” 
                   という名の別の AppleDouble ファイルに保存される．</para>
                 </listitem>
               </itemizedlist></para>
