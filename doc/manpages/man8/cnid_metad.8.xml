@@ -80,11 +80,7 @@
   <refsect1>
     <title>警告</title>
 
-    <para><command>cnid_metad</command>はSIGPIPEを除くいかなるシグナルもブロックしないし補足もしない。従って、受け取ったほとんどのシグナルにより終了する。これは、<command>cnid_metad</command>により起動した全ての<emphasis remap="B">cnid_dbd</emphasis>のインスタンスを優雅に終了させる。
-    Since
-    state about and IPC access to the subprocesses is only maintained in
-    memory by <command>cnid_metad</command> this is desired behaviour.
-    <command>cnid_metad</command>が再起動したあとすぐ、<emphasis remap="B">afpd</emphasis>プロセスは透過的に再接続する。</para>
+    <para><command>cnid_metad</command>はSIGPIPEを除くいかなるシグナルもブロックしないし補足もしない。従って、受け取ったほとんどのシグナルにより終了する。これは、<command>cnid_metad</command>により起動した全ての<emphasis remap="B">cnid_dbd</emphasis>のインスタンスを優雅に終了させる。遷移状態とサブプロセスにアクセスするIPCは<command>cnid_metad</command>によりメモリ上で維持されるだけなので、これは望ましい動作である。<command>cnid_metad</command>が再起動したあとすぐ、<emphasis remap="B">afpd</emphasis>プロセスは透過的に再接続する。</para>
   </refsect1>
 
   <refsect1>
