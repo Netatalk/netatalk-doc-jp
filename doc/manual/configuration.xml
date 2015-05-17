@@ -145,88 +145,65 @@ basedir regex = /usr/home</programlisting></para>
       その時点で ID プールが枯渇され，当該ボリュームへの新ファイルの書き込みができなくなる．
       愚痴はなしということでお願いしたい :-)</para>
 
-      <para>Every file in an AFP volume has to have a unique file ID<indexterm>
-          <primary>FID</primary>
-
-          <secondary>File ID</secondary>
-        </indexterm>, IDs must, according to the specs, never be reused, and
-      IDs are 32 bit numbers (Directory IDs use the same ID pool). So, after
-      ~4 billion files/folders have been written to an AFP volume, the ID pool
-      is depleted and no new file can be written to the volume. No whining
-      please :-)</para>
-
-      <para>Every file in an AFP volume has to have a unique file ID<indexterm>
-          <primary>FID</primary>
-
-          <secondary>File ID</secondary>
-        </indexterm>, IDs must, according to the specs, never be reused, and
-      IDs are 32 bit numbers (Directory IDs use the same ID pool). So, after
-      ~4 billion files/folders have been written to an AFP volume, the ID pool
-      is depleted and no new file can be written to the volume. No whining
-      please :-)</para>
-
-      <para>Netatalk needs to map IDs to files and folders in the host
-      filesystem. To achieve this, several different CNID backends<indexterm>
+      <para>Netatalk はホストのファイルシステム内で 
+      ID とファイルあるいはフォルダーのマップ（ID との対応付け）をする必要がある．
+      それを実現するためにいくつかの異なる CNID バックエンド<indexterm>
           <primary>CNID backend</primary>
-        </indexterm> are available and can be choosed by the <option>cnid
+        </indexterm>が用意されていて，<citerefentry>
+          <refentrytitle>afp.conf</refentrytitle>
+
+          <manvolnum>5</manvolnum>
+        </citerefentry> 設定ファイル内で <option>cnid
       scheme</option><indexterm>
           <primary>cnidscheme</primary>
 
           <secondary>specifying a CNID backend</secondary>
-        </indexterm> option in the <citerefentry>
-          <refentrytitle>afp.conf</refentrytitle>
+        </indexterm> オプションで選択が可能である．CNID バックエンドは基本的には，
+        ストアされた ID &lt;-&gt; 名前を一対一対応させるデータベースである．</para>
 
-          <manvolnum>5</manvolnum>
-        </citerefentry> configuration file. A CNID backend is basically a
-      database storing ID &lt;-&gt; name mappings.</para>
+      <para>The CNID データベースはデフォルトで <filename>/var/netatalk/CNID</filename> に置かれる．</para>
 
-      <para>The CNID Databases are by default located in
-      <filename>/var/netatalk/CNID</filename>.</para>
-
-      <para>There is a command line utility called <command>dbd</command>
-      available which can be used to verify, repair and rebuild the CNID
-      database.</para>
+      <para>CNID データベースの検証・修復・再構築のために用いることができる <command>dbd</command> 
+      という名のコマンドが用意されていている．</para>
 
       <note>
-        <para>There are some CNID related things you should keep in mind when
-        working with netatalk:</para>
+        <para>netatalk で作業する上で，いくつかの CNID に関する点を留意しておかなければならない．
+        すなわち：</para>
 
         <itemizedlist>
           <listitem>
-            <para>Don't nest volumes<indexterm>
+            <para>ボリュームをネスト（入れ子）にしてはならない．<indexterm>
                 <primary>Nested volumes</primary>
-              </indexterm>.</para>
+              </indexterm></para>
           </listitem>
 
           <listitem>
-            <para>CNID backends are databases, so they turn afpd into a file
-            server/database mix.</para>
+            <para>CNID バックエンドはデータベースである．
+            それ故 afpd はファイルサーバーとデータベースの混成物とならしめている．</para>
           </listitem>
 
           <listitem>
-            <para>If there's no more space on the filesystem left, the
-            database will get corrupted. You can work around this by either
-            using the <option>vol dbpath</option> option and put the database
-            files into another location or, if you use quotas, make sure the
-            CNID database folder is owned by a user/group without a
-            quota<indexterm>
+            <para>もしファイルシステムに空き容量がなくなった場合，データベースは破損するかもしれない．
+            それを回避するために取る策としては，<option>vol dbpath</option> オプションを使用して，
+            データベースファイルをどこか別の場所に置く，か，クオータ<indexterm>
                 <primary>Quotas</primary>
 
                 <secondary>Disk usage quotas</secondary>
-              </indexterm>.</para>
+            </indexterm>を使っているならば CNID 
+            データベースフォルダーがクオータなしでユーザー／グループのオーナーとなっているか確認する．
+            のいずれかである．</para>
           </listitem>
 
           <listitem>
-            <para>Be careful with CNID databases for volumes that are mounted
-            via NFS. That is a pretty audacious decision to make anyway, but
-            putting a database there as well is really asking for trouble,
-            i.e. database corruption. Use the <option>vol dbpath</option>
-            directive to put the databases onto a local disk if you must use
-            NFS<indexterm>
+            <para>NFS 経由でマウントされているボリュームの CNID データベースには注意すべきである．
+            いずれにしろそのような構成にすると決める事自体かなり無謀である．
+            が，さらにデータベースもその上に置くとなると決定的にトラブルの元となる．要はデータベースの破損である．
+            もしどうしても NFS<indexterm>
                 <primary>NFS</primary>
 
                 <secondary>Network File System</secondary>
-              </indexterm> mounted volumes.</para>
+              </indexterm> マウントしたボリュームを使わねばならない場合は <option>vol dbpath</option> 
+            ディレクティブを使用してデータベースをローカルディスクに置くべきである．</para>
           </listitem>
         </itemizedlist>
       </note>
@@ -238,14 +215,16 @@ basedir regex = /usr/home</programlisting></para>
             <secondary>"cdb" CNID backend</secondary>
           </indexterm></title>
 
-        <para>The "concurrent database" backend is based on Berkeley DB. With
-        this backend, several afpd daemons access the CNID database directly.
-        Berkeley DB locking is used to synchronize access, if more than one
-        afpd process is active for a volume. The drawback is, that the crash
-        of a single afpd process might corrupt the database. cdb should only
-        be used when sharing home directories for a larger number of users
-        <emphasis>and</emphasis> it has been determined that a large number of
-        <command>cnid_dbd</command> processes is problematic.</para>
+        <para>“コンカレント（concurrent:同時進行）データベース”は 
+        Berkeley DB を基礎としたものである．
+        このバックエンドだと複数の afpd デーモンが CNID データベースに直接アクセスできる．
+        たとえ複数の afpd プロセスがあるボリュームに対して動作中の場合でも 
+        同期アクセスについては Berkeley DB ロック機構が全て負ってくれる． 
+        欠点としては，
+        一つの afpd プロセスのクラッシュのみでデータベースの破損するかもしれないという点である．
+        cdb は数多くのユーザーのホームディレクトリを共有するときのみ使用すべきで，
+        <emphasis>かつ</emphasis>，
+        多数の <command>cnid_dbd</command> プロセスという状態は確実に問題を引き起こすということである．</para>
       </sect3>
 
       <sect3>
@@ -255,12 +234,11 @@ basedir regex = /usr/home</programlisting></para>
             <secondary>"dbd" CNID backend</secondary>
           </indexterm></title>
 
-        <para>Access to the CNID database is restricted to the cnid_dbd daemon
-        process. afpd processes communicate with the daemon for database reads
-        and updates. The probability for database corruption is practically
-        zero.</para>
+        <para>CNID データベースへのアクセスは cnid_dbd デーモンプロセスのみに制限されている．
+        afpd プロセスはデータベースの読み込みと更新のために cnid_dbd デーモン とやりとりをする．
+        データベースが破損する可能性は経験的にはゼロである．</para>
 
-        <para>This is the default backend since Netatalk 2.1.</para>
+        <para>本バックエンドは Netatalk 2.1 以来，デフォルトのバックエンドとなっている．</para>
       </sect3>
 
       <sect3>
@@ -270,16 +248,17 @@ basedir regex = /usr/home</programlisting></para>
             <secondary>"tdb" CNID backend</secondary>
           </indexterm></title>
 
-        <para><abbrev>tdb</abbrev> is another persistent CNID database, it's
-        Samba's <emphasis>Trivial Database</emphasis>. It could be used
-        instead of <abbrev>cdb</abbrev> for user volumes.<important>
-            <para>Only ever use it for volumes that are
-            <emphasis>not</emphasis> shared and accessed by multiple clients
-            at once !</para>
-          </important>This backend is also used internally (as in-memory CNID
-        database) as a fallback in case opening the primary database can't be
-        opened, because <abbrev>tdb</abbrev> can work as in-memory database.
-        This of course means upon restart the CNIDs are gone.</para>
+        <para><abbrev>tdb</abbrev> はまた別の永続性のある CNID データベースの一つであり，
+        Samba の <emphasis>Trivial Database（軽量データベース）</emphasis>のことでもある．
+        ユーザーボリューム用として <abbrev>cdb</abbrev> の代わりに使用することもできる．
+          <important>
+            <para>本バックエンドは，いかなる場合でも，共有されても<emphasis>なく</emphasis>，
+            複数のクライアントが一度にアクセスすることも<emphasis>ない</emphasis>
+            ボリュームにのみ使用すること．</para>
+          </important><abbrev>tdb</abbrev> はインメモリデータベースとして動作できるので，
+        このバックエンドは内部向けに（インメモリ CNID データベースとして），
+        最初のデータベースが開けない時など，予備として用いることもできる．
+        これはもちろん再起動にすると CNID は失われるということを意味している．</para>
       </sect3>
 
       <sect3>
@@ -289,10 +268,9 @@ basedir regex = /usr/home</programlisting></para>
             <secondary>"last" CNID backend</secondary>
           </indexterm></title>
 
-        <para>The last backend is a in-memory tdb database. It is not
-        persistent. Starting with netatalk 3.0, it becomes the <emphasis> read
-        only mode</emphasis> automatically. This is useful e.g. for
-        CD-ROMs.</para>
+        <para>last バックエンドはデータをインメモリタイプの tdb データベース．それ故永続性がない．
+        netatalk 3.0 より採用され，自動的に<emphasis>読み込み専用モード</emphasis>で動作する．
+        このバックエンドは例えば CD-ROM などに有用である．</para>
       </sect3>
 
       <sect3>
@@ -302,7 +280,7 @@ basedir regex = /usr/home</programlisting></para>
             <secondary>"mysql" CNID backend</secondary>
           </indexterm></title>
 
-        <para>CNID backend using a MySQL server.</para>
+        <para>CNID バックエンドは MySQL サーバーを使用する．</para>
       </sect3>
     </sect2>
 
