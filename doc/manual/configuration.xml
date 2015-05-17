@@ -34,23 +34,24 @@
       コンパイルするための情報はこの<link linkend="spotlight-compile">節</link>を参照のこと．</para>
 
       <para>Mac OS X 10.5 (Leopard) で，AFP 経由での Time Machine バックアップがサポートされるようになった．
-      二つの新機能で，バックアップをただサーバーのキャッシュにではなく，動作中のディスクに書き込むことを
-      確実にしている．ホストのオペレーティングシステムが異なると，このキャッシュをフラッシュする挙動も異なる．
-      ヴォリュームを作成するために，Time Machine ターゲットはボリュームオプション "<option>time machine =
-      yes</option>" を使用する．</para>
+      二つの新機能で，バックアップをただサーバーのキャッシュにではなく，
+      動作中のディスクに書き込むことを確実にしている．ホストのオペレーティングシステムが異なると，
+      このキャッシュをフラッシュする挙動も異なる．ヴォリュームを作成するために，
+      Time Machine ターゲットはボリュームオプション "<option>time machine = yes</option>" を使用する．</para>
 
-      <para>Netatalk 2.1 で始める場合，UNIX symlink<indexterm>
+      <para>Netatalk 2.1 で始める場合，UNIX シンボリックリンク<indexterm>
           <primary>symlink</primary>
 
           <secondary>UNIX symlink</secondary>
-        </indexterm>  を使うことができる．その動作は例えば NFS と同じである，すなわち，Netatalk はサーバー側で 
-      symlink を追わないが，クライアント側で symlink を解決し切るのではなく，
-      結果としてクライアントのファイルシステムの認識内でどこかを示すリンクとなる．</para>
+        </indexterm>を使うことができる．その動作は例えば NFS と同じである，
+      すなわち，Netatalk はサーバー側でシンボリックリンクを追わないが，
+      クライアント側でシンボリックリンクを解決し切るのではなく，
+      結果としてクライアントのファイルシステムの認識内でしかるべき場所を示すリンクとなる．</para>
 
       <sect3>
         <title>afp.conf</title>
 
-        <para><filename>afp.conf</filename>  は AFP ファイルサーバーの動作と設定，
+        <para><filename>afp.conf</filename> は AFP ファイルサーバーの動作と設定，
         及びサーバーが提供する AFP ボリュームを指示するのに用いられる設定ファイルである．</para>
 
         <para><filename>afp.conf</filename> は２つのサーバーセクションに分割できる．すなわち：
@@ -71,7 +72,7 @@
               </listitem>
             </varlistentry>
           </variablelist><option>Global</option> でもなく <option>Homes</option>  でもなければ，
-        それは AFP ボリュームである，と解釈される</para>
+        それは単なる一つの AFP ボリュームである，と解釈される</para>
 
         <para>ユーザーのホームディレクトリを共有するためには <option>Homes</option> を定義し，
         <option>basedir regex</option> オプションを明記しなければならない．</para>
@@ -82,11 +83,12 @@
 basedir regex = /home
 </programlisting></para>
 
-        <para>この場合，AFP サーバーにログインできるユーザーは <filename>/home/NAME</filename> 
-        というパス名でのユーザーボリュームが有効である．</para>
+        <para>この場合，AFP サーバーにログインできるユーザーはそれぞれ <filename>/home/NAME</filename> 
+        というパス名でのユーザーボリュームを使用できる．</para>
 
-        <para>より複雑に，膨大な数のユーザーホームを，例えば下記のように２つの異なるファイルシステムに分けて
-        管理するサーバーを構築することもできる：<itemizedlist>
+        <para>より複雑に，膨大な数のユーザーホームを，
+        例えば下記のように２つの異なるファイルシステムに分けて管理するサーバーを構築することもできる：
+          <itemizedlist>
             <listitem>
               <para>/RAID1/homes</para>
             </listitem>
@@ -100,7 +102,7 @@ basedir regex = /RAID./.*homes
 
         <para>もし，<option>basedir regex</option> にシンボリックリンクが含まれる場合，
         正規化された絶対パスを指定すべきである．つまり，パス <filename>/home</filename> から 
-        <filename>/usr/home</filename> にシンボリックリンクがはられていた場合： <programlisting>[Homes]
+        <filename>/usr/home</filename> にシンボリックリンクがはられていた場合：<programlisting>[Homes]
 basedir regex = /usr/home</programlisting></para>
 
         <para>他の使用できるオプションの詳細な解説については <citerefentry>
@@ -116,24 +118,42 @@ basedir regex = /usr/home</programlisting></para>
           <primary>CNID</primary>
 
           <secondary>Catalog Node ID</secondary>
-        </indexterm> backends<indexterm>
+        </indexterm> バックエンド<indexterm>
           <primary>Backend</primary>
 
           <secondary>CNID backend</secondary>
         </indexterm></title>
 
-      <para>Unlike other protocols like SMB or NFS, the AFP protocol mostly
-      refers to files and directories by ID and not by a path (the IDs are
-      also called CNID, that means Catalog Node ID). A typical AFP request
-      uses a directory ID<indexterm>
+      <para>SMB や NFS のようなほかのプロトコルとは異なり，ほとんどの場合，
+      AFP プロトコルはファイルやディレクトリをパスではなく ID を通して参照している．
+      （その ID は CNID とも言われ，カタログ・ノード ID (Catalog Node ID) の略である）
+      典型的には，まず AFP リクエストで，例えば，<phrase>“サーバーさん id 167 のディレクトリにある，
+      ファイル名 'Test' というのを開いてください．”</phrase>といった調子でディレクトリ ID<indexterm>
           <primary>DID</primary>
 
           <secondary>Directory ID</secondary>
-        </indexterm> and a filename, something like <phrase>"server, please
-      open the file named 'Test' in the directory with id 167"</phrase>. For
-      example "Aliases" on the Mac basically work by ID (with a fallback to
-      the absolute path in more recent AFP clients. But this applies only to
-      Finder, not to applications).</para>
+        </indexterm>とファイル名を用いる． 
+      </para>
+
+      <para>AFP ボリュームにある各々のファイルに一意のファイル ID<indexterm>
+          <primary>FID</primary>
+
+          <secondary>File ID</secondary>
+        </indexterm> が割り当てられる．仕様により ID は絶対に再利用禁止であり，ID は 32 bit の数字である．
+      （ディレクトリ ID は共通の ID プールを使用する）このため，
+      ある AFP ボリュームにおよそ 40 億個以上のファイル・フォルダーを書き込むと，
+      その時点で ID プールが枯渇され，当該ボリュームへの新ファイルの書き込みができなくなる．
+      愚痴はなしということでお願いしたい :-)</para>
+
+      <para>Every file in an AFP volume has to have a unique file ID<indexterm>
+          <primary>FID</primary>
+
+          <secondary>File ID</secondary>
+        </indexterm>, IDs must, according to the specs, never be reused, and
+      IDs are 32 bit numbers (Directory IDs use the same ID pool). So, after
+      ~4 billion files/folders have been written to an AFP volume, the ID pool
+      is depleted and no new file can be written to the volume. No whining
+      please :-)</para>
 
       <para>Every file in an AFP volume has to have a unique file ID<indexterm>
           <primary>FID</primary>
