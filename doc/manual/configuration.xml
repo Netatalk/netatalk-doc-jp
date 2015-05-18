@@ -269,7 +269,7 @@ basedir regex = /usr/home</programlisting></para>
           </indexterm></title>
 
         <para>last バックエンドはデータをインメモリタイプの tdb データベース．それ故永続性がない．
-        netatalk 3.0 より採用され，自動的に<emphasis>読み込み専用モード</emphasis>で動作する．
+        netatalk 3.0 からは，それは自動的に<emphasis>読み込み専用モード</emphasis>になる．
         このバックエンドは例えば CD-ROM などに有用である．</para>
       </sect3>
 
@@ -296,77 +296,77 @@ basedir regex = /usr/home</programlisting></para>
       <para></para>
 
       <sect3>
-        <title>Why Unicode?</title>
+        <title>なぜ Unicode？</title>
 
-        <para>Internally, computers don't know anything about characters and
-        texts, they only know numbers. Therefore, each letter is assigned a
-        number. A character set, often referred to as
-        <emphasis>charset</emphasis> or
+        <para>内部的には，コンピューターは文字（キャラクター）について，
+        テキストについて何も知らない，唯一“数字（数）”ならコンピュータにもわかる．
+        それ故各々の“字”には“数”が割り当てられている．キャラクターセット，しばしば
+        <emphasis>charset</emphasis> あるいは
         <emphasis>codepage</emphasis><indexterm>
             <primary>Codepage</primary>
-          </indexterm>, defines the mappings between numbers and
-        letters.</para>
+          </indexterm> とも呼ばれるが，これは“数”と“字”の一対一対応を規定している．</para>
 
-        <para>If two or more computer systems need to communicate with each
-        other, the have to use the same character set. In the 1960s the
-        ASCII<indexterm>
+        <para>二つあるいはそれ以上のコンピューターがお互いに通信する場合，
+        各々は同じキャラクターセットを使う必要がある．1960 年代には ASCII<indexterm>
             <primary>ASCII</primary>
 
             <secondary>American Standard Code for Information
             Interchange</secondary>
-          </indexterm> (American Standard Code for Information Interchange)
-        character set was defined by the American Standards Association. The
-        original form of ASCII represented 128 characters, more than enough to
-        cover the English alphabet and numerals. Up to date, ASCII has been
-        the normative character scheme used by computers.</para>
+          </indexterm> (American Standard Code for Information Interchange) 
+        キャラクターセットが 
+        ASA（米国標準協会：the American Standards Association）によって標準化された．
+        オリジナルの ASCII 形式は，
+        英語で用いられるアルファベット及び数字を網羅するのに必要な数より多い 128 
+        のキャラクターを表している．
+        ASCII は今日においてもコンピューターで使われるキャラクタースキームである．</para>
 
-        <para>Later versions defined 256 characters to produce a more
-        international fluency and to include some slightly esoteric graphical
-        characters. Using this mode of encoding each character takes exactly
-        one byte. Obviously, 256 characters still wasn't enough to map all the
-        characters used in the various languages into one character
-        set.</para>
+        <para>国際的にもっと都合よく，そして若干内輪向けの記号文字を含めるために，
+        つづくバージョンでは 256 のキャラクターを規定した．
+        このエンコードの仕様だと一文字はきっちり 1 バイトに収まるが，
+        256 キャラクターというのは，
+        いろいろな言語で用いる全ての文字を一つのキャラクターに一対一対応させるのに十分ではなかった．
+        </para>
 
-        <para>As a result localized character sets were defined later, e.g the
-        ISO-8859 character sets. Most operating system vendors introduced
-        their own characters sets to satisfy their needs, e.g. IBM defined the
-        <emphasis>codepage 437 (DOSLatinUS)</emphasis>, Apple introduced the
+        <para>結果的には後にローカライズされたキャラクターセットが規定された．
+        例えば ISO-8859 キャラクターセットである．
+        ほとんどのオペレーティングシステムベンダーは各々の要求を満たすために，
+        独自のキャラクターセットを導入した．すなわち IBM であれば 
+        <emphasis>コードページ 437 (DOSLatinUS)</emphasis>，アップルは 
         <emphasis>MacRoman</emphasis><indexterm>
             <primary>MacRoman</primary>
 
             <secondary>MacRoman charset</secondary>
-          </indexterm> codepage and so on. The characters that were assigned
-        number larger than 127 were referred to as
-        <emphasis>extended</emphasis> characters. These character sets
-        conflict with another, as they use the same number for different
-        characters, or vice versa.</para>
+          </indexterm> コードページ，などである．
+        127 以上のキャラクターが定義されているものを<emphasis>拡張</emphasis>
+        キャラクターと呼ぶ．
+        これらのキャラクターセットはお互いに異なるキャラクターに同じ番号をふってあるので衝突を起こす．</para>
 
-        <para>Almost all of those characters sets defined 256 characters,
-        where the first 128 (0-127) character mappings are identical to ASCII.
-        As a result, communication between systems using different codepages
-        was effectively limited to the ASCII charset.</para>
+        <para>そういったキャラクターセットのほぼ全てが 256 個のキャラクターを定義していて，
+        最初の 128 個（0 から 127 まで）のキャラクターを ASCII と同一対応となるようにしている．
+        結果的に違ったコードページを使っているシステム同士でコミュニケーションを効率よくするためには，
+        ASCII キャラクターセットに限定で行うしかない．</para>
 
-        <para>To solve this problem new, larger character sets were defined.
-        To make room for more character mappings, these character sets use at
-        least 2 bytes to store a character. They are therefore referred to as
-        <emphasis>multibyte</emphasis> character sets.</para>
+        <para>この問題をすっぱり解決するために，より大きいキャラクターセットが規定された．
+        より多くのキャラクターマッピングの場所を確保するために，
+        これらのキャラクターセットは一つのキャラクターのために最低でも 2 バイトを指定する．
+        このためそういったキャラクターセットは<emphasis>マルチバイト</emphasis>
+        キャラクターセットと呼ばれる．</para>
 
-        <para>One standardized multibyte charset encoding scheme is known as
-        <ulink url="http://www.unicode.org/">unicode</ulink>. A big advantage
-        of using a multibyte charset is that you only need one. There is no
-        need to make sure two computers use the same charset when they are
-        communicating.</para>
+        <para>標準的なマルチバイトキャラクターエンコード方式として知られているものの一つとして
+        <ulink url="http://www.unicode.org/">ユニコード</ulink>がある．
+        マルチバイトキャラクターセットの大きな利点として“それ一つで済む”がある．
+        二つのコンピューターが通信しているときに両者が同一のキャラクターセットを使用しているか確認する必要がない．</para>
       </sect3>
 
       <sect3>
-        <title>character sets used by Apple</title>
+        <title>Apple で使われている（使われていた）キャラクターセット</title>
 
-        <para>In the past, Apple clients used single-byte charsets to
-        communicate over the network. Over the years Apple defined a number of
-        codepages, western users will most likely be using the
-        <emphasis>MacRoman</emphasis> codepage.</para>
+        <para>過去に Apple クライアントは，
+        ネットワーク間の通信のためにシングルバイトのキャラクターセットを使用していた．
+        年を経るに従い，Apple はいくつものキャラクターセットを定義したが，
+        欧米ユーザーは <emphasis>MacRoman</emphasis> コードセットを最もよく使用するであろう．</para>
 
-        <para>Codepages defined by Apple include:</para>
+        <para>Apple の定義したコードページに含まれるもの：</para>
 
         <itemizedlist>
           <listitem>
@@ -434,11 +434,10 @@ basedir regex = /usr/home</programlisting></para>
           </listitem>
         </itemizedlist>
 
-        <para>Starting with Mac OS X and AFP3, <ulink
-        url="http://www.utf-8.com/">UTF-8</ulink> is used. UTF-8 encodes
-        Unicode characters in an ASCII compatible way, each Unicode character
-        is encoded into 1-6 ASCII characters. UTF-8 is therefore not really a
-        charset itself, it's an encoding of the Unicode charset.</para>
+        <para>Mac OS X と AFP3 で始めると <ulink url="http://www.utf-8.com/">UTF-8</ulink> 
+        が用いられる．UTF-8 は Unicode キャラクターを ASCII 互換のままエンコードする．
+        各々の Unicode キャラクターは一個から六個の ASCII キャラクターにエンコードされる．
+        故に， UTF-8 自体はキャラクターセットではなく，ユニコードキャラクターセットのエンコードである．</para>
 
         <para>To complicate things, Unicode defines several <emphasis> <ulink
         url="http://www.unicode.org/reports/tr15/index.html">normalization</ulink>
