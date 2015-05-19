@@ -255,8 +255,8 @@ basedir regex = /usr/home</programlisting></para>
             <para>本バックエンドは，いかなる場合でも，共有されても<emphasis>なく</emphasis>，
             複数のクライアントが一度にアクセスすることも<emphasis>ない</emphasis>
             ボリュームにのみ使用すること．</para>
-          </important><abbrev>tdb</abbrev> はインメモリデータベースとして動作できるので，
-        このバックエンドは内部向けに（インメモリ CNID データベースとして），
+          </important><abbrev>tdb</abbrev> はメモリーにデータを保持するデータベースとして動作できるので，
+        このバックエンドは内部向けに（メモリーにデータを保持する CNID データベースとして），
         最初のデータベースが開けない時など，予備として用いることもできる．
         これはもちろん再起動にすると CNID は失われるということを意味している．</para>
       </sect3>
@@ -268,7 +268,7 @@ basedir regex = /usr/home</programlisting></para>
             <secondary>"last" CNID backend</secondary>
           </indexterm></title>
 
-        <para>last バックエンドはデータをインメモリタイプの tdb データベース．それ故永続性がない．
+        <para>last バックエンドはメモリーにデータを保持する tdb データベースである．それ故永続性がない．
         netatalk 3.0 からは，それは自動的に<emphasis>読み込み専用モード</emphasis>になる．
         このバックエンドは例えば CD-ROM などに有用である．</para>
       </sect3>
