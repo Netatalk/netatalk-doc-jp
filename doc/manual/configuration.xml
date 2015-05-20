@@ -39,7 +39,7 @@
       このキャッシュをフラッシュする挙動も異なる．ヴォリュームを作成するために，
       Time Machine ターゲットはボリュームオプション "<option>time machine = yes</option>" を使用する．</para>
 
-      <para>Netatalk 2.1 で始める場合，UNIX シンボリックリンク<indexterm>
+      <para>Netatalk 2.1 以降では UNIX シンボリックリンク<indexterm>
           <primary>symlink</primary>
 
           <secondary>UNIX symlink</secondary>
@@ -434,7 +434,7 @@ basedir regex = /usr/home</programlisting></para>
           </listitem>
         </itemizedlist>
 
-        <para>Mac OS X と AFP3 で始めると <ulink url="http://www.utf-8.com/">UTF-8</ulink> 
+        <para>Mac OS X 以降そして AFP3 以降では <ulink url="http://www.utf-8.com/">UTF-8</ulink> 
         が用いられる．UTF-8 は Unicode キャラクターを ASCII 互換のままエンコードする．
         各々の Unicode キャラクターは一個から六個の ASCII キャラクターにエンコードされる．
         故に， UTF-8 自体はキャラクターセットではなく，ユニコードキャラクターセットのエンコードである．</para>
