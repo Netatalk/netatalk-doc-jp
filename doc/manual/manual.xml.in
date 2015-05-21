@@ -28,7 +28,7 @@
 <!ENTITY dbd.1 SYSTEM "../manpages//man1/dbd.1.xml">
 ]>
 <book id="netatalk-manual">
-  <title>Netatalk 3.1 Manual</title>
+  <title>Netatalk 3.1 マニュアル</title>
   
   <bookinfo>
     <date>07-01-2013</date>
@@ -64,9 +64,9 @@ url="http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt">http://www.gnu.org/li
   <?latex \cleardoublepage ?>
 
   <chapter id="man-pages">
-    <title>Manual Pages</title>
+    <title>マニュアルページ</title>
 
-    <para>This is a collection of the man pages delivered with Netatalk.</para>
+    <para>これはNetatalkと共に配布されているマニュアルページのコレクションです。</para>
 
     &ad.1;
 
@@ -111,5 +111,5 @@ url="http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt">http://www.gnu.org/li
   <?latex \include{gpl}?>
   <?latex \cleardoublepage ?>
 
-  <index id="manual-index"><title>Index</title></index>
+  <index id="manual-index"><title>索引</title></index>
 </book>
