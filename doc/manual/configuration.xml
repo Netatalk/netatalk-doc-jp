@@ -439,52 +439,53 @@ basedir regex = /usr/home</programlisting></para>
         各々の Unicode キャラクターは一個から六個の ASCII キャラクターにエンコードされる．
         故に， UTF-8 自体はキャラクターセットではなく，ユニコードキャラクターセットのエンコードである．</para>
 
-        <para>To complicate things, Unicode defines several <emphasis> <ulink
-        url="http://www.unicode.org/reports/tr15/index.html">normalization</ulink>
-        </emphasis> forms. While <ulink
-        url="http://www.samba.org">samba</ulink><indexterm>
+        <para>厄介なことにも Unicode はいくつかの <emphasis> <ulink
+        url="http://www.unicode.org/reports/tr15/index.html">normalization（正規化）</ulink>
+        </emphasis>方式を規定している．<ulink 
+        url="http://www.samba.org">Samba</ulink><indexterm>
             <primary>Samba</primary>
-          </indexterm> uses <emphasis>precomposed</emphasis><indexterm>
+          </indexterm> はほとんどの Unix ツールも好んで用いる 
+        <emphasis>precomposed</emphasis><indexterm>
             <primary>Precomposed</primary>
 
             <secondary>Precomposed Unicode normalization</secondary>
-          </indexterm> Unicode, which most Unix tools prefer as well, Apple
-        decided to use the <emphasis>decomposed</emphasis><indexterm>
+          </indexterm> Unicode を使用する．一方 Apple は 
+        <emphasis>decomposed</emphasis><indexterm>
             <primary>Decomposed</primary>
 
             <secondary>Decomposed Unicode normalization</secondary>
-          </indexterm> normalization.</para>
+          </indexterm> normalization を使うことに決めた．</para>
 
-        <para>For example lets take the German character
-        '<keycode>ä</keycode>'. Using the precomposed normalization, Unicode
-        maps this character to 0xE4. In decomposed normalization, 'ä' is
-        actually mapped to two characters, 0x61 and 0x308. 0x61 is the mapping
-        for an 'a', 0x308 is the mapping for a <emphasis>COMBINING
-        DIAERESIS</emphasis>.</para>
+        <para>例として、ドイツ語の文字 '<keycode>ä</keycode>' についてみてみる．
+        Precomposed normalization を使えば Unicode はこの文字に 0xE4 を対応付ける．
+        一方，decomposed normalization では 'ä' を正確には 0x61 と 0x308 の二つの文字に対応付ける．
+        0x61 は 'a' に，0x308 は <emphasis>COMBINING
+        DIAERESIS</emphasis>（訳注：いわゆるウムラウト）に対応付けられている．</para>
 
-        <para>Netatalk refers to precomposed UTF-8 as
+        <para>Netatalk では precomposed UTF-8 を
         <emphasis>UTF8</emphasis><indexterm>
             <primary>UTF8</primary>
 
             <secondary>Netatalk's precomposed UTF-8 encoding</secondary>
-          </indexterm> and to decomposed UTF-8 as
+          </indexterm> と，decomposed UTF-8 を
         <emphasis>UTF8-MAC</emphasis><indexterm>
             <primary>UTF8-MAC</primary>
 
             <secondary>Netatalk's decomposed UTF-8 encoding</secondary>
-          </indexterm>.</para>
+          </indexterm> と呼ぶ．</para>
+
       </sect3>
 
       <sect3>
-        <title>afpd and character sets</title>
+        <title>afpd とキャラクターセット</title>
 
-        <para>To support new AFP 3.x and older AFP 2.x clients at the same
-        time, afpd needs to be able to convert between the various charsets
-        used. AFP 3.x clients always use UTF8-MAC, AFP 2.x clients use one of
-        the Apple codepages.</para>
+        <para>新しい AFP 3.x も古い AFP 2.x クライアントも同時にサポートするために，
+        afpd は使われている様々なキャラクターセット間の変換が可能であることを求められた．
+        AFP 3.x クライアントは常に UTF8-MAC を，
+        AFP 2.x クライアントは Apple コードページのうちの一つを使う．</para>
 
-        <para>At the time of this writing, netatalk supports the following
-        Apple codepages:</para>
+        <para>本稿執筆時点（訳注：原文の）で，
+        netatalk は以下の Apple コードページをサポートしている：</para>
 
         <itemizedlist>
           <listitem>
@@ -528,7 +529,7 @@ basedir regex = /usr/home</programlisting></para>
           </listitem>
         </itemizedlist>
 
-        <para>afpd handles three different character set options:</para>
+        <para>afpd は三つの異なるキャラクターセットオプションを扱う：</para>
 
         <variablelist>
           <varlistentry>
@@ -539,17 +540,17 @@ basedir regex = /usr/home</programlisting></para>
               </indexterm></term>
 
             <listitem>
-              <para>This is the codepage used internally by your operating
-              system. If not specified, it defaults to <option>UTF8</option>.
-              If <option>LOCALE</option> is specified and your system support
-              Unix locales, afpd tries to detect the codepage. afpd uses this
-              codepage to read its configuration files, so you can use
-              extended characters for volume names, login messages, etc. see
+              <para>これはオペレーティングシステムの内側で使われているコードページである．
+              もし指定されていなければ，デフォルトで <option>UTF8</option> になる．
+              もし <option>LOCALE</option> が指定されていて，
+              システムが Unix locales をサポートしていれば，afpd はコードページを検出しようとし，
+              afpd は検出したコードページを使って設定ファイルを読む．
+              なので，ボリューム名やログインメッセージなどに拡張文字を使うことができる．
               <citerefentry>
                   <refentrytitle>afp.conf</refentrytitle>
 
                   <manvolnum>5</manvolnum>
-                </citerefentry>.</para>
+                </citerefentry> を参照のこと．</para>
             </listitem>
           </varlistentry>
 
@@ -561,19 +562,20 @@ basedir regex = /usr/home</programlisting></para>
               </indexterm></term>
 
             <listitem>
-              <para>As already mentioned, older Mac OS clients (up to AFP 2.2)
-              use codepages to communicate with afpd. However, there is no
-              support for negotiating the codepage used by the client in the
-              AFP protocol. If not specified otherwise, afpd assumes the
-              <emphasis>MacRoman</emphasis> codepage is used. In case you're
-              clients use another codepage, e.g.
-              <emphasis>MacCyrillic</emphasis>, you'll <emphasis
-              role="bold">have</emphasis> to explicitly configure this. see
+              <para>既に述べたように，
+              旧式の Mac OS クライアント（AFP 2.2 までのもの）は 
+              afpd と通信するのにコードページを用いる．しかしながら，
+              AFP プロトコルにはクライアントが使用しているコードページを解決するというサポートはない．
+              もしほかのどこかで指定されていないと，
+              afpd は <emphasis>MacRoman</emphasis> コードページが使われていると仮定する．
+              クライアントが別のコードページ，
+              例えば <emphasis>MacCyrillic</emphasis> を使っていたならば, 
+              それを明示的に設定<emphasis role="bold">しなければならない</emphasis>だろう．
               <citerefentry>
                   <refentrytitle>afp.conf</refentrytitle>
 
                   <manvolnum>5</manvolnum>
-                </citerefentry>.</para>
+                </citerefentry> を参照のこと．</para>
             </listitem>
           </varlistentry>
 
