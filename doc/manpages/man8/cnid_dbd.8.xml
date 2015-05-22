@@ -52,38 +52,20 @@
 
     <para><command>cnid_dbd</command>は起動時に<emphasis remap="B">cnid_metad</emphasis>からの有効なユーザIDとグループIDを継承する。普通、この動作はnetatalkボリュームをクライアントへ提供する<emphasis remap="B">afpd</emphasis>によって生じる。それはボリュームに関連付けられた<emphasis remap="B">Berkeley DB</emphasis>データベースのホームディレクトリ<emphasis remap="I">dbdir</emphasis>を変更する。もし<emphasis remap="B">cnid_metad</emphasis>から継承したユーザIDが0 (root)ならば、<command>cnid_dbd</command>はユーザIDとグループIDをデータベースホームディレクトリの所有者とグループに変更する。そうでない場合は、継承した値を使い続ける。このとき、<command>cnid_dbd</command>はデータベースを開き、ファイル記述子<emphasis remap="I">clntfd</emphasis>を使って要求されたものを提供開始する。同じボリュームへアクセスしようとする次の<emphasis remap="B">afpd</emphasis>のインスタンスは、ファイル記述子<emphasis remap="I">ctrlfd</emphasis>を用いる<emphasis remap="B">cnid_metad</emphasis>によって、既に動いている<command>cnid_dbd</command>へリダイレクトされる。</para>
 
-    <para><command>cnid_dbd</command>は、永久に動作するか、または不活性期間の後に終了するかを設定できる。
+    <para><command>cnid_dbd</command>は、永久に動作するか、または不活性期間の後に終了するかを設定できる。もし<command>cnid_dbd</command>がTERMやINTシグナルを受け取った場合、汚れたデータベースバッファをディスクにフラッシュし、<emphasis remap="B">Berkeley DB</emphasis>データベース環境を閉じてから、綺麗に終了する。この方法で<command>cnid_dbd</command>を終了するのは安全な事であり、もし必要なら再起動する。他のシグナルは処理されず、即座に終了するか、もしかすると(トランザクションなしのとき)CNIDデータベースを矛盾した状態のままにしておくか、(トランザクションありのとき)リカバリ中の直近の更新を失うかするだろう。</para>
 
-    
-
-    If <command>cnid_dbd</command> receives
-    a TERM or an INT signal it will exit cleanly after flushing dirty database
-    buffers to disk and closing <emphasis remap="B">Berkeley DB</emphasis>
-    database environments. It is safe to terminate <command>cnid_dbd</command>
-    this way, it will be restarted when necessary. Other signals are not
-    handled and will cause an immediate exit, possibly leaving the CNID
-    database in an inconsistent state (no transactions) or losing recent
-    updates during recovery (transactions).</para>
-
-    <para>The <emphasis remap="B">Berkeley DB</emphasis> database subsystem
-    will create files named log.xxxxxxxxxx in the database home directory
-    <emphasis remap="I">dbdir</emphasis>, where xxxxxxxxxx is a monotonically
-    increasing integer. These files contain the transactional database
-    changes. They will be removed regularly, unless the <emphasis
-    remap="B">logfile_autoremove</emphasis> option is specified in the
-    <emphasis remap="I">db_param</emphasis> configuration file (see
-    below) with a value of 0 (default 1).</para>
+    <para><emphasis remap="B">Berkeley DB</emphasis>データベースサブシステムは、データベースのホームディレクトリ<emphasis remap="I">dbdir</emphasis>にlog.xxxxxxxxxxという名前のファイルを作る。ここでxxxxxxxxxxは、単調増加する整数である。これらのファイルにはトランザクションにおけるデータベースの変更が記載されている。これらのファイルは、<emphasis remap="I">db_param</emphasis>設定ファイル(以下を見よ)で<emphasis remap="B">logfile_autoremove</emphasis>の値が0 (デフォルトは1)に設定されている場合を除いて、定期的に削除される。</para>
   </refsect1>
 
   <refsect1>
-    <title>OPTIONS</title>
+    <title>オプション</title>
 
     <variablelist remap="TP">
       <varlistentry>
         <term><option>-v, -V</option></term>
 	
         <listitem>
-          <para>Show version and exit.</para>
+          <para>バージョンを表示してから終了する。</para>
         </listitem>
       </varlistentry>
     </variablelist>
