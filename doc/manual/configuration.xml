@@ -587,47 +587,49 @@ basedir regex = /usr/home</programlisting></para>
               </indexterm></term>
 
             <listitem>
-              <para>This defines the charset afpd should use for filenames on
-              disk. By default, it is the same as <option>unix
-              charset</option>. If you have <ulink
+              <para>これは afpd がディスク上のファイル名として使うべきキャラクターセットを定義する．
+              デフォルトでは <option>unix
+              charset</option> と同じである．もし <ulink
               url="http://www.gnu.org/software/libiconv/">iconv</ulink><indexterm>
                   <primary>Iconv</primary>
 
                   <secondary>iconv encoding conversion engine</secondary>
-                </indexterm> installed, you can use any iconv provided charset
-              as well.</para>
+                </indexterm> がインストールしてあるならば，
+                iconv が提供するキャラクターセットも使用することができる．</para>
 
-              <para>afpd needs a way to preserve extended macintosh
-              characters, or characters illegal in unix filenames, when saving
-              files on a unix filesystem. Earlier versions used the the so
-              called CAP encoding<indexterm>
+              <para>afpd はファイルを unix のファイルシステムに保存する時，
+              拡張マッキントッシュキャラクター，
+              あるいは unix のファイル名として不正なキャラクターを保持しておく必要がある．
+              初期のバージョンでは，いわゆる CAP エンコーディング<indexterm>
                   <primary>CAP encoding</primary>
 
                   <secondary>CAP style character encoding</secondary>
-                </indexterm>. An extended character (&gt;0x7F) would be
-              converted to a :xx hex sequence, e.g. the Apple Logo (MacRoman:
-              0xF0) was saved as :f0. Some special characters will be
-              converted as to :xx notation as well. '/' will be encoded to
-              :2f, if <option>usedots</option> was not specified, a leading
-              dot '.' will be encoded as :2e.</para>
+                </indexterm>を使った．拡張キャラクター (&gt;0x7F) は :xx 
+              の 16 進数に変換される．例えば，アップルのロゴ (MacRoman:
+              0xF0) は :f0 として保存される．
+              いくつかの特殊なキャラクターも :xx という表記に変換される．
+              '/' は :2f にエンコードされる．
+              もし， <option>usedots</option> オプションが設定されていなければ，
+              先頭のピリオド '.' は :2e にエンコードされる．</para>
 
-              <para>Even though this version now uses <option>UTF8</option> as
-              the default encoding for filenames, '/' will be converted to
-              ':'. For western users another useful setting could be
-              <option>vol charset = ISO-8859-15</option>.</para>
+              <para>本ドキュメントでのバージョンではファイル名のデフォルトエンコーディングとして
+              <option>UTF8</option> を使っているにもかかわらず，'/' は ':' に変換される．
+              欧米のユーザーにとって <option>vol charset = ISO-8859-15</option> 
+              という設定が有用となるかもしれない．</para>
 
-              <para>If a character cannot be converted from the <option>mac
-              charset</option> to the selected <option>vol charset</option>,
-              afpd will save it as a CAP encoded character. For AFP3 clients,
-              afpd will convert the UTF8 character to <option>mac
-              charset</option> first. If this conversion fails, you'll receive
-              a -50 error on the mac. <emphasis>Note</emphasis>: Whenever you
-              can, please stick with the default UTF8 volume format. see
-              <citerefentry>
+              <para>もし，あるキャラクターが <option>mac charset</option> から選定した 
+              <option>vol charset</option> への変換ができない場合，
+              afpd は CAP エンコードしたキャラクターとして保存するであろう．
+              AFP3 のクライアントに対しては，afpd は UTF8 のキャラクターをまず <option>mac
+              charset</option> に変換する．
+              もしこの変換に失敗すると，マック上では -50 エラーを受け取るだろう．
+              <emphasis>注意</emphasis>：
+              可能な限り常に，デフォルトの UTF8 ボリュームフォーマットから離れないでいただきたい．
+                            <citerefentry>
                   <refentrytitle>afp.conf</refentrytitle>
 
                   <manvolnum>5</manvolnum>
-                </citerefentry>.</para>
+                </citerefentry> を参照のこと．</para>
             </listitem>
           </varlistentry>
         </variablelist>
