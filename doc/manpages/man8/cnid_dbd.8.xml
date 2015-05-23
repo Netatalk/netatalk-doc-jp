@@ -72,25 +72,16 @@
   </refsect1>
 
   <refsect1>
-    <title>CONFIGURATION</title>
+    <title>設定</title>
 
-    <para><command>cnid_dbd</command> reads configuration information from the
-    file <emphasis remap="I">db_param</emphasis> in the database directory
-    <emphasis remap="I">dbdir</emphasis> on startup. If the file does not
-    exist or a parameter is not listed, suitable default values are used. The
-    format for a single parameter is the parameter name, followed by one or
-    more spaces, followed by the parameter value, followed by a newline. The
-    following parameters are currently recognized:</para>
+    <para><command>cnid_dbd</command>は起動時、データベースディレクトリ<emphasis remap="I">dbdir</emphasis> の中のファイル<emphasis remap="I">db_param</emphasis>から設定情報を読む。ファイルがない場合やパラメータが載っていない場合、適切なデフォルト値が使われる。ひとつのパラメータのフォーマットは、まずパラメータ名、それに続く一つ以上のスペース、それに続くパラメータ値、それに続く改行で構成される。現在以下のパラメータが認識される:</para>
 
     <variablelist remap="TP">
       <varlistentry>
         <term><emphasis remap="B">logfile_autoremove</emphasis></term>
 
         <listitem>
-          <para>If set to 0, unused Berkeley DB transactional logfiles
-          (log.xxxxxxxxxx in the database home directory) are not removed on
-          startup of <command>cnid_dbd</command> and on a regular basis.
-          Default: 1.</para>
+          <para>もし0を設定した場合、<command>cnid_dbd</command>の起動時に未使用のBerkeley DBトランザクションのログファイル(データベースホームディレクトリの中のlog.xxxxxxxxxx)の定期的な削除が行われない。デフォルトは1。</para>
         </listitem>
       </varlistentry>
 
@@ -98,19 +89,7 @@
         <term><emphasis remap="B">cachesize</emphasis></term>
 
         <listitem>
-          <para>Determines the size of the Berkeley DB cache in kilobytes.
-          Default: 8192. Each <command>cnid_dbd</command> process grabs that
-          much memory on top of its normal memory footprint. It can be used to
-          tune database performance. The <emphasis
-          remap="B">db_stat</emphasis> utility with the <option>-m</option>
-          option that comes with Berkley DB can help you determine ether you
-          need to change this value. The default is pretty conservative so
-          that a large percentage of requests should be satisfied from the
-          cache directly. If memory is not a bottleneck on your system you
-          might want to leave it at that value. The <emphasis
-          remap="B">Berkeley DB Tutorial and Reference Guide</emphasis> has a
-          section <emphasis remap="B">Selecting a cache size</emphasis> that
-          gives more detailed information.</para>
+          <para>Berkeley DBのキャッシュサイズをキロバイト単位で決定する。デフォルトは8192。それぞれの<command>cnid_dbd</command>プロセスは通常のメモリ占有量に加えて大量のメモリを獲得する。これはデータベースのパフォーマンスを調整するのに使われる。Berkley DBに附属する<emphasis remap="B">db_stat</emphasis>ユーティリティに<option>-m</option>オプションを付けると、この値を変更すべきかどうかを決定するのに役立つ。デフォルトではキャッシュが要求の大半を丁度良く満たすように極めて保守的な値になっている。メモリがシステムのボトルネックにならないなら、あなたはその値を放置してよい。<emphasis remap="B">Berkeley DB Tutorial and Reference Guide</emphasis>には、より詳しい情報を記した<emphasis remap="B">Selecting a cache size</emphasis>という章がある。</para>
         </listitem>
       </varlistentry>
 
