@@ -63,7 +63,7 @@
     <variablelist remap="TP">
       <varlistentry>
         <term><option>-v, -V</option></term>
-	
+
         <listitem>
           <para>バージョンを表示してから終了する。</para>
         </listitem>
@@ -99,16 +99,7 @@
         <term><emphasis remap="B">flush_interval</emphasis></term>
 
         <listitem>
-          <para><emphasis remap="I">flush_frequency</emphasis> (Default: 1000)
-          and <emphasis remap="I">flush_interval</emphasis> (Default: 1800)
-          control how often changes to the database are checkpointed. Both of
-          these operations are performed if either i) more than <emphasis
-          remap="I">flush_frequency</emphasis> requests have been received or
-          ii) more than <emphasis remap="I">flush_interval</emphasis> seconds
-          have elapsed since the last save/checkpoint. Be careful to check
-          your harddisk configuration for on disk cache settings. Many IDE
-          disks just cache writes as the default behaviour, so even flushing
-          database files to disk will not have the desired effect.</para>
+          <para><emphasis remap="I">flush_frequency</emphasis> (デフォルト: 1000)と<emphasis remap="I">flush_interval</emphasis> (デフォルト: 1800)はデータベースへの変更を書き戻す頻度を制御する。これらの両方動作は、i) <emphasis remap="I">flush_frequency</emphasis>を越える要求を受け取った場合、ii) 最後の保存/書き戻しから<emphasis remap="I">flush_interval</emphasis>秒よりも経過した場合のどちらかで実行される。ディスクキャッシュ設定のため、あなたのハードディスク設定の確認に慎重を期してください。多くのIDEディスクはデフォルト動作では書き込みを単にキャッシュするだけです。従って、たとえデータベースファイルをフラッシュしても期待した効果は得られないでしょう。</para>
         </listitem>
       </varlistentry>
 
