@@ -637,33 +637,34 @@ basedir regex = /usr/home</programlisting></para>
     </sect2>
 
     <sect2 id="authentication">
-      <title>Authentication<indexterm>
+      <title>認証<indexterm>
           <primary>Authentication</primary>
 
           <secondary>between AFP client and server</secondary>
         </indexterm></title>
 
       <sect3>
-        <title>AFP authentication basics</title>
+        <title>AFP 認証の基本</title>
 
-        <para>Apple chose a flexible model called "User Authentication
-        Modules"<indexterm>
+        <para>Apple は AFP クライアントとサーバー間の認証のために 
+        "User Authentication Modules"
+          <indexterm>
             <primary>UAM</primary>
 
             <secondary>User Authentication Module</secondary>
-          </indexterm> (UAMs) for authentication purposes between AFP client
-        and server. An AFP client initially connecting to an AFP server will
-        ask for the list of UAMs which the server provides, and will choose
-        the one with strongest encryption that the client supports.</para>
+          </indexterm> (UAM) と呼ばれる柔軟なモデルを選んだ．
+        AFP クライアントがまず最初に AFP サーバーと接続するとき，
+        サーバーが提供している UAM のリストを問い合わせる．
+        そして，クライアントがサポートしている最も強い暗号化の UAM を選ぶ．</para>
 
-        <para>Several UAMs have been developed by Apple over the time, some by
-        3rd-party developers.</para>
+        <para>数個の UAM は時間をかけて Apple が開発してものであり，
+        サードパーティの開発者によるものもある．</para>
       </sect3>
 
       <sect3>
-        <title>UAMs supported by Netatalk</title>
+        <title>Netatalk でサポートされている UAM</title>
 
-        <para>Netatalk supports the following ones by default:</para>
+        <para>Netatalk はデフォルトで以下のものをサポートしている：</para>
 
         <itemizedlist>
           <listitem>
@@ -671,7 +672,7 @@ basedir regex = /usr/home</programlisting></para>
                 <primary>No User Authent</primary>
 
                 <secondary>"No User Authent" UAM (guest access)</secondary>
-              </indexterm> UAM (guest access without authentication)</para>
+              </indexterm> UAM（ユーザー認証なしのゲスト接続）</para>
           </listitem>
 
           <listitem>
@@ -679,7 +680,7 @@ basedir regex = /usr/home</programlisting></para>
                 <primary>Cleartxt Passwrd</primary>
 
                 <secondary>"Cleartxt Passwrd" UAM</secondary>
-              </indexterm> UAM (no password encryption)</para>
+              </indexterm> UAM（クリアテキスト(平文)パスワード，暗号化なし）</para>
           </listitem>
 
           <listitem>
@@ -687,12 +688,12 @@ basedir regex = /usr/home</programlisting></para>
                 <primary>Randnum exchange</primary>
 
                 <secondary>"Randnum exchange" UAM</secondary>
-              </indexterm>/"2-Way Randnum exchange"<indexterm>
+              </indexterm>，"2-Way Randnum exchange"<indexterm>
                 <primary>2-Way Randnum exchange</primary>
 
                 <secondary>"2-Way Randnum exchange" UAM</secondary>
-              </indexterm> UAMs (weak password encryption, separate password
-            storage)</para>
+              </indexterm> UAM
+            （乱数交換・双方向乱数交換，弱いパスワード暗号化，パスワードを別途保存する）</para>
           </listitem>
 
           <listitem>
@@ -700,7 +701,7 @@ basedir regex = /usr/home</programlisting></para>
                 <primary>DHCAST128</primary>
 
                 <secondary>"DHCAST128" UAM</secondary>
-              </indexterm> UAM (stronger password encryption)</para>
+              </indexterm> UAM（より強いパスワード暗号化）</para>
           </listitem>
 
           <listitem>
@@ -708,11 +709,11 @@ basedir regex = /usr/home</programlisting></para>
                 <primary>DHX2</primary>
 
                 <secondary>"DHX2" UAM</secondary>
-              </indexterm> UAM (successor of DHCAST128)</para>
+              </indexterm> UAM（DHCAST128 の後継版）</para>
           </listitem>
         </itemizedlist>
 
-        <para>There exist other optional UAMs as well:</para>
+        <para>他にもオプションとして以下のような UAM がある：</para>
 
         <itemizedlist>
           <listitem>
@@ -724,13 +725,13 @@ basedir regex = /usr/home</programlisting></para>
                 <primary>uams_pgp.so</primary>
 
                 <secondary>"PGPuam 1.0" UAM</secondary>
-              </indexterm> UAM (PGP-based authentication for pre-Mac OS X
-            clients. You'll also need the <ulink
+              </indexterm> UAM（Mac OS X 以前のクライアント用，PGP ベースの認証．
+            これを動作させようとするには <ulink
             url="http://www.vmeng.com/vinnie/papers/pgpuam.html">PGPuam
-            client</ulink> to let this work)</para>
+            クライアント</ulink>も別途必要である．</para>
 
-            <para>You'll have to add <filename>"--enable-pgp-uam"</filename>
-            to your configure switches to have this UAM available.</para>
+            <para>この UAM を有効にするためには，configure オプションに 
+            <filename>"--enable-pgp-uam"</filename> を追加しなければならない．</para>
           </listitem>
 
           <listitem>
@@ -746,12 +747,13 @@ basedir regex = /usr/home</programlisting></para>
                 <primary>AFS Kerberos</primary>
 
                 <secondary>"AFS Kerberos" UAM (Kerberos IV)</secondary>
-              </indexterm> UAMs (suitable to use <ulink
-            url="http://web.mit.edu/macdev/KfM/Common/Documentation/faq.html">Kerberos
-            v4 based authentication</ulink> and AFS file servers)</para>
+              </indexterm> UAM
+            （<ulink url="http://web.mit.edu/macdev/KfM/Common/Documentation/faq.html">
+            Kerberos v4 ベースの認証</ulink>で AFS ファイルサーバーを使用するのに適している）
+            </para>
 
-            <para>Use <filename>"--enable-krb4-uam"</filename> at compile time
-            to activate the build of this UAM.</para>
+            <para>この UAM を有効化するにはコンパイル時点で 
+            <filename>"--enable-krb4-uam"</filename> オプションを使用する．</para>
           </listitem>
 
           <listitem>
@@ -759,106 +761,105 @@ basedir regex = /usr/home</programlisting></para>
                 <primary>Client Krb v2</primary>
 
                 <secondary>"Client Krb v2" UAM (Kerberos V)</secondary>
-              </indexterm> UAM (Kerberos V, suitable for "Single Sign On"
-            Scenarios with OS X clients -- see below)</para>
+              </indexterm> UAM
+            （Kerberos V，OS X で“シングルサインオン”環境には最も適当である――下記参照）</para>
 
-            <para><filename>"--enable-krbV-uam"</filename> will provide you
-            with the ability to use this UAM.</para>
+            <para><filename>"--enable-krbV-uam"</filename> 
+            オプションでこの UAM を使用できるようになるであろう．</para>
           </listitem>
         </itemizedlist>
 
-        <para>You can configure which UAMs should be activated by defining
-        "<option>uam list</option>" in <option>Global</option> section.
-        <command>afpd</command> will log which UAMs it's using and if problems
-        occur while activating them in either
-        <filename>netatalk.log</filename> or syslog at startup time.
+        <para>"<option>uam list</option>" を <option>Global</option> 
+        セクションで定義することによって，どの UAM を有効化すべきか設定できる．
+        <command>afpd</command> はどの UAM を使っているのか，
+        UAM を有効化した時に問題が起こっているのかどうかを， <filename>netatalk.log</filename> 
+        あるいは起動時の syslog にログとして保存する．
         <citerefentry>
             <refentrytitle>asip-status.pl</refentrytitle>
 
             <manvolnum>1</manvolnum>
-          </citerefentry> can be used to query the available UAMs of AFP
-        servers as well.</para>
+          </citerefentry>  
+        も AFP サーバーで有効な UAM の問い合わせをするのに使うことができる．</para>
 
-        <para>Having a specific UAM available at the server does not
-        automatically mean that a client can use it. Client-side support is
-        also necessary. For older Macintoshes running Mac OS &lt; X DHCAST128
-        support exists since AppleShare client 3.8.x.</para>
+        <para>ある特定の UAM がサーバー上で有効であるということが，直ちに，
+        クライアントもそれを使うことができるということを意味するわけではない．
+        クライアント側でのサポートもまた必要である．
+        Mac OS X 以前が使われている古いマッキントッシュでも，
+        DHCAST128 のサポートは AppleShare クライアント 3.8.x 以降には存在している．</para>
 
-        <para>On OS X, there exist some client-side techniques to make the
-        AFP-client more verbose, so one can have a look what's happening while
-        negotiating the UAMs to use. Compare with this <ulink
-        url="http://article.gmane.org/gmane.network.netatalk.devel/7383/">hint</ulink>.</para>
+        <para>OS X では，
+        AFP クライアントをもっと冗長にするクライアント側のテクニックがいくつかあるので，
+        使用する UAM と折り合いをつけるまでに何が起こっているのか見ることができる．<ulink
+        url="http://article.gmane.org/gmane.network.netatalk.devel/7383/">このヒント</ulink>
+        と比較してみるとよい．</para>
       </sect3>
 
       <sect3>
-        <title>Which UAMs to activate?</title>
+        <title>どの UAM を有効にすべきか？</title>
 
-        <para>It depends primarily on your needs and on the kind of Mac OS
-        versions you have to support. Basically one should try to use
-        DHCAST128 and DHX2 where possible because of its strength of password
-        encryption.</para>
+        <para>第一義的には“何が必要か”と
+        “サポートしようと考えている MAC OS のバージョンの種類”に依存する．
+        基本的にはそのパスワード暗号化の強力さから，
+        可能な限り DHCAST128 および DHX2 を試すべきである．</para>
 
         <itemizedlist>
           <listitem>
-            <para>Unless you really have to supply guest access to your
-            server's volumes ensure that you disable "No User Authent" since
-            it might lead accidentally to unauthorized access. In case you
-            must enable guest access take care that you enforce this on a per
-            volume base using the access controls.</para>
+            <para>サーバーのボリュームに本当にゲストアクセスを供することが必要な場合以外は，
+            "No User Authent" が無効化されているか確認すべきである．
+            さもないと，意図しない権限のないアクセスを引き起こすことにもなる．
+            ゲストアクセスを有効にしなければならない場合は，
+            アクセスコントロールを使って，
+            ボリューム各々についてゲストアクセスを有効化することを強制化するように気を配るべきである．</para>
           </listitem>
 
           <listitem>
-            <para>The "ClearTxt Passwrd" UAM is as bad as it sounds since
-            passwords go unencrypted over the wire. Try to avoid it at both
-            the server's side as well as on the client's. Note: If you want to
-            provide Mac OS 8/9 clients with NetBoot-services then you need
-            uams_cleartext.so since the AFP-client integrated into the Mac's
-            firmware can only deal with this basic form of
-            authentication.</para>
+            <para>"ClearTxt Passwrd" UAM 
+            ではパスワードがネットワーク上を暗号化されずに伝わっていくので，
+            字句そのまんまに良くない．
+            クライアント側のみならずサーバー側でも無効にするよう務めるべきである．
+            注意：もし NetBoot サービスを使用している Mac OS 8/9 にサービスを提供したい場合，
+            cleartext.so の UAM が必要となる．
+            これはそういった Mac のファームウエアに組み込まれた AFP クライアントがこうした基本的な形の認証しか扱わないためである．</para>
           </listitem>
 
           <listitem>
-            <para>Since "Randnum exchange"/"2-Way Randnum exchange" uses only
-            56 bit DES for encryption it should be avoided as well. Another
-            disadvantage is the fact that the passwords have to be stored in
-            cleartext on the server and that it doesn't integrate into both
-            PAM scenarios or classic /etc/shadow (you have to administrate
-            passwords separately by using the <citerefentry>
+            <para>"Randnum exchange" と "2-Way Randnum exchange" は 56 ビット DES 暗号化しか使わないので，
+            これらもやはり回避すべきである．
+            そしてなおかつ不利なのは，パスワードがサーバーに平文テキストして保存されること，
+            および PAM 環境とも古典的な /etc/shadow とも統合がとれない
+            （もしクライアントがこれらの UAM を使わなければならない場合，<citerefentry>
                 <refentrytitle>afppasswd</refentrytitle>
 
                 <manvolnum>1</manvolnum>
-              </citerefentry> utility, if clients should use these
-            UAMs)</para>
+              </citerefentry>
+            ユーティリティを使って別途パスワードを管理しなければならない）という点である．</para>
           </listitem>
 
           <listitem>
-            <para>"DHCAST128" or "DHX2" should be a good compromise for most
-            people since it combines stronger encryption with PAM
-            integration.</para>
+            <para>"DHCAST128" あるいは "DHX2" は PAM との統合と強力な暗号化とが組み合わせられているので，
+            ほとんどの人々にとって良い妥協案であろう．</para>
           </listitem>
 
           <listitem>
-            <para>Using the Kerberos V<indexterm>
+            <para>Kerberos V<indexterm>
                 <primary>Kerberos V</primary>
 
                 <secondary>"Client Krb v2" UAM</secondary>
-              </indexterm> ("Client Krb v2") UAM, it's possible to implement
-            real single sign on scenarios using Kerberos tickets. The password
-            is not sent over the network. Instead, the user password is used
-            to decrypt a service ticket for the appleshare server. The service
-            ticket contains an encryption key for the client and some
-            encrypted data (which only the appleshare server can decrypt). The
-            encrypted portion of the service ticket is sent to the server and
-            used to authenticate the user. Because of the way that the afpd
-            service principal detection is implemented, this authentication
-            method is vulnerable to man-in-the-middle attacks.</para>
+              </indexterm> 
+            ("Client Krb v2") UAM を用いれば，
+            Kerberos チケットを用いて真のシングルサインオン環境を実装することが可能である．
+            パスワードがネットワークを通して送られることもない．
+            その代わり，ユーザーのパスワードは appleshare サーバーへのサービスチケットを暗号から復号するのに用いられる．
+            サービスチケットにはクライアントの暗号鍵と幾らかの暗号化されたデータが含まれる
+            （それは appleshare サーバーだけが復号できる）．
+            サービスチケットの暗号化された部分がサーバーに送られ，ユーザーを認証するのに使われる．
+            afpd サービスの主な検知の実装の仕方のために，この認証方法は中間者攻撃に対して脆弱である．</para>
           </listitem>
         </itemizedlist>
 
-        <para>For a more detailed overview over the technical implications of
-        the different UAMs, please have a look at Apple's <ulink
+        <para>様々な UAM の技術的実装についてのより詳細な概要については，Apple の <ulink
         url="http://developer.apple.com/library/mac/#documentation/Networking/Conceptual/AFP/AFPSecurity/AFPSecurity.html#//apple_ref/doc/uid/TP40000854-CH232-SW1">File
-        Server Security</ulink> pages.</para>
+        Server Security</ulink> ページを見ていただきたい．</para>
       </sect3>
 
       <sect3>
