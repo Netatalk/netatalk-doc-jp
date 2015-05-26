@@ -107,19 +107,7 @@
         <term><emphasis remap="B">fd_table_size</emphasis></term>
 
         <listitem>
-          <para>is the maximum number of connections (filedescriptors) that
-          can be open for <emphasis remap="B">afpd</emphasis> client processes
-          in <emphasis remap="B">cnid_dbd.</emphasis> Default: 512. If this
-          number is exceeded, one of the existing connections is closed and
-          reused. The affected <emphasis remap="B">afpd</emphasis> process
-          will transparently reconnect later, which causes slight overhead. On
-          the other hand, setting this parameter too high could affect
-          performance in <command>cnid_dbd</command> since all descriptors
-          have to be checked in a <function>select()</function> system call,
-          or worse, you might exceed the per process limit of open file
-          descriptors on your system. It is safe to set the value to 1 on
-          volumes where only one <emphasis remap="B">afpd</emphasis> client
-          process is expected to run, e.g. home directories.</para>
+          <para><emphasis remap="B">afpd</emphasis>クライアントが<emphasis remap="B">cnid_dbd</emphasis>で処理するために開く最大の接続数(ファイル記述子数)。デフォルトは512。この値を超えた場合、存在する接続のうち一つを閉じて再利用する。影響を受けた<emphasis remap="B">afpd</emphasis>プロセスは後に透過的に再接続される。これは僅かなオーバヘッドを生じる。一方、全ての記述子を<function>select()</function>システムコールでチェックしなければならないので、このパラメータを極めて高い値に設定すると<command>cnid_dbd</command>のパフォーマンスに影響するかもしれないし、更に悪いことにプロセスあたりに開くファイル記述子のシステム上の上限を超えるかもしれない。たった一つの<emphasis remap="B">afpd</emphasis>クライアントプロセスが動作すると予想されるボリュームでは、この値を1に設定すると安全である。例えばホームディレクトリである。</para>
         </listitem>
       </varlistentry>
 
@@ -127,56 +115,47 @@
         <term><emphasis remap="B">idle_timeout</emphasis></term>
 
         <listitem>
-          <para>is the number of seconds of inactivity before an idle
-          <command>cnid_dbd</command> exits. Default: 600. Set this to 0 to
-          disable the timeout.</para>
+          <para>アイドリング中の<command>cnid_dbd</command>が終了するまでの静止状態の秒数。デフォルトは600。これを0に設定するとタイムアウトが無効になる。</para>
         </listitem>
       </varlistentry>
     </variablelist>
   </refsect1>
 
   <refsect1>
-    <title>UPDATING</title>
+    <title>アップデート</title>
 
-    <para>Note that the first version to appear <emphasis>after</emphasis>
-    Netatalk 2.1 ie Netatalk 2.1.1, will support BerkeleyDB updates on the fly
-    without manual intervention. In other words Netatalk 2.1 does contain code
-    to prepare the BerkeleyDB database for upgrades and to upgrade it in case
-    it has been prepared before. That means it can't upgrade a 2.0.x version
-    because that one didn't prepare the database.</para>
+    <para>Netatalk 2.1の<emphasis>後</emphasis>に出た最初のバージョン、すなわちNetatalk 2.1.1は、手動操作なしに自動的にBerkeleyDBアップデートをサポートすることに注意せよ。言い換えると、Netatalk 2.1はBerkeleyDBデータベースのアップグレードを準備するコードと、既に準備されている場合にそれをアップグレードするコードを含んでいる。これはバージョン2.0.xからはアップグレードできないことを意味する。なぜならデータベースの準備をしていないからである。</para>
 
-    <para>In order to update between older Netatalk releases using different
-    BerkeleyDB library versions, follow this steps:</para>
+    <para>異なるバージョンのBerkeleyDBライブラリを使っている古いNetatalkをアップデートするためには、以下の手順をとります:</para>
 
     <itemizedlist>
       <listitem>
-        <para>Stop the to be upgraded old version of Netatalk</para>
+        <para>これからアップグレードする古いバージョンのNetatalkを停止する</para>
       </listitem>
 
       <listitem>
-        <para>Using the old BerkeleyDB utilities run <command>db_recover -h
-        &lt;path to .AppleDB&gt;</command></para>
+        <para>古いBerkeleyDBユーティリティを使って、<command>db_recover -h
+        &lt;.AppleDBのパス&gt;</command> を実行する</para>
       </listitem>
 
       <listitem>
-        <para>Using the new BerkeleyDB utilities run <command>db_upgrade -v -h
-        &lt;path to .AppleDB&gt; -f cnid2.db</command></para>
+        <para>新しいBerkeleyDBユーティリティを使って、<command>db_upgrade -v -h
+        &lt;.AppleDBのパス&gt; -f cnid2.db</command> を実行する</para>
       </listitem>
 
       <listitem>
-        <para>Again using the new BerkeleyDB utilities run
-        <command>db_checkpoint -1 -h &lt;path to .AppleDB&gt;</command></para>
+        <para>再び新しいBerkeleyDBユーティリティを使って、<command>db_checkpoint -1 -h &lt;.AppleDBのパス&gt;</command> を実行する</para>
       </listitem>
 
       <listitem>
-        <para>Start the the new version of Netatalk</para>
+        <para>新しいバージョンのNetatalkを起動する</para>
       </listitem>
     </itemizedlist>
 
   </refsect1>
 
   <refsect1>
-    <title>SEE ALSO</title>
+    <title>参照</title>
 
     <para><citerefentry>
         <refentrytitle>cnid_metad</refentrytitle>
