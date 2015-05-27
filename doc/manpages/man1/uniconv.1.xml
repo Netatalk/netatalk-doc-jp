@@ -14,7 +14,7 @@
   <refnamediv>
     <refname>uniconv</refname>
 
-    <refpurpose>convert Netatalk volume encoding</refpurpose>
+    <refpurpose>Netatalkボリュームのエンコーディングを変換する</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
@@ -36,25 +36,20 @@
   </refsynopsisdiv>
 
   <refsect1>
-    <title>Description</title>
+    <title>説明</title>
 
-    <para><command>uniconv</command> converts the volume encoding of
-    <replaceable>volumepath</replaceable> from the <replaceable>fromcode</replaceable>
-    to the <replaceable>tocode</replaceable> encoding.</para>
+    <para><command>uniconv</command>は<replaceable>volumepath</replaceable>ボリュームのエンコーディングを<replaceable>fromcode</replaceable>から<replaceable>tocode</replaceable>へ変換する。</para>
   </refsect1>
 
   <refsect1>
-    <title>Options</title>
+    <title>オプション</title>
 
     <variablelist>
       <varlistentry>
         <term>-c</term>
 
         <listitem>
-          <para>CNID backend used on this volume, usually cdb or dbd. Should
-          match the backend selected with afpd for this volume. If not
-          specified, the default CNID backend "@DEFAULT_CNID_SCHEME@" is
-          used</para>
+          <para>このボリュームで使うCNIDバックエンド。一般にはcdbかdbdである。このボリュームのためにafpdが選んだバックエンドと一致させるべきである。これを指定しない場合、デフォルトのCNIDバックエンド"@DEFAULT_CNID_SCHEME@"が使われる。</para>
         </listitem>
       </varlistentry>
 
@@ -62,8 +57,7 @@
         <term>-d</term>
 
         <listitem>
-          <para>don't HEX encode leading dots (:2e), equivalent to
-          <option>use dots = yes</option> in <citerefentry><refentrytitle>afp.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry></para>
+          <para>先頭のドットをHEXエンコード(:2e)しない。<citerefentry><refentrytitle>afp.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>で<option>use dots = yes</option>を使うのに相当する。</para>
         </listitem>
       </varlistentry>
 
@@ -71,7 +65,7 @@
         <term>-f</term>
 
         <listitem>
-          <para>encoding to convert from, use ASCII for HEX encoded volumes</para>
+          <para>変換元のエンコーディング。HEXエンコーディングのボリュームではASCIIを指定する。</para>
         </listitem>
       </varlistentry>
 
@@ -79,7 +73,7 @@
         <term>-h</term>
 
         <listitem>
-          <para>display help</para>
+          <para>ヘルプを表示する</para>
         </listitem>
       </varlistentry>
 
@@ -87,8 +81,7 @@
         <term>-m</term>
 
         <listitem>
-          <para>Macintosh client codepage, required for HEX encoded volumes.
-          Defaults to "MAC_ROMAN"</para>
+          <para>Macintoshクライアントのコードページ。HEXエンコードのボリュームの場合に必要である。デフォルトは"MAC_ROMAN"</para>
         </listitem>
       </varlistentry>
 
@@ -96,7 +89,7 @@
         <term>-n</term>
 
         <listitem>
-          <para>"dry run", don't do any real changes</para>
+          <para>「予行演習」。実際の変更を全くしない。</para>
         </listitem>
       </varlistentry>
 
@@ -104,7 +97,7 @@
         <term>-t</term>
 
         <listitem>
-          <para>volume encoding to convert to, e.g. UTF8</para>
+          <para>変更先のボリュームエンコーディング。例えばUTF8</para>
         </listitem>
       </varlistentry>
 
@@ -112,7 +105,7 @@
         <term>-v</term>
 
         <listitem>
-          <para>verbose output, use twice for maximum logging.</para>
+          <para>詳細を出力する。最大限のログを出力するには二度指定する。</para>
         </listitem>
       </varlistentry>
 
@@ -120,7 +113,7 @@
         <term>-V</term>
 
         <listitem>
-          <para>print version and exit</para>
+          <para>バージョンを表示してから終了する</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -129,27 +122,17 @@
   </refsect1>
 
   <refsect1>
-    <title>WARNING</title>
+    <title>警告</title>
 
-    <para>Setting the wrong options might render your data unusable!!! Make
-    sure you know what you are doing. Always backup your data first.</para>
+    <para>間違ったオプションを設定するとあなたのデータが使用不能になるかもしれない!!! 自分が何をしようとしているか自覚してください。必ず最初にあなたのデータをバックアップしてください。</para>
 
-    <para>It is <emphasis role="bold">*strongly*</emphasis> recommended to do
-    a "dry run" first and to check the output for conversion errors.</para>
+    <para>「予行演習」を最初に行い、変換エラーの出力をチェックすることを<emphasis role="bold">*強く*</emphasis>お勧めします。</para>
 
-    <para><citerefentry><refentrytitle>afpd</refentrytitle><manvolnum>8</manvolnum></citerefentry>
-    should <emphasis>not</emphasis> be running while you change the volume
-    encoding. Remember to change <option>unix charset</option> or
-    <option>vol charset</option> in
-    <citerefentry><refentrytitle>afp.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>
-    to the new codepage, before restarting afpd.</para>
+    <para>ボリュームエンコーディングを変更している間は<citerefentry><refentrytitle>afpd</refentrytitle><manvolnum>8</manvolnum></citerefentry>を走らせるべき<emphasis>ではない</emphasis>。afpdを再起動する前に<citerefentry><refentrytitle>afp.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>の<option>unix charset</option>や<option>vol charset</option>を新しいコードページに変更するのを忘れるな。</para>
 
-    <para>In case of <emphasis role="bold">MacChineseTraditional</emphasis>,
-    <emphasis role="bold">MacJapanese</emphasis> or
-    <emphasis role="bold">MacKorean</emphasis>,
-    uniconv cannot be used.</para>
+    <para><emphasis role="bold">MacChineseTraditional</emphasis>や<emphasis role="bold">MacJapanese</emphasis>や<emphasis role="bold">MacKorean</emphasis>の場合はuniconvは使えません。</para>
 
-    <para><emphasis role="bold">USE AT YOUR OWN RISK!!!</emphasis></para>
+    <para><emphasis role="bold">自己責任で使ってください!!!</emphasis></para>
   </refsect1>
 
   <refsect1>
