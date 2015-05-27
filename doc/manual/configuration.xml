@@ -853,7 +853,7 @@ basedir regex = /usr/home</programlisting></para>
             サービスチケットにはクライアントの暗号鍵と幾らかの暗号化されたデータが含まれる
             （それは appleshare サーバーだけが復号できる）．
             サービスチケットの暗号化された部分がサーバーに送られ，ユーザーを認証するのに使われる．
-            afpd サービスの主な検知の実装の仕方のために，この認証方法は中間者攻撃に対して脆弱である．</para>
+            afpd サービスプリンシパル検知の実装の仕方のために，この認証方法は中間者攻撃に対して脆弱である．</para>
           </listitem>
         </itemizedlist>
 
@@ -863,44 +863,44 @@ basedir regex = /usr/home</programlisting></para>
       </sect3>
 
       <sect3>
-        <title>Using different authentication sources with specific
-        UAMs</title>
+        <title>特定の UAM で別の認証ソースを使う</title>
 
-        <para>Some UAMs provide the ability to use different authentication
-        "backends", namely <filename>uams_cleartext.so</filename>,
-        <filename>uams_dhx.so</filename> and
-        <filename>uams_dhx2.so</filename>. They can use either classic Unix
-        passwords from <filename>/etc/passwd</filename>
-        (<filename>/etc/shadow</filename>) or PAM if the system supports that.
-        <filename>uams_cleartext.so</filename> can be symlinked to either
-        <filename>uams_passwd.so</filename> or
-        <filename>uams_pam.so</filename>, <filename>uams_dhx.so</filename> to
-        <filename>uams_dhx_passwd.so</filename> or
-        <filename>uams_dhx_pam.so</filename> and
-        <filename>uams_dhx2.so</filename> to
-        <filename>uams_dhx2_passwd.so</filename> or
-        <filename>uams_dhx2_pam.so</filename>.</para>
+        <para>いくつかの UAM は別の認証“バックエンド”を使えるようにしてある．
+        いわゆる <filename>uams_cleartext.so</filename>，
+        <filename>uams_dhx.so</filename> 及び
+        <filename>uams_dhx2.so</filename>である．これらは
+        <filename>/etc/passwd</filename> 
+        (<filename>/etc/shadow</filename>) からの古典的 Unix パスワードでも，
+        システムがサポートしていれば　PAM でもどちらでも使うことができる．
+        <filename>uams_cleartext.so</filename> は <filename>uams_passwd.so</filename> ないしは
+        <filename>uams_pam.so</filename> へのシンボリックリンクとして，
+        <filename>uams_dhx.so</filename> は <filename>uams_dhx_passwd.so</filename> ないしは
+        <filename>uams_dhx_pam.so</filename> へのシンボリックリンクとして，さらには
+        <filename>uams_dhx2.so</filename> は <filename>uams_dhx2_passwd.so</filename> ないしは
+        <filename>uams_dhx2_pam.so</filename>へのシンボリックリンクとすることができる．</para>
 
-        <para>So, if it looks like this in Netatalk's UAMs folder (per default
-        <filename>/etc/netatalk/uams/</filename>):<programlisting>uams_clrtxt.so -&gt; uams_pam.so
+        <para>なので，もし Netatalk の UAM フォルダー（デフォルトで 
+        <filename>/etc/netatalk/uams/</filename>）が以下のようであれば：
+        <programlisting>uams_clrtxt.so -&gt; uams_pam.so
 uams_dhx.so -&gt; uams_dhx_pam.so
-uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting> then you're using PAM,
-        otherwise classic Unix passwords. The main advantage of using PAM is
-        that one can integrate Netatalk in centralized authentication
-        scenarios, eg. via LDAP, NIS and the like. Please always keep in mind
-        that the protection of your user's login credentials in such scenarios
-        also depends on the strength of encryption that the UAM in question
-        supplies. So think about eliminating weak UAMs like "ClearTxt Passwrd"
-        and "Randnum exchange" completely from your network.</para>
+uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting>
+        PAM さもなくば古典的な Unix パスワードを使用しているわけである．
+        PAM を使用することで最も有利なのは，
+        例えば LDAP 経由，あるいは NIS 経由などの集約した認証環境に Netatalk を統合できることである．
+        そのような環境でのユーザーのログイン資格情報 (credentials) の保護は，
+        UAM そのものが供している暗号化の強さにもまた依存している．
+        ということを常に念頭においていただきたい．
+        なので，"ClearTxt Passwrd" や "Randnum exchange" のような弱い UAM をネットワーク上から
+        完全に除去することを考えるべきである．</para>
       </sect3>
 
       <sect3>
-        <title>Netatalk UAM overview table</title>
+        <title>Netatalk UAM を概要した表</title>
 
-        <para>A small overview of the most common used UAMs.</para>
+        <para>最も一般的に用いられる UAM の概観．</para>
 
         <table orient="land">
-          <title>Netatalk UAM overview</title>
+          <title>Netatalk UAM 概観</title>
 
           <tgroup align="center" cols="7">
             <colspec colname="col1" colnum="1" colwidth="0.5*" />
@@ -960,73 +960,70 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting> then you're using PAM,
               </row>
 
               <row>
-                <entry align="center" rotate="0" valign="middle">pssword
-                length</entry>
+                <entry align="center" rotate="0" valign="middle">パスワード長</entry>
 
-                <entry>guest access</entry>
+                <entry>ゲストアクセス</entry>
 
-                <entry>max. 8 characters</entry>
+                <entry>最大 8 文字</entry>
 
-                <entry>max. 8 characters</entry>
+                <entry>最大 8 文字</entry>
 
-                <entry>max. 64 characters</entry>
+                <entry>最大 64 文字</entry>
 
-                <entry>max. 256 characters</entry>
+                <entry>最大 256 文字</entry>
 
-                <entry>Kerberos tickets</entry>
+                <entry>Kerberos チケット</entry>
               </row>
 
               <row>
-                <entry align="center" rotate="0" valign="middle">Client
-                support</entry>
+                <entry align="center" rotate="0" valign="middle">サポートするクライアント</entry>
 
-                <entry>built-in into all Mac OS versions</entry>
+                <entry>全ての Mac OS のバージョンで組み込み済</entry>
 
-                <entry>built-in in all Mac OS versions except 10.0. Has to be
-                activated explicitly in recent Mac OS X versions</entry>
+                <entry>10.0 を除く全ての Mac OS のバージョンで組み込み済．
+                最近のバージョンでは明示的にアクティブ化する必要がある．</entry>
 
-                <entry>built-in into almost all Mac OS versions</entry>
+                <entry>ほとんど全ての Mac OS のバージョンで組み込み済</entry>
 
-                <entry>built-in since AppleShare client 3.8.4, available as a
-                plug-in for 3.8.3, integrated in Mac OS X' AFP client</entry>
+                <entry>AppleShare クライアント 3.8.4 より組み込み済で，
+                3.8.3 では Mac OS X の AFP クライアントに統合したプラグインとしての用意あり．</entry>
 
-                <entry>built-in since Mac OS X 10.2</entry>
+                <entry>Mac OS X 10.2 より組み込み済</entry>
 
-                <entry>built-in since Mac OS X 10.2</entry>
+                <entry>Mac OS X 10.2 より組み込み済</entry>
               </row>
 
               <row>
                 <entry align="center" rotate="0"
-                valign="middle">Encryption</entry>
+                valign="middle">暗号化</entry>
 
-                <entry>Enables guest access without authentication between
-                client and server.</entry>
+                <entry>クライアント・サーバーかんで認証なくゲストアクセス可能．</entry>
 
-                <entry>Password will be sent in cleartext over the wire. Just
-                as bad as it sounds, therefore avoid at all if possible (note:
-                providing NetBoot services requires the ClearTxt UAM)</entry>
+                <entry>パスワードがネットワーク上を暗号化されずに伝わっていく．
+                字句そのままに悪いので，可能ならば全面的に使用を回避すべき
+                （注意：NetBoot サービスの提供には ClearTxt UAM が必要）</entry>
 
-                <entry>8-byte random numbers are sent over the wire,
-                comparable with DES, 56 bits. Vulnerable to offline dictionary
-                attack. Requires passwords in clear on the server.</entry>
+                <entry>DES, 56 ビットに相当する 8 バイトの乱数がネットワーク上に送出．
+                オフラインの辞書攻撃に対して脆弱．
+                パスワードがサーバー上で平文であることが求められる．</entry>
 
-                <entry>Password will be encrypted with 128 bit SSL, user will
-                be authenticated against the server but not vice versa.
-                Therefor weak against man-in-the-middle attacks.</entry>
+                <entry>パスワードは 128 ビット SSL で暗号化され，
+                ユーザーはサーバーに認証されるが，“逆もまた真”ではない．
+                このため中間者攻撃に対して弱い．</entry>
 
-                <entry>Password will be encrypted using libgcrypt with CAST
-                128 in CBC mode. User will be authenticated against the server
-                but not vice versa. Therefor weak against man-in-the-middle
-                attacks.</entry>
+                <entry>パスワードは libgcrypt の CAST 128，CBC モードを用いて暗号化される．
+                ユーザーはサーバーに認証されるが，“逆もまた真”ではない．
+                このため中間者攻撃に対して弱い．</entry>
 
-                <entry>Password is not sent over the network. Due to the
-                service principal detection method, this authentication method
-                is vulnerable to man-in-the-middle attacks.</entry>
+                <entry>パスワードがネットワークを通して送られることがない．
+                サービスプリンシパル検知の方法が原因で，
+                この認証方法は中間者攻撃に対して脆弱である．</entry>
               </row>
 
               <row>
-                <entry align="center" rotate="0" valign="middle">Server
-                support</entry>
+                <entry align="center" rotate="0" valign="middle">
+                サーバーがサポートする共有オブジェクト
+                </entry>
 
                 <entry align="center" valign="middle">uams_guest.so</entry>
 
@@ -1042,135 +1039,130 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting> then you're using PAM,
               </row>
 
               <row>
-                <entry align="center" rotate="0" valign="middle">Password
-                storage method</entry>
+                <entry align="center" rotate="0" valign="middle">パスワードの保管方法</entry>
 
-                <entry align="center" valign="middle">None</entry>
+                <entry align="center" valign="middle">なし</entry>
 
-                <entry align="center" valign="middle">Either /etc/passwd
-                (/etc/shadow) or PAM</entry>
+                <entry align="center" valign="middle">/etc/passwd (/etc/shadow) 
+                ないしは PAM</entry>
 
-                <entry align="center" valign="middle">Passwords stored in
-                clear text in a separate text file</entry>
+                <entry align="center" valign="middle">
+                パスワードは別のテキストファイルに平文として保存される
+                </entry>
 
-                <entry align="center" valign="middle">Either /etc/passwd
-                (/etc/shadow) or PAM</entry>
+                <entry align="center" valign="middle">/etc/passwd (/etc/shadow) 
+                ないしは PAM</entry>
 
-                <entry align="center" valign="middle">Either /etc/passwd
-                (/etc/shadow) or PAM</entry>
+                <entry align="center" valign="middle">/etc/passwd (/etc/shadow) 
+                ないしは PAM</entry>
 
-                <entry align="center" valign="middle">At the Kerberos Key
-                Distribution Center*</entry>
+                <entry align="center" valign="middle">Kerberos キー配布センター*</entry>
               </row>
             </tbody>
           </tgroup>
         </table>
 
-        <para>* Have a look at this <ulink
+        <para>* <ulink
         url="http://cryptnet.net/fdp/admin/kerby-infra/en/kerby-infra.html">Kerberos
-        overview</ulink></para>
+        概要</ulink> も一読のこと</para>
       </sect3>
 
       <sect3 id="sshtunnel">
-        <title>SSH tunneling</title>
+        <title>SSH トンネリング</title>
 
-        <para>Tunneling and all sort of VPN stuff has nothing to do with AFP
-        authentication and UAMs in general. But since Apple introduced an
-        option called "Allow Secure Connections Using SSH" and many people
-        tend to confuse both things, we'll speak about that here too.</para>
+        <para>トンネリングや VPN のたぐいのもの全ては，
+        AFP 認証や UAM に関してすべきことは概ね皆無である．
+        しかしながらアップルが「SSHを用いて安全な接続を可能にする」というオプションを導入して以来，
+        多数の人が両者について混乱する傾向にある．以下ではその点についても述べる．</para>
 
         <sect4 id="manualsshtunnel">
-          <title>Manually tunneling an AFP session</title>
+          <title>手動で AFP セッションをトンネリング</title>
 
-          <para>This works since the first AFP servers that spoke "AFP over
-          TCP" appeared in networks. One simply tunnels the remote server's
-          AFP port to a local port different than 548 and connects locally to
-          this port afterwards. On OS X this can be done by</para>
+          <para>これは，
+          "AFP over TCP" を“話すことができる”最初の AFP サーバーがネットワークに登場して以来うまく動作する．
+          リモートサーバーのポートをローカルの 548 番以外の異なるポートにトンネルし，
+          その後ローカルにつなぐだけである．OS X では以下のようにすればよい．</para>
 
           <programlisting>ssh -l $USER $SERVER -L 10548:127.0.0.1:548 sleep 3000</programlisting>
 
-          <para>After establishing the tunnel one will use
-          <filename>"afp://127.0.0.1:10548"</filename> in the "Connect to
-          server" dialog. All AFP traffic including the initial connection
-          attempts will be sent encrypted over the wire since the local AFP
-          client will connect to the Mac's local port 10548 which will be
-          forwarded to the remote server's AFP port (we used the default 548)
-          over SSH.</para>
+          <para>トンネルを確立したならば，
+          “サーバーに接続”ダイアログで <filename>"afp://127.0.0.1:10548"</filename> 
+          を使うことができる．
+          ローカルの AFP クライアントは Mac のローカル 10548 番ポートに接続し，
+          そのポートは SSH を通してリモートサーバーの AFP ポート（デフォルトでは 548 番を使う）に転送されているので，
+          端緒の接続試行も含めて全ての AFP トラフィックがネットワークを暗号化されて送られる．</para>
 
-          <para>These sorts of tunnels are an ideal solution if you've to
-          access an AFP server providing weak authentications mechanisms
-          through the Internet without having the ability to use a "real" VPN.
-          Note that you can let <command>ssh</command> compress the data by
-          using its "-C" switch and that the tunnel endpoints can be different
-          from both AFP client and server (compare with the SSH documentation
-          for details).</para>
+          <para>この手のトンネルは，もし，“真の” VPN を使えないが，インターネットを通じて，
+          弱い認証機構しかない AFP サーバーにアクセスしなければならない場合の理想的な解決手段である．
+          <command>ssh</command> の "-C" オプションでデータ圧縮が可能であり，
+          トンネルの端点を AFP クライアント，サーバーどちらとも異なるようにすることが可能である
+          （詳細については SSH のドキュメントと比較してほしい）という点に留意すべきである．</para>
         </sect4>
 
         <sect4 id="autosshtunnel">
-          <title>Automatically establishing a tunneled AFP connection</title>
+          <title>自動的にトンネル AFP 接続を確立する</title>
 
-          <para>From Mac OS X 10.2 to 10.4, Apple added an "Allow Secure
-          Connections Using SSH" checkbox to the "Connect to Server" dialog.
-          The idea behind: When the server signals that it can be contacted by
-          SSH then Mac OS X' AFP client tries to establish the tunnel and
-          automagically sends all AFP traffic through it.</para>
+          <para>Apple は Mac OS X 10.2 から 10.4 で，
+          「サーバーに接続」ダイアログに
+          「SSHを用いて安全な接続を可能にする」チェックボックスを追加した．
+          この考えの裏にあるのは：サーバーが SSH で接続できるというサインを出した時，
+          Mac OS X の AFP クライアントはトンネルを確立しようとし，
+          全ての AFP トラフィックをこのトンネルを通して送る．ということなのである．</para>
 
-          <para>But it took until the release of Mac OS X 10.3 that this
-          feature worked the first time... partly. In case, the SSH tunnel
-          can't be established the AFP client <emphasis
-          role="strong">silently</emphasis> fell back to an unencrypted AFP
-          connection attempt.</para>
+          <para>しかし，この機能が初めて…部分的に，
+          動作するようになるのに Mac OS X 10.3 までかかった．
+          SSH トンネルが確立できない時，
+          AFP クライアントは<emphasis role="strong">何の通知もなく</emphasis>暗号化していない 
+          AFP 接続試行にフォールバックした．</para>
 
-          <para>Netatalk's afpd will report that it is capable of handling SSH
-          tunneled AFP requests, when both "<option>advertise ssh</option>"
-          and "<option>fqdn</option>" options are set in
-          <option>Global</option> section (double check with <citerefentry>
+          <para>"<option>advertise ssh</option>" および 
+          "<option>fqdn</option>" オプション両方を <option>Global</option> 
+          セクションで設定（設定を変更したら，afpd を再起動した後 <citerefentry>
               <refentrytitle>asip-status.pl</refentrytitle>
 
               <manvolnum>1</manvolnum>
-            </citerefentry> after you restarted afpd when you made changes to
-          the settings). But there are a couple of reasons why you don't want
-          to use this option at all:</para>
+            </citerefentry> で二重チェックするべき）した時は，
+          SSH トンネルした AFP リクエストの扱いが可能であることを Netatalk の afpd はレポートする．
+          しかし，このオプションを決して使用したくなくなる２，３の理由がある：</para>
 
           <itemizedlist>
             <listitem>
-              <para>Tunneling TCP over TCP (as SSH does) is not the best idea.
-              There exist better solutions like VPNs based on the IP
-              layer.</para>
+              <para>（SSH がするように）TCP over TCP は最良の案ではない．
+              IP レイヤーに基づいた VPN などのより良い解決法が存在する．</para>
             </listitem>
 
             <listitem>
-              <para>Since this SSH kludge isn't a normal UAM that integrates
-              directly into the AFP authentication mechanisms but instead uses
-              a single flag signalling clients whether they can <emphasis
-              role="strong">try</emphasis> to establish a tunnel or not, it
-              makes life harder to see what's happening when things go
-              wrong.</para>
+              <para>このように SSH でその場をしのぐことは AFP 認証機構に直接統合された通常の 
+              UAM ではないし，
+              代わりにこの方法では，
+              トンネルの確立を<emphasis role="strong">試行
+              </emphasis>できるのかどうなのかのサインをクライアントに送るために，
+              単一のフラグを用いる．
+              このため，何かがおかしい時に何が起こっているのかを見ようとする気を失ってしまう．</para>
             </listitem>
 
             <listitem>
-              <para>You cannot control which machines are logged on by
-              Netatalk tools like a <command>macusers</command> since all
-              connection attempts seem to be made from localhost.</para>
+              <para>全ての接続試行は localhost から行われているように見えるので，
+              <command>macusers</command> のような Netatalk ツールによって，
+              どのマシンがログオンしているのか制御ができない．</para>
             </listitem>
 
             <listitem>
-              <para>On the other side you've to limit access to afpd to
-              localhost only (TCP wrappers) when you want to ensure that all
-              AFP sessions are SSH encrypted or...</para>
+              <para>一方，AFP セッション全てが暗号化されていることを確実にしたい場合は，
+              afpd へのアクセスを localhost のみ（TCP ラッパー）に制限すべきである．
+              あるいは…</para>
             </listitem>
 
             <listitem>
-              <para>...when you're using 10.2 - 10.3.3 then you get the
-              opposite of what you'd expect: potentially unencrypted AFP
-              communication (including logon credentials) on the network
-              without a single notification that establishing the tunnel
-              failed. Apple fixed that not until Mac OS X 10.3.4.</para>
+              <para>…10.2 から 10.3.3 を使っている場合は，予想とは逆に：
+              トンネルの確立に失敗したという通知一つもなく，
+              ネットワーク上で暗号化されていない AFP の通信（ログイン資格情報を含む）が起こりえるということである．
+              Apple は Mac OS X 10.3.4 になってそれをはじめて修正した．</para>
             </listitem>
 
             <listitem>
-              <para>Encrypting all AFP sessions via SSH can lead to a
-              significantly higher load on the Netatalk server</para>
+              <para>SSH 経由で全ての AFP セッションを暗号化するることは，
+              Netatalk サーバーの負荷の著しい上昇を招く可能性がある</para>
             </listitem>
           </itemizedlist>
         </sect4>
