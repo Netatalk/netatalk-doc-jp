@@ -1170,99 +1170,92 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting>
     </sect2>
 
     <sect2 id="acls">
-      <title>ACL Support<indexterm>
+      <title>ACL のサーポート<indexterm>
           <primary>ACLs</primary>
         </indexterm></title>
 
-      <para>ACL support for AFP is implemented for ZFS ACLs on Solaris and
-      derived platforms and for POSIX 1e ACLs on Linux.</para>
+      <para>ACL サポートは Solaris の ZFS ACL，派生したプラットフォーム，そして，
+      Linux の POSIX 1e ACL で実装されている．</para>
 
       <sect3>
-        <title>Configuration</title>
+        <title>環境設定</title>
 
-        <para>For a basic mode of operation there's nothing to configure.
-        Netatalk reads ACLs on the fly and calculates effective permissions
-        which are then send to the AFP client via the so called
-        UARights<indexterm>
+        <para>基本的な方式で運用するならば設定することは何もない．
+        Netatalk は ACL をオンザフライで読み込み，そののち UARights<indexterm>
             <primary>UARights</primary>
-          </indexterm> permission bits. On a Mac, the Finder uses these bits
-        to adjust permission in Finder windows. For example folder whos UNIX
-        mode would only result in in read-only permissions for a user will not
-        be displayed with a read-only icon and the user will be able to write
-        to the folder given the folder has an ACL giving the user write
-        access.</para>
+          </indexterm> と呼ばれるパーミションビット経由で AFP 
+        クライアントに送られる有効なパーミッションを算出する．
+        マック上では，これらのビットを Finder 
+        ウィンドウ内のパーミッションと調整するために Finder が使用する．
+        例えば，あるユーザーに UNIX 
+        モードでは読み込み権限しか結果的に与えられていないフォルダーに，ACL 
+        が書き込み権限を与えているならば，読み込み専用アイコンが表示されることもなく，
+        当該ユーザーはそのフォルダーに書き込みもできる．</para>
 
-        <para>By default, the effective permission of the authenticated user
-        are only mapped to the mentioned UARights<indexterm>
+        <para>デフォルトでは，認証ユーザーに有効なパーミションは UNIX のモードではなく，
+        前記 UARights<indexterm>
             <primary>UARights</primary>
-          </indexterm>permission structure, not the UNIX mode. You can adjust
-        this behaviour with the configuration option <link
-        linkend="map_acls">map acls</link>.</para>
+          </indexterm> に対応付けられる．
+        この挙動はオプション <link
+        linkend="map_acls">map acls</link> で修正することができる．</para>
 
-        <para>However, neither in Finder "Get Info" windows nor in Terminal
-        will you be able to see the ACLs, that's a result of how ACLs in OS X
-        are designed. If you want to be able to display ACLs on the client,
-        things get more involved as you must then setup both client and server
-        to be part on a authentication domain (directory service, eg LDAP,
-        OpenDirectory). The reason is, that in OS X ACLs are bound to UUIDs,
-        not just uid's or gid's. Therefor afpd must be able to map every
-        filesystem uid and gid to a UUID so that it can return the server side
-        ACLs which are bound to UNIX uid and gid mapped to OS X UUIDs.</para>
+        <para>しかしながら，Finder の“情報を見る”ウィンドウでもターミナルでも，
+        ACL を見ることは不可能で，そこで見ているのは OS X で ACL がどのような仕様なのかという結果である．
+        もしクライアント上でも ACL を表示させたいと思うならば，諸々を認証ドメイン（ディレクトリサービス，
+        例えば，LDAP やOpenDirectory）の一部と，より内包されているようにして，
+        クライアント側でもサーバー側でもセットアップをおこなうべきである．
+        その理由は，OS X ACL が ただ，uid と gid だけでなく UUID と紐付いていているためである．
+        このため，OS X の UUID に紐付けられている UNIX uid と gid サーバー側の ACL に返せるように，
+        afpd は全てのファイルシステムの uid と gid をマップできるようにしなければならない．</para>
 
-        <para>Netatalk can query a directory server using LDAP queries. Either
-        the directory server already provides an UUID attribute for user and
-        groups (Active Directory, Open Directory) or you reuse an unused
-        attribute (or add a new one) to you directory server (eg
-        OpenLDAP).</para>
+        <para>Netatalk は LDAP クエリーを使ってディレクトリサーバーに問い合わせができる．
+        ディレクトリサーバー（Active Directory，Open Directory）が既にユーザーとグループの UUID 属性を提供している
+        あるいはディレクトリサーバー（例えば 
+        OpenLDAP）に使用されていない属性を再利用する（あるいは新たに追加する）のいずれかである．</para>
 
-        <para>In detail:</para>
+        <para>より踏み込むと：</para>
 
         <orderedlist>
           <listitem>
-            <para>For Solaris/ZFS: ZFS Volumes</para>
-
-            <para>You should configure a ZFS ACL know for any volume you want
-            to use with Netatalk:</para>
+            <para>ZFS を使っている Solarisの ZFS ボリュームごとに対して，</para>
+            
+            <para>Netatalk を使用したいと思っているあらゆるボリュームを
+            ZFS ACL がわかるように構成すべきである：</para>
 
             <screen>aclinherit = passthrough
 aclmode = passthrough</screen>
 
-            <para>For an explanation of what this knob does and how to apply
-            it, check your hosts ZFS documentation (eg man zfs).</para>
+            <para>このひとひねりが何をするのか，どのように適用するのか，についての説明は，
+            ホストの ZFS ドキュメンテーション（例えば man zfs）を確認のこと．</para>
           </listitem>
 
           <listitem>
-            <para>Authentication Domain</para>
+            <para>認証ドメイン</para>
 
-            <para>Your server and the clients must be part of a security
-            association where identity data is coming from a common source.
-            ACLs in Darwin are based on UUIDs and so is the ACL specification
-            in AFP 3.2. Therefor your source of identity data has to provide
-            an attribute for every user and group where a UUID is stored as a
-            ASCII string. In other words:</para>
+            <para>サーバーとクライアントがセキュリティ連携の一部となっていて，
+            ユーザー id データは共通のソースから出てこなければならない．
+            Darwin の ACL は UUID に基づいている．
+            なので，AFP 3.2 での ACL の仕様は Darwin の ACL である．
+            故に id データのソースは全てのユーザーとグループの属性を提供できなければならない．
+            ここで UUID は ASCII テキストとして保管されている．言い換えれば：</para>
 
             <itemizedlist>
               <listitem>
-                <para>you need an Open Directory Server or an LDAP server
-                where you store UUIDs in some attribute</para>
+                <para>UUID を何らかの属性に保管している場合は Open Directory サーバーが必要である．</para>
               </listitem>
 
               <listitem>
-                <para>your clients must be configured to use this
-                server</para>
+                <para>クライアントはこのサーバーを使用するように構成されていなければならない．</para>
               </listitem>
 
               <listitem>
-                <para>your server should be configured to use this server via
-                nsswitch and PAM</para>
+                <para>サーバーは nsswitch と PAM 経由で使用されるよう構成しなければならない．</para>
               </listitem>
 
               <listitem>
-                <para>configure Netatalk via the special <link
-                linkend="acl_options">LDAP options for ACLs</link> in <link
-                linkend="afp.conf.5">afp.conf</link> so that Netatalk is able
-                to retrieve the UUID for users and groups via LDAP search
-                queries</para>
+                <para>Netatalk が LDAP 検索クエリでユーザーとグループの UUID を引き出せるように，
+                <link linkend="afp.conf.5">afp.conf</link> 内で <link
+                linkend="acl_options">ACL 専用のオプションを</link>使って Netatalk を設定しなければならない．</para>
               </listitem>
             </itemizedlist>
           </listitem>
