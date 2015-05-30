@@ -1263,29 +1263,29 @@ aclmode = passthrough</screen>
       </sect3>
 
       <sect3>
-        <title>OS X ACLs</title>
+        <title>OS X の ACL</title>
 
-        <para>With Access Control Lists (ACLs) Mac OS X offers a powerful
-        extension of the traditional UNIX permissions model. An ACL is an
-        ordered list of Access Control Entries (ACEs) explicitly granting or
-        denying a set of permissions to a given user or group.</para>
+        <para>アクセス制御リスト (ACL) と共に，
+        Mac OS X は正統的な UNIX のパーミッションモデルの有力な拡張を提案した．
+        ACL は，
+        所定のユーザーあるいはグループのパーミッションのセットを明示的に許可したり拒否するアクセス制御エントリー 
+        (ACE) の番号つきリストである．</para>
 
-        <para>Unlike UNIX permissions, which are bound to user or group IDs,
-        ACLs are tied to UUIDs. For this reason accessing an object's ACL
-        requires server and client to use a common directory service which
-        translates between UUIDs and user/group IDs.</para>
+        <para>ユーザー ID，またはグループ ID と紐付いている UNIX パーミッションとは異なり，
+        ACL は UUID と紐付いている．この理由により，あるオブジェクトの ACL にアクセスすると，
+        サーバーとクライアントは，UUID と ユーザー／グループ ID 間の変換をしてくれる，
+        共通のディレクトリサービスを使うことを要求される．</para>
 
-        <para>ACLs and UNIX permissions interact in a rather simple way. As
-        ACLs are optional UNIX permissions act as a default mechanism for
-        access control. Changing an objects's UNIX permissions will leave it's
-        ACL intact and modifying an ACL will never change the object's UNIX
-        permissions. While doing access checks, OS X first examines an
-        object's ACL evaluating ACEs in order until all requested rights have
-        been granted, a requested right has been explicitly denied by an ACE
-        or the end of the list has been reached. In case there is no ACL or
-        the permissions granted by the ACL are not sufficient to fulfill the
-        request, OS X next evaluates the object's UNIX permissions. Therefore
-        ACLs always have precedence over UNIX permissions.</para>
+        <para>ACL と UNIX のパーミションの相互関係は比較的シンプルなものである．
+        ACL はオプションなので，UNIX パーミションはアクセス制御のデフォルトのメカニズムの役割をする．
+        オブジェクトの UNIX パーミションを変更しても ACL は手付かずのままで，
+        ACL の修正でもオブジェクトの UNIX パーミションは決して変更されない．アクセスチェックの間，
+        OS X は最初に以下の順序で ACE の評価をしているオブジェクトの ACL を調べる：
+        全てのリクエストが許可されるまで，リクエストされた権限が ACE によって明示的に拒否された，
+        あるいはリストの最後までたどり着いた．である．ACL がない，
+        あるいは ACL に許可されたパーミションがリクエストを実行するのに十分でない場合，
+        OS X は次にオブジェクトの UNIX パーミションの評価に入る．
+        つまり，ACL は常に UNIX のパーミションより優先順位が上位ということである．</para>
       </sect3>
 
       <sect3>
