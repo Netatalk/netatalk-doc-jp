@@ -15,8 +15,7 @@
   <refnamediv>
     <refname>netatalk-config</refname>
 
-    <refpurpose>script to get information about the installed version of
-    netatalk</refpurpose>
+    <refpurpose>インストールされている netatalk の情報を取得するためのスクリプト</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
@@ -45,25 +44,23 @@
   </refsynopsisdiv>
 
   <refsect1>
-    <title>DESCRIPTION</title>
+    <title>説明</title>
 
-    <para><command>netatalk-config</command> is a tool that is used to
-    determine the compiler and linker flags that should be used
-    to compile and link programs that use the <emphasis remap="I">netatalk</emphasis>
-    run-time libraries.</para>
+    <para><command>netatalk-config</command> は コンパイラー・リンカのフラグを 設定・決定するためのツールである。
+    このフラグは <emphasis remap="I">netatalk</emphasis> ランタイムライブラリを使う プログラムをコンパイル・リンクするときに使われる。</para>
   </refsect1>
 
   <refsect1>
     <title>OPTIONS</title>
 
-    <para><command>netatalk-config</command> accepts the following options:</para>
+    <para><command>netatalk-config</command> は以下のオプションを受け付ける:</para>
 
     <variablelist remap="TP">
       <varlistentry>
         <term><option>--help</option></term>
 
         <listitem>
-          <para>Print a short help for this command and exit.</para>
+          <para>このコマンドの簡単なヘルプを表示して、終了する。</para>
         </listitem>
       </varlistentry>
 
@@ -71,8 +68,7 @@
         <term><option>--version</option></term>
 
         <listitem>
-          <para>Print the currently installed version of <emphasis remap="I">netatalk</emphasis>
-          on the standard output.</para>
+          <para>現在インストールされている <emphasis remap="I">netatalk</emphasis> のバージョンを標準出力に表示する。</para>
         </listitem>
       </varlistentry>
 
@@ -80,8 +76,7 @@
         <term><option>--libs</option></term>
 
         <listitem>
-          <para>Print the linker flags that are necessary to link against the
-          <emphasis remap="I">netatalk</emphasis> run-time libraries.</para>
+          <para><emphasis remap="I">netatalk</emphasis> ランタイムライブラリをリンクするのに必要な リンカフラグを表示する。</para>
         </listitem>
       </varlistentry>
 
@@ -89,7 +84,7 @@
         <term><option>--libs-dirs</option></term>
 
         <listitem>
-          <para>Print only the -l/-R part of --libs.</para>
+          <para>--libs のうち -l と -R フラグのみを表示する。</para>
         </listitem>
       </varlistentry>
 
@@ -97,7 +92,7 @@
         <term><option>--libs-names</option></term>
 
         <listitem>
-          <para>Print only the -l part of --libs.</para>
+          <para>--libs のうち -l フラグのみを表示する。</para>
         </listitem>
       </varlistentry>
 
@@ -105,9 +100,7 @@
         <term><option>--cflags</option></term>
 
         <listitem>
-          <para>Print the compiler flags that are necessary to compile a
-          program linked against the <emphasis remap="I">netatalk</emphasis>
-          run-time libraries.</para>
+          <para><emphasis remap="I">netatalk</emphasis> ランタイムライブラリにリンクされるプログラムを コンパイルするのに必要なコンパイラーフラグを表示する。</para>
         </listitem>
       </varlistentry>
 
@@ -115,8 +108,7 @@
         <term><option>--macros</option></term>
 
         <listitem>
-          <para>Print the <emphasis remap="I">netatalk</emphasis> m4
-          directory.</para>
+          <para><emphasis remap="I">netatalk</emphasis> の m4 ディレクトリを表示する。</para>
         </listitem>
       </varlistentry>
 
@@ -124,23 +116,18 @@
         <term><option>--prefix=PREFIX</option></term>
 
         <listitem>
-          <para>If specified, use PREFIX instead of the installation prefix
-          that <emphasis remap="I">netatalk</emphasis> was built with when
-          computing the output for the --cflags and --libs options. This
-          option is also used for the exec prefix if --exec-prefix was not
-          specified. This option must be specified before any --libs or
-          --cflags options.</para>
+          <para>このオプションを指定すると、--cflags と --libs を表示する場合に、 <emphasis remap="I">netatalk</emphasis> を構築したときに使った インストール先プレフィックスではなく PREFIX を使う。
+          このオプションは --exec-prefix が指定されていない場合の 実行プレフィックスとしても使われる。
+          このオプションは --libs や --cflags オプションより 前に指定しなければならない。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term><option>--exec\_prefix=PREFIX</option></term>
+        <term><option>--exec_prefix=PREFIX</option></term>
 
         <listitem>
-          <para>If specified, use PREFIX instead of the installation exec
-          prefix that <emphasis remap="I">netatalk</emphasis> was built with
-          when computing the output for the --cflags and --libs options. This
-          option must be specified before any --libs or --cflags options.</para>
+          <para>このオプションを指定すると、--cflags と --libs を表示する場合に、 <emphasis remap="I">netatalk</emphasis> を構築したときに使った 実行プログラムのインストール先プレフィックスではなく PREFIX を使う。
+          このオプションは --libs や --cflags オプションより 前に指定しなければならない。</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -157,7 +144,6 @@
     both that copyright notice and this permission notice appear in supporting
     documentation.</para>
 
-    <para>Man page adapted for <command>netatalk-config</command> by Sebastian
-    Rittau in 2001.</para>
+    <para>この man ページは Sebastian Rittau が 2001 年に作成した <command>netatalk-config</command> に適合している。</para>
   </refsect1>
 </refentry>
