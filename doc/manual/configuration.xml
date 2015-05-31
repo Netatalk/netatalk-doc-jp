@@ -1289,174 +1289,159 @@ aclmode = passthrough</screen>
       </sect3>
 
       <sect3>
-        <title>ZFS ACLs</title>
+        <title>ZFS の ACL</title>
 
-        <para>ZFS ACLs closely match OS X ACLs. Both offer mostly identical
-        fine grained permissions and inheritance settings.</para>
+        <para>ZFS の ACL はほぼ OS X の ACL に匹敵するものである．
+        両者ともほぼ同一の良い粒度のパーミションと設定の継承が提供されている．</para>
       </sect3>
 
       <sect3>
-        <title>POSIX ACLs</title>
+        <title>POSIX の ACL</title>
 
         <sect4>
-          <title>Overview</title>
+          <title>概要</title>
 
-          <para>Compared to OS X or NFSv4 ACLs, Posix ACLs represent a
-          different, less versatile approach to overcome the limitations of
-          the traditional UNIX permissions. Implementations are based on the
-          withdrawn Posix 1003.1e standard.</para>
+          <para>OS X あるいは NFSv4 の ACL と比較すると，Posix ACL は，
+          伝統的な UNIX パーミションの制限を打開するには異質で汎用性のないアプローチを表現している．
+          実装は Posix 標準を取り込んだものを基礎としている．</para>
 
-          <para>The standard defines two types of ACLs. Files and directories
-          can have access ACLs which are consulted for access checks.
-          Directories can also have default ACLs irrelevant to access checks.
-          When a new object is created inside a directory with a default ACL,
-          the default ACL is applied to the new object as it's access ACL.
-          Subdirectories inherit default ACLs from their parent. There are no
-          further mechanisms of inheritance control.</para>
+          <para>Posix 1003.1e 標準では二つのタイプの ACL を定義している．
+          ファイルとディレクトリは，
+          アクセスチェックのために問い合わせを受けるアクセス ACL を保持することができる．
+          ディレクトリはアクセスチェックには向いていないデフォルトの ACL も保持することができる．
+          デフォルトの ACL 付きでディレクトリの内側に新規オブジェクトが作成された時，
+          デフォルトの ACL はそれがアクセス ACL であるものとして新規オブジェクトに適用される．
+          サブディレクトリは親ディレクトリのデフォルト ACL を継承する．
+          継承制御にそれ以上のメカニズムは何もない．</para>
 
-          <para>Architectural differences between Posix ACLs and OS X ACLs
-          especially involve:</para>
-
-          <para><itemizedlist>
-              <listitem>
-                <para>No fine-granular permissions model. Like UNIX
-                permissions Posix ACLs only differentiate between read, write
-                and execute permissions.</para>
-              </listitem>
-
-              <listitem>
-                <para>Entries within an ACL are unordered.</para>
-              </listitem>
-
-              <listitem>
-                <para>Posix ACLs can only grant rights. There is no way to
-                explicitly deny rights by an entry.</para>
-              </listitem>
-
-              <listitem>
-                <para>UNIX permissions are integrated into an ACL as special
-                entries.</para>
-              </listitem>
-            </itemizedlist></para>
-
-          <para>Posix 1003.1e defines 6 different types of ACL entries. The
-          first three types are used to integrate standard UNIX permissions.
-          They form a minimal ACL, their presence is mandatory and only one
-          entry of each type is allowed within an ACL.</para>
+          <para>設計上，Posix ACL と OS X 間の違いに含まれている特筆すべき点は：</para>
 
           <para><itemizedlist>
               <listitem>
-                <para>ACL_USER_OBJ: the owner's access rights.</para>
+                <para>パーミションモデルは何も細分化されていない．
+                UNIX のパーミション同様，Posix ACL は読み込み，書き込み，そして実行権限を区別している．</para>
               </listitem>
 
               <listitem>
-                <para>ACL_GROUP_OBJ: the owning group's access rights.</para>
+                <para>ACL 内のエントリーに順序はない．</para>
               </listitem>
 
               <listitem>
-                <para>ACL_OTHER: everybody's access rights.</para>
+                <para>Posix ACL は権限を許可することしかできない．
+                エントリーから権限を明示的に拒否する手立てはない．</para>
+              </listitem>
+
+              <listitem>
+                <para>UNIX パーミションは特別なエントリーとして ACL に統合されている．</para>
               </listitem>
             </itemizedlist></para>
 
-          <para>The remaining entry types expand the traditional permissions
-          model:</para>
+          <para>Posix 1003.1e は 6 つの異なるタイプの ACL エントリーを定義している．
+          前半の 3 つは標準の UNIX パーミションを統合するのに用いられている．
+          これらは ACL として最小限の形であり，存在することは必須であり，
+          そして各々のタイプにつきたった一つのエントリーだけが ACL 内に許される．</para>
 
           <para><itemizedlist>
               <listitem>
-                <para>ACL_USER: grants access rights to a certain user.</para>
+                <para>ACL_USER_OBJ：所有ユーザー（オーナー）のアクセス権限．</para>
               </listitem>
 
               <listitem>
-                <para>ACL_GROUP: grants access rights to a certain
-                group.</para>
+                <para>ACL_GROUP_OBJ：所有グループ（オーナーグループ）のアクセス権限．</para>
               </listitem>
 
               <listitem>
-                <para>ACL_MASK: limits the maximum access rights which can be
-                granted by entries of type ACL_GROUP_OBJ, ACL_USER and
-                ACL_GROUP. As the name suggests, this entry acts as a mask.
-                Only one ACL_MASK entry is allowed per ACL. If an ACL contains
-                ACL_USER or ACL_GROUP entries, an ACL_MASK entry must be
-                present too, otherwise it is optional.</para>
+                <para>ACL_OTHER：あらゆるユーザー・グループに対するアクセス権限．</para>
               </listitem>
             </itemizedlist></para>
 
-          <para>In order to maintain compatibility with applications not aware
-          of ACLs, Posix 1003.1e changes the semantics of system calls and
-          utilities which retrieve or manipulate an objects UNIX permissions.
-          In case an object only has a minimal ACL, the group permissions bits
-          of the UNIX permissions correspond to the value of the ACL_GROUP_OBJ
-          entry.</para>
+          <para>残りのエントリーのタイプは伝統的パーミションモデルの拡張である：</para>
 
-          <para>However, if the ACL also contains an ACL_MASK entry, the
-          behavior of those system calls and utilities is different. The group
-          permissions bits of the UNIX permissions correspond to the value of
-          the ACL_MASK entry, i. e. calling "chmod g-w" will not only revoke
-          write access for the group, but for all entities which have been
-          granted write access by ACL_USER or ACL_GROUP entries.</para>
+          <para><itemizedlist>
+              <listitem>
+                <para>ACL_USER：あるユーザーに対するアクセス権を許可する．</para>
+              </listitem>
+
+              <listitem>
+                <para>ACL_GROUP：あるグループに対するアクセス権を許可する．</para>
+              </listitem>
+
+              <listitem>
+                <para>ACL_MASK：ACL_GROUP_OBJ，ACL_USER および ACL_GROUP 
+                タイプのエントリーで許可されうるアクセス権の最大値を制限する．名前の示すように，
+                このエントリーはマスクとして働く．一つの ACL あたり一個だけの ACL_MASK が許される．
+                もし ACL に，ACL_USER ないしは ACL_GROUP エントリーが含まれているのであれば，
+                ACL_MASK エントリーも存在しなければならない．それらが含まれていなければ，
+                ACL_MASK はオプションである．</para>
+              </listitem>
+            </itemizedlist></para>
+
+          <para>ACL を意識していないアプリケーションとの互換性を維持のため，
+          Posix 1003.1e は，オブジェクトの UNIX 
+          パーミションを検索したり処理するシステムコールやアプリケーションのセマンティクスを変える．
+          オブジェクトが必要最低限の ACL のみ保持している場合，
+          UNIX パーミションのグループパーミションビットは ACL_GROUP_OBJ エントリーの値に対応する．</para>
+
+          <para>しかしながら，もし ACL に ACL_MASK エントリーが含まれている場合，
+          上記システムコールやユーティリティーの挙動は異なるものとなる．
+          UNIX パーミションのグループパーミションビットは ACL_MASK エントリーの値に対応する，
+          すなわち，"chmod g-w" の呼び出しは，グループに対する書き込みアクセスを無効にするだけでなく，
+          ACL_USER ないしは ACL_GROUP 
+          エントリーによって許可されていた全てのエントリーに対する書き込みアクセスも無効にするのである．</para>
         </sect4>
 
         <sect4>
-          <title>Mapping POSIX ACLs to OS X ACLs</title>
+          <title>POSIX ACL から OSX の ACL へのマッピング</title>
 
-          <para>When a client wants to read an object's ACL, afpd maps it's
-          Posix ACL onto an equivalent OS X ACL. Writing an object's ACL
-          requires afpd to map an OS X ACL onto a Posix ACL. Due to
-          architectural restrictions of Posix ACLs, it is usually impossible
-          to find an exact mapping so that the result of the mapping process
-          will be an approximation of the original ACL's semantic.</para>
+          <para>クライアントがオブジェクトの ACL を読み込もうとした時，
+          afpd は Posix ACL からそれに等価な OS X の ACL にマップする．
+          オブジェクトの ACL の書き込みには afpd が OS X の ACL を Posix ACL にマップすることが要求される．
+          Posix ACL の設計上の制約から，
+          通常マッピングを経た結果がオリジナルの ACL 
+          のセマンティクスと概ね同じになるような正確なマッピングを見出すことは不可能である．</para>
 
           <para><itemizedlist>
               <listitem>
-                <para>afpd silently discard entries which deny a set of
-                permissions because they they can't be represented within the
-                Posix architecture.</para>
+                <para>afpd は拒否されたパーミション一式を通告なしに破棄する．
+                これは Posix の設計では表現する手立てがないためである．</para>
               </listitem>
 
               <listitem>
-                <para>As entries within Posix ACLs are unordered, it is
-                impossible to preserve order.</para>
+                <para>Posix ACL ではエントリーが順序付きではないので，順序を保管するのは不可能である．</para>
               </listitem>
 
               <listitem>
-                <para>Inheritance control is subject to severe limitations as
-                well:<itemizedlist>
+                <para>継承制御もまた厳しい制限を受けやすい：<itemizedlist>
                     <listitem>
-                      <para>Entries with the only_inherit flag set will only
-                      become part of the directory's default ACL.</para>
+                      <para>only_inherit フラグが設定されたエントリーはディレクトリのデフォルト 
+                      ACL の一部にしかならない．</para>
                     </listitem>
 
                     <listitem>
-                      <para>Entries with at least one of the flags
-                      file_inherit, directory_inherit or limit_inherit set,
-                      will become part of the directory's access and default
-                      ACL, but the restrictions they impose on inheritance
-                      will be ignored.</para>
+                      <para>少なくとも file_inherit，directory_inherit ないしは limit_inherit 
+                      のうち一つが設定されたエントリーはディレクトリアクセスとデフォルト ACL の一部分となる．
+                      しかし継承に課せられた制約は無視される．</para>
                     </listitem>
                   </itemizedlist></para>
               </listitem>
 
               <listitem>
-                <para>The lack of a fine-granular permission model on the
-                Posix side will normally result in an increase of granted
-                permissions.</para>
+                <para>Posix 側により細分化されたパーミションモデルがないことで，
+                結果としては通常は許可されるパーミションが増えるという結果になる．</para>
               </listitem>
             </itemizedlist></para>
 
-          <para>As OS X clients aren't aware of the Posix 1003.1e specific
-          relationship between UNIX permissions and ACL_MASK, afpd does not
-          expose this feature to the client to avoid compatibility issues and
-          handles *unix permissions and ACLs the same way as Apple's reference
-          implementation of AFP does. When an object's UNIX permissions are
-          requested, afpd calculates proper group rights and returns the
-          result together with the owner's and everybody's access rights to
-          the caller via "permissions" and "ua_permissions" members of the
-          FPUnixPrivs structure (see Apple Filing Protocol Reference, page
-          181). Changing an object's permissions, afpd always updates
-          ACL_USER_OBJ, ACL_GROUP_OBJ and ACL_OTHERS. If an ACL_MASK entry is
-          present too, afpd recalculates it's value so that the new group
-          rights become effective and existing entries of type ACL_USER or
-          ACL_GROUP stay intact.</para>
+          <para>OS X クライアントは Posix 1003.1e 特有の UNIX パーミションと ACL_MASK との関係を意識していないので，
+          afpd は互換性問題を回避するためにこの機能をクライアントに公開せず，
+          そして afpd は *unix パーミションと ACL をアップルの AFP 
+          用リファレンス実装がするのと同じ方法で扱う．
+          オブジェクトの UNIX パーミションがリクエストされた時，afpd は適切なグループ権限を算出し，
+          FPUnixPrivs 構造の "permissions" と "ua_permissions" 
+          要素を介し，オーナーおよび全ての者のアクセス権限も共に付して，リクエストした側に結果を返す．
+          （Apple Filing Protocol Reference の 181 ページ参照）
+          オブジェクトのパーミションを変更すると，afpd は常に ACL_USER_OBJ，ACL_GROUP_OBJ および ACL_OTHERS を更新する．
+          もし ACL_MASK エントリーも存在すれば，新しいグループの権限が有効になり，かつ，
+          既存の ACL_USER あるいは ACL_GROUP 型のエントリーは手付かずになるような ACL_MASK の値の再計算を afpd が行う．</para>
         </sect4>
       </sect3>
     </sect2>
