@@ -1447,43 +1447,42 @@ aclmode = passthrough</screen>
     </sect2>
 
     <sect2 id="fce">
-      <title>Filesystem Change Events<indexterm>
+      <title>ファイルシステム変更イベント<indexterm>
           <primary>FCE</primary>
         </indexterm></title>
 
-      <para>Netatalk includes a nifty filesystem change event mechanism where
-      afpd processes notfiy interested listeners about certain filesystem
-      event by UDP network datagrams.</para>
+      <para>Netatalk には素敵なファイルシステム変更イベント機構が含まれている．ここで，
+      afpd プロセスは，なにがしかのファイルシステムイベントについて，関心を寄せているリスナーに，
+      UDP ネットワークデータグラム経由で通知する．</para>
 
-      <para>For the format of the UDP packets and for an example C application
-      that demonstrates how to use these in a listener, take a look at the
-      Netatalk sourcefile <filename>bin/misc/fce.c</filename>.</para>
+      <para>この UDP パケットのフォーマットについて，また，
+      これらをリスナー内でどのように使用するかのデモを試してみる C アプリケーションの実例については，
+      Netatalk のソースファイル <filename>bin/misc/fce.c</filename> に目を通していただきたい．</para>
 
-      <para>The currently supported FCE events are<itemizedlist>
+      <para>現在サポートされている FCE （ファイルシステム変更イベント：Filesystem Change Events）は以下である：<itemizedlist>
           <listitem>
-            <para>file modification (fmod)</para>
+            <para>ファイル変更：file modification (fmod)</para>
           </listitem>
 
           <listitem>
-            <para>file deletion (fdel)</para>
+            <para>ファイル削除：file deletion (fdel)</para>
           </listitem>
 
           <listitem>
-            <para>directory deletion (ddel)</para>
+            <para>ディレクトリ削除：directory deletion (ddel)</para>
           </listitem>
 
           <listitem>
-            <para>file creation (fcre)</para>
+            <para>ファイル作成：file creation (fcre)</para>
           </listitem>
 
           <listitem>
-            <para>directory deletion (ddel)</para>
+            <para>ディレクトリ削除：directory deletion (ddel)</para>
           </listitem>
         </itemizedlist></para>
 
-      <para>For details on the available simple configuration options take a
-      look at <filename><link
-      linkend="fceconf">afp.conf</link></filename>.</para>
+      <para>利用可能で基本的な設定オプションの詳細については  <filename><link
+      linkend="fceconf">afp.conf</link></filename> に目を通していただきたい．</para>
     </sect2>
   </sect1>
 
