@@ -13,172 +13,117 @@
   <refnamediv>
     <refname>afp.conf</refname>
 
-    <refpurpose>Netatalk configuration file <indexterm>
+    <refpurpose>Netatalkの設定ファイル<indexterm>
         <primary>afp.conf</primary>
       </indexterm></refpurpose>
   </refnamediv>
 
   <refsect1>
-    <title>SYNOPSIS</title>
+    <title>概要</title>
 
-    <para>The <filename>afp.conf</filename> file is the configuration file for
-    the <emphasis role="bold">Netatalk</emphasis> AFP file server.</para>
+    <para><filename>afp.conf</filename>は<emphasis role="bold">Netatalk</emphasis> AFPファイルサーバの設定ファイルである。</para>
 
-    <para>All AFP specific configuration and AFP volume definitions are done
-    via this file.</para>
+    <para>全てのAFP固有の設定とAFPボリュームの定義がこのファイルを通して行われる。</para>
   </refsect1>
 
   <refsect1 id="FILEFORMATSECT">
-    <title>FILE FORMAT</title>
+    <title>ファイルの書式</title>
 
-    <para>The file consists of sections and parameters. A section begins with
-    the name of the section in square brackets and continues until the next
-    section begins. Sections contain parameters of the form: <programlisting>
+    <para>ファイルはセクションとパラメータから構成される。セクションはブラケット[各括弧]で囲まれたセクション名に始まり、次のセクションが始まるまで続く。セクションには次のような書式のパラメータが含まれている:
+    <programlisting>
     <replaceable>name</replaceable> = <replaceable>value </replaceable>
     </programlisting></para>
 
-    <para>The file is line-based - that is, each newline-terminated line
-    represents either a comment, a section name or a parameter.</para>
+    <para>このファイルは行を基本とする。それぞれの行は改行文字で終端し、コメント、セクション名、パラメータのうちどれかを表す。</para>
 
-    <para>Section and parameter names are case sensitive.</para>
+    <para>セクション名とパラメータ名は大文字と小文字の区別がある。</para>
 
-    <para>Only the first equals sign in a parameter is significant. Whitespace
-    before or after the first equals sign is discarded. Leading, trailing and
-    internal whitespace in section and parameter names is irrelevant. Leading
-    and trailing whitespace in a parameter value is discarded. Internal
-    whitespace within a parameter value is retained verbatim.</para>
+    <para>パラメータに最初に現れる等号だけは重要な意味を持つ。最初の等号の前後にある空白は破棄される。セクション名とパラメータ名の前、後、途中にある空白は意味を持たない。パラメータ値の前後の空白は破棄される。パラメータ値の途中の空白はそのまま維持される。</para>
 
-    <para>Any line beginning with a semicolon (<quote>;</quote>) or a hash
-    (<quote>#</quote>) character is ignored, as are lines containing only
-    whitespace.</para>
+    <para>セミコロン(<quote>;</quote>)やハッシュ文字(<quote>#</quote>)で始まるいかなる行も、空白だけの行と同様に無視される。</para>
 
-    <para>Any line ending in a <quote> <literal>\</literal> </quote> is
-    continued on the next line in the customary UNIX fashion.</para>
+    <para><quote> <literal>\</literal> </quote>で終わるいかなる行も、通例のUNIX方式で次の行に続くことを意味する。</para>
 
-    <para>The values following the equals sign in parameters are all either a
-    string (no quotes needed) or a boolean, which may be given as yes/no, 1/0
-    or true/false. Case is not significant in boolean values, but is preserved
-    in string values. Some items such as create masks are numeric.</para>
+    <para>パラメータにおいて等号の後ろに続く値は、文字列(引用符は必要ない)または真偽値である。真偽値はyes/no、1/0、true/falseで表現する。大文字と小文字の区別は真偽値では意味を持たないが、文字列では保存される。create maskのようないくつかの項目は数値を表す。(訳注: afp.confにcreate maskというパラメータ名は存在しない。smb.confのmanpageを流用したときのミス。)</para>
 
-    <para>The parameter <option>include =
-    <replaceable>path</replaceable></option> allows you to include one config
-    file inside another. The file is included literally, as though typed in
-    place. Nested includes are not supported.</para>
+    <para>「<option>include =　<replaceable>path</replaceable></option>」というパラメータは、設定ファイルの中にもう一つの設定ファイルを組み込むことを可能にする。そのファイルはまるでその場所に書き込まれたように、そっくりそのまま組み込まれる。入れ子になった組み込みはサポートされない。</para>
   </refsect1>
 
   <refsect1>
-    <title>SECTION DESCRIPTIONS</title>
+    <title>セクションの説明</title>
 
-    <para>Each section in the configuration file (except for the [Global]
-    section) describes a shared resource (known as a <quote>volume</quote>).
-    The section name is the name of the volume and the parameters within the
-    section define the volume attributes and options.</para>
+    <para>設定ファイル中のそれぞれのセクション([Global]セクション以外)は共有リソース(<quote>volume</quote>として知られる)を記述する。セクション名はボリュームの名前であり、セクション内のパラメータはボリューム属性とオプションを定義する。</para>
 
-    <para>There are two special sections, [Global] and [Homes], which are
-    described under <emphasis>special sections</emphasis>. The following notes
-    apply to ordinary section descriptions.</para>
+    <para>[Global]と[Homes]という二つの特殊なセクションがあるが、これについては下の方の<emphasis>特殊なセクション</emphasis>で説明する。以下の解説は通常のセクションに適用される。</para>
 
-    <para>A volume consists of a directory to which access is being given plus
-    a description of the access rights which are granted to the user of the
-    service. For volumes the <option>path</option> option must specify the
-    directory to share.</para>
+    <para>一つのボリュームは、アクセスを許可するディレクトリ設定と、そのサービスにおいてユーザに与えるアクセス権設定で成り立つ。ボリュームに対して<option>path</option>オプションを使って共有ディレクトリを指定しなければならない。</para>
 
-    <para>Any volume section without <option>path</option> option is
-    considered a <emphasis>vol preset</emphasis> which can be selected in
-    other volume sections via the <option>vol preset</option> option and
-    constitutes defaults for the volume. For any option specified both in a
-    preset <emphasis>and</emphasis> in a volume section the volume section
-    setting completely substitutes the preset option.</para>
+    <para><option>path</option>オプションのないボリュームセクションは、他のボリュームセクションから<option>vol preset</option>オプション経由で呼び出され、ボリュームのデフォルト値を決める<emphasis>ボリュームプリセット</emphasis>と見なされる。プリセット<emphasis>と</emphasis>ボリュームセクションの両方で指定されたオプションについては、ボリュームオプション設定がプリセットオプションを完全に上書きする。</para>
 
-    <para>The access rights granted by the server are masked by the access
-    rights granted to the specified or guest UNIX user by the host system. The
-    server does not grant more access than the host system grants.</para>
+    <para>サーバが許可したアクセス権は、ホストシステムの特定のUNIXユーザまたはゲストユーザのアクセス権でマスクされる。サーバはホストシステムの許可以上の許可をしない。</para>
 
-    <para>The following sample section defines an AFP volume. The user has
-    full access to the path <filename>/foo/bar</filename>. The share is
-    accessed via the share name <literal>baz</literal>: <programlisting> [baz]
+    <para>以下のセクションの例は、一つのAFPボリュームを定義している。ユーザはパス<filename>/foo/bar</filename>への完全なアクセス権を持つ。 <literal>baz</literal>という共有名でアクセスできる:
+    <programlisting> [baz]
     path = /foo/bar </programlisting></para>
   </refsect1>
 
   <refsect1>
-    <title>SPECIAL SECTIONS</title>
+    <title>特殊なセクション</title>
 
     <refsect2>
-      <title>The [Global] section</title>
+      <title>[Global]セクション</title>
 
-      <para>Parameters in this section apply to the server as a whole.
-      Parameters denoted by a (G) below are must be set in this
-      section.</para>
+      <para>このセクションのパラメータはサーバ全体に適用される。以下で(G)の印がついているパラメータはこのセクションで設定しなければならない。</para>
     </refsect2>
 
     <refsect2>
-      <title>The [Homes] section</title>
+      <title>[Homes]セクション</title>
 
-      <para>This section enable sharing of the UNIX server user home
-      directories. Specifying an optional <option>path</option> parameter
-      means that not the whole user home will be shared but the subdirectory
-      <option>path</option>. It is necessary to define the <option>basedir
-      regex</option> option. It should be a regex which matches the parent
-      directory of the user homes. Parameters denoted by a (H) belong to
-      volume sections. The optional parameter <option>home name</option> can
-      be used to change the AFP volume name which <emphasis>$u's
-      home</emphasis> by default. See below under VARIABLE
-      SUBSTITUTIONS.</para>
+      <para>このセクションはUNIXサーバ側のユーザのホームディレクトリを共有できるようにする。オプションの<option>path</option>パラメータを指定すると、ユーザのホームディレクトリ全体ではなく、サブディレクトリ<option>path</option>が共有される。<option>basedir regex</option>オプションを定義する必要がある。これはホームディレクトリの親ディレクトリにマッチする正規表現である。(H)の印がついているパラメータはこのボリュームセクション用である。オプションパラメータ<option>home name</option>はAFPボリューム名を変更するのに使うものであり、デフォルトは<emphasis>$u's home</emphasis>である。下の「変数置換」の項を見よ。</para>
 
-      <para>The following example illustrates this. Given all user home
-      directories are stored under <filename>/home</filename>:
+      <para>以下の例でこれを解説する。全てのユーザのホームディレクトリは<filename>/home</filename>の下にある:
       <programlisting> [Homes]
       path = afp-data
-      basedir regex = /home</programlisting> For a user
-      <emphasis>john</emphasis> this results in an AFP home volume with a path
-      of <filename>/home/john/afp-data</filename>.</para>
+      basedir regex = /home</programlisting>
+      ユーザ<emphasis>john</emphasis>について、<filename>/home/john/afp-data</filename>というパスがAFPホームボリュームになる。</para>
 
-      <para>If <option>basedir regex</option> contains symlink, set the
-      canonicalized absolute path. When <filename>/home</filename> links to
-      <filename>/usr/home</filename>: <programlisting> [Homes]
+      <para><option>basedir regex</option>ががシンボリックリンクを含む場合、正規化した絶対パスを設定してください。<filename>/home</filename>が<filename>/usr/home</filename>にリンクしているとき:
+      <programlisting> [Homes]
       basedir regex = /usr/home</programlisting></para>
     </refsect2>
   </refsect1>
 
   <refsect1>
-    <title>PARAMETERS</title>
+    <title>パラメータ</title>
 
-    <para>Parameters define the specific attributes of sections.</para>
+    <para>パラメータはセクション固有の属性を定義する。</para>
 
-    <para>Some parameters are specific to the [Global] section (e.g.,
-    <emphasis>log type</emphasis>). All others are permissible only in volume
-    sections. The letter <emphasis>G</emphasis> in parentheses indicates that
-    a parameter is specific to the [Global] section. The letter
-    <emphasis>V</emphasis> indicates that a parameter can be specified in a
-    volume specific section.</para>
+    <para>いくつかのパラメータは[Global]セクションに固有のものである(たとえば<emphasis>log type</emphasis>)。それ以外は全てボリュームセクションのみに許される。(<emphasis>G</emphasis>)はパラメータが[Global]セクション固有であることを示す。(<emphasis>V</emphasis>)はボリューム固有のセクションで指定できることを示す。</para>
   </refsect1>
 
   <refsect1>
-    <title>VARIABLE SUBSTITUTIONS</title>
+    <title>変数置換</title>
 
-    <para>You can use variables in volume names. The use of variables in paths
-     is limited to $u.</para>
+    <para>ボリューム名で変数を使うことができる。パスでの変数の利用は$uに限られる。</para>
 
     <orderedlist>
       <listitem>
-        <para>if you specify an unknown variable, it will not get
-        converted.</para>
+        <para>不明な変数を指定した場合、それは変換されない。</para>
       </listitem>
 
       <listitem>
-        <para>if you specify a known variable, but that variable doesn't have
-        a value, it will get ignored.</para>
+        <para>既知の変数を指定したが変数が値を持たない場合、それは無視される。</para>
       </listitem>
     </orderedlist>
 
-    <para>The variables which can be used for substitutions are:</para>
+    <para>置換に使われる変数は以下のとおり:</para>
 
     <variablelist>
       <varlistentry>
         <term>$b</term>
 
         <listitem>
-          <para>basename</para>
+          <para>ベース名</para>
         </listitem>
       </varlistentry>
 
@@ -186,7 +131,7 @@
         <term>$c</term>
 
         <listitem>
-          <para>client's ip address</para>
+          <para>クライアントのIPアドレス</para>
         </listitem>
       </varlistentry>
 
@@ -194,7 +139,7 @@
         <term>$d</term>
 
         <listitem>
-          <para>volume pathname on server</para>
+          <para>サーバ上のボリュームパス名</para>
         </listitem>
       </varlistentry>
 
@@ -202,8 +147,7 @@
         <term>$f</term>
 
         <listitem>
-          <para>full name (contents of the gecos field in the passwd
-          file)</para>
+          <para>フルネーム (passwdファイルのGECOSフィールドの内容)</para>
         </listitem>
       </varlistentry>
 
@@ -211,7 +155,7 @@
         <term>$g</term>
 
         <listitem>
-          <para>group name</para>
+          <para>グループ名</para>
         </listitem>
       </varlistentry>
 
@@ -219,7 +163,7 @@
         <term>$h</term>
 
         <listitem>
-          <para>hostname</para>
+          <para>ホスト名</para>
         </listitem>
       </varlistentry>
 
@@ -227,7 +171,7 @@
         <term>$i</term>
 
         <listitem>
-          <para>client's ip, without port</para>
+          <para>クライアントのIPアドレス。ポート番号なし</para>
         </listitem>
       </varlistentry>
 
@@ -235,7 +179,7 @@
         <term>$s</term>
 
         <listitem>
-          <para>server name (this can be the hostname)</para>
+          <para>サーバ名 (ホスト名になることができる)</para>
         </listitem>
       </varlistentry>
 
@@ -243,8 +187,7 @@
         <term>$u</term>
 
         <listitem>
-          <para>user name (if guest, it is the user that guest is running
-          as)</para>
+          <para>ユーザ名 (ゲストの場合、ゲストとして動作しているユーザ名)</para>
         </listitem>
       </varlistentry>
 
@@ -252,7 +195,7 @@
         <term>$v</term>
 
         <listitem>
-          <para>volume name</para>
+          <para>ボリューム名</para>
         </listitem>
       </varlistentry>
 
@@ -260,7 +203,7 @@
         <term>$$</term>
 
         <listitem>
-          <para>prints dollar sign ($)</para>
+          <para>ドル記号($)を表示する</para>
         </listitem>
       </varlistentry>
     </variablelist>
