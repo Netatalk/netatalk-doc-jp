@@ -1491,49 +1491,48 @@ aclmode = passthrough</screen>
         <primary>Spotlight</primary>
       </indexterm></title>
 
-    <para>Starting with version 3.1 Netatalk supports Spotlight searching.
-    Netatalk uses Gnome <ulink url="https://projects.gnome.org/tracker/">Tracker</ulink> as metadata store,
-    indexer and search engine.</para>
+    <para>バージョン 3.1 から，Netatalk は Spotlight 検索をサポートしている．
+    Netatalk はメタデータの保存，インデックス化およびサーチエンジンに Gnome
+    <ulink url="https://projects.gnome.org/tracker/">Tracker</ulink> を用いる．</para>
 
     <sect2>
-      <title>Configuration</title>
+      <title>設定</title>
 
-      <para>You can enable Spotlight and indexing either globally or on a per
-      volume basis with the <option>spotlight</option> option.</para>
+      <para><option>spotlight</option> オプションを使って，
+      全体グローバルに，あるいは，ボリューム単位ごとに Spotlight とインデックス化を有効にできる．</para>
 
       <warning>
-        <para>Once Spotlight is enable for a single volume, all other volumes
-        for which spotlight is disabled won't be searchable at all.</para>
+        <para>一旦 Spotlight をどこか単一のボリュームで有効にすると，
+        Spotlight が無効にされたことになるその他全てのボリュームでは全く検索できないようになる．</para>
       </warning>
 
-      <para>In case the <command>dbus-daemon</command> binary is not installed
-      at the path <filename>/bin/dbus-daemon</filename>, you must use the
-      global option <option>dbus daemon</option> to point to the path, eg for
-      Solaris with Tracker from OpenCSW: <screen>dbus daemon = /opt/csw/bin/dbus-daemon</screen></para>
+      <para><command>dbus-daemon</command> の実行バイナリが，パス
+      <filename>/bin/dbus-daemon</filename> にインストールされていない場合，
+      グローバルオプション <option>dbus daemon</option> で正しいパスを指定なければならない．
+      例えば Solaris 上で OpenCSW 由来の Tracker を用いている場合は以下のようにする：
+      <screen>dbus daemon = /opt/csw/bin/dbus-daemon</screen></para>
     </sect2>
 
     <sect2>
-      <title>Limitations and notes</title>
+      <title>制限と注意</title>
 
       <itemizedlist>
         <listitem>
-          <para>Large filesystems</para>
+          <para>大きいファイルシステム</para>
 
-          <para>Tracker on Linux uses the inotify Kernel filesystem change
-          event API for tracking filesystem changes. On large filesystems this
-          may be problematic since the inotify API doesn't offer recursive
-          directory watches but instead requires that for every subdirectoy
-          watches must be added individually.</para>
+          <para>Linux 上の Tracker はファイルシステム変更の追跡に inotify カーネルファイルシステムイベント
+          API を使用する．大きなファイルシステムではこれが問題になりやすい．
+          なぜなら，この inotofy API は再帰的ディレクトリ監視を提供してはおらず，
+          代わりにあらゆるサブディレクトリの監視を各々で要求してくるからである．</para>
 
-          <para>On Solaris the FEN file event notification system is used. It
-          is unkown which limitations and ressource consumption this Solaris
-          subsystem may have.</para>
+          <para>Solaris ではファイルイベント通知（FEN: File Event Notification) が用いられる．
+          この Solaris のサブシステムではどんな制限とリソース消費があるのか不明である．</para>
 
-          <para>We therefor recommend to disable live filesystem monitoring
-          and let Tracker periodically scan filesystems for changes instead,
-          see the Tracker configuration options <link
-          linkend="enable-monitors">enable-monitors</link> and <link
-          linkend="crawling-interval">crawling-interval</link> below.</para>
+          <para>それ故，ライブでのファイルシステム監視は無効にして，
+          その代わりに定期的に Tracker にファイルシステム変更のスキャンを行わせることを推奨する．
+          下記 Tracker オプション，<link
+          linkend="enable-monitors">enable-monitors</link> および <link
+          linkend="crawling-interval">crawling-interval</link> を参照のこと．</para>
         </listitem>
       </itemizedlist>
     </sect2>
