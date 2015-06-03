@@ -1663,44 +1663,43 @@ org.freedesktop.Tracker.Writeback verbosity 'debug'
     </sect2>
 
     <sect2>
-      <title>Supported metadata attributes</title>
+      <title>サポートされているメタデータ属性</title>
 
-      <para>The following table lists the supported Spotlight metadata
-      attributes</para>
+      <para>下記表にサポートされている Spotlight メタデータ属性を挙げる．</para>
 
       <table>
-        <title>Supported Spotlight metadata attributes</title>
+        <title>サポートされている Spotlight メタデータ属性</title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry align="center">Description</entry>
+              <entry align="center">内容</entry>
 
-              <entry align="center">Spotlight Key</entry>
+              <entry align="center">Spotlight キー</entry>
             </row>
           </thead>
 
           <tbody>
             <row>
-              <entry>Name</entry>
+              <entry>名前</entry>
 
               <entry>kMDItemDisplayName, kMDItemFSName</entry>
             </row>
 
             <row>
-              <entry>Document content (full text search)</entry>
+              <entry>ドキュメントの内容（全文検索）</entry>
 
               <entry>kMDItemTextContent</entry>
             </row>
 
             <row>
-              <entry>File type</entry>
+              <entry>ファイルタイプ</entry>
 
               <entry>_kMDItemGroupId, kMDItemContentTypeTree</entry>
             </row>
 
             <row>
-              <entry>File modification date</entry>
+              <entry>ファイル修正日付</entry>
 
               <entry>kMDItemFSContentChangeDate,
               kMDItemContentModificationDate,
@@ -1708,116 +1707,109 @@ org.freedesktop.Tracker.Writeback verbosity 'debug'
             </row>
 
             <row>
-              <entry>Content Creation date</entry>
+              <entry>ファイルの内容の作成された日付</entry>
 
               <entry>kMDItemContentCreationDate</entry>
             </row>
 
             <row>
-              <entry>The author, or authors, of the contents of the
-              file</entry>
+              <entry>ファイルの内容の著者・作成者</entry>
 
               <entry>kMDItemAuthors, kMDItemCreator</entry>
             </row>
 
             <row>
-              <entry>The name of the country where the item was
-              created</entry>
+              <entry>ファイルが作成された国の名前</entry>
 
               <entry>kMDItemCountry</entry>
             </row>
 
             <row>
-              <entry>Duration</entry>
+              <entry>期間</entry>
 
               <entry>kMDItemDurationSeconds</entry>
             </row>
 
             <row>
-              <entry>Number of pages</entry>
+              <entry>総ページ数</entry>
 
               <entry>kMDItemNumberOfPages</entry>
             </row>
 
             <row>
-              <entry>Document title</entry>
+              <entry>ドキュメントのタイトル</entry>
 
               <entry>kMDItemTitle</entry>
             </row>
 
             <row>
-              <entry>The width, in pixels, of the contents. For example, the
-              image width or the video frame width</entry>
+              <entry>内容のピクセルの幅：画像ならばピクセル幅，動画ならばフレームの幅</entry>
 
               <entry>kMDItemPixelWidth</entry>
             </row>
 
             <row>
-              <entry>The height, in pixels, of the contents. For example, the
-              image height or the video frame height</entry>
+              <entry>内容の高さ（ピクセル）：画像ならばピクセルでの高さ，動画ならばフレームの高さ</entry>
 
               <entry>kMDItemPixelHeight</entry>
             </row>
 
             <row>
-              <entry>The color space model used by the document
-              contents</entry>
+              <entry>ドキュメント内コンテンツで使用されている色空間モデル</entry>
 
               <entry>kMDItemColorSpace</entry>
             </row>
 
             <row>
-              <entry>The number of bits per sample</entry>
+              <entry>サンプルあたりのビット値（分解能）</entry>
 
               <entry>kMDItemBitsPerSample</entry>
             </row>
 
             <row>
-              <entry>Focal length of the lens, in millimeters</entry>
+              <entry>レンズの焦点距離（単位：ミリメートル）</entry>
 
               <entry>kMDItemFocalLength</entry>
             </row>
 
             <row>
-              <entry>ISO speed</entry>
+              <entry>ISO 感度</entry>
 
               <entry>kMDItemISOSpeed</entry>
             </row>
 
             <row>
-              <entry>Orientation of the document. Possible values are 0
-              (landscape) and 1 (portrait)</entry>
+              <entry>ドキュメントの向き．許容される値は 0（ランドスケイプ：横向き）と 1 （ポートレイト：縦向き）</entry>
 
               <entry>kMDItemOrientation</entry>
             </row>
 
             <row>
-              <entry>Resolution width, in DPI</entry>
+              <entry>水平解像度（単位：DPI）</entry>
 
               <entry>kMDItemResolutionWidthDPI</entry>
             </row>
 
             <row>
-              <entry>Resolution height, in DPI</entry>
+              <entry>垂直解像度（単位：DPI）</entry>
 
               <entry>kMDItemResolutionHeightDPI</entry>
             </row>
 
             <row>
-              <entry>Exposure time, in seconds</entry>
+              <entry>シャッタースピード：秒</entry>
 
               <entry>kMDItemExposureTimeSeconds</entry>
             </row>
 
             <row>
-              <entry>The composer of the music contained in the audio
-              file</entry>
+              <entry>オーディオファイルに含まれている曲の作曲者</entry>
 
               <entry>kMDItemComposer</entry>
             </row>
 
             <row>
-              <entry>The musical genre of the song or composition</entry>
+              <entry>歌あるいは楽曲の音楽ジャンル</entry>
 
               <entry>kMDItemMusicalGenre</entry>
             </row>
@@ -1828,7 +1820,7 @@ org.freedesktop.Tracker.Writeback verbosity 'debug'
     </sect2>
 
     <sect2>
-      <title>References</title>
+      <title>参考</title>
 
       <orderedlist>
         <listitem>
