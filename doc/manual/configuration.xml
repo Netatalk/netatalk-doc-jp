@@ -1538,11 +1538,11 @@ aclmode = passthrough</screen>
     </sect2>
 
     <sect2>
-      <title>Using Tracker commandline tools on the server</title>
+      <title>サーバー上での Tracker コマンドラインツールの使用</title>
 
-      <para>Netatalk must be running, commands must be executed as root and
-      some environent variables must be set up (adjust PREFIX to point to
-      the base directory Netatalk in installed to):<screen>$ su
+      <para>Netatalk の動作とコマンドの実行は root 権限で行わなければならない．
+      そしていくつかの環境変数を設定されなければならない（PREFIX は Netatalk 
+      をインストールしたベースディレクトリにあわせて読み替える）：<screen>$ su
 # cat .tracker_profile
 PREFIX="/"
 export XDG_DATA_HOME="$PREFIX/var/netatalk/"
@@ -1552,15 +1552,15 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=$PREFIX/var/netatalk/spotlight.ipc"
 #
 </screen></para>
 
-      <para>When using Tracker from OpenCSW you must also update your
-      PATH:<screen># export PATH=/opt/csw/bin:$PATH</screen></para>
+      <para>OpenCSW の Tracker を使用していたら PATH 
+      も以下のように更新する：<screen># export PATH=/opt/csw/bin:$PATH</screen></para>
 
       <sect3>
-        <title>Starting and stopping Tracker</title>
+        <title>Tracker の起動と停止</title>
 
         <variablelist>
           <varlistentry>
-            <term>Querying Tracker status</term>
+            <term>Tracker の状態の問い合わせ</term>
 
             <listitem>
               <screen># tracker-control -S</screen>
@@ -1568,7 +1568,7 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=$PREFIX/var/netatalk/spotlight.ipc"
           </varlistentry>
 
           <varlistentry>
-            <term>Stop Tracker</term>
+            <term>Tracker の停止</term>
 
             <listitem>
               <screen># tracker-control -t</screen>
@@ -1576,7 +1576,7 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=$PREFIX/var/netatalk/spotlight.ipc"
           </varlistentry>
 
           <varlistentry>
-            <term>Start Tracker status</term>
+            <term>Tracker の開始</term>
 
             <listitem>
               <screen># tracker-control -s</screen>
@@ -1586,42 +1586,42 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=$PREFIX/var/netatalk/spotlight.ipc"
       </sect3>
 
       <sect3>
-        <title>Reindex directory</title>
+        <title>ディレクトリの再インデックス化</title>
 
         <screen># tracker-control -f PATH</screen>
       </sect3>
 
       <sect3>
-        <title>Query Tracker for information about a file or directory</title>
+        <title>Tracker にファイル・ディレクトリ情報を照会</title>
 
         <screen># tracker-info PATH</screen>
       </sect3>
 
       <sect3>
-        <title>Search Tracker</title>
+        <title>Tracker で検索</title>
 
         <screen># tracker-search QUERY</screen>
       </sect3>
     </sect2>
 
     <sect2>
-      <title>Advanced Tracker command line configuration</title>
+      <title>Tracker コマンドラインでのより進んだ設定</title>
 
-      <para>Tracker stores its configuration via Gnome dconf backend which can
-      be modified with the command <command>gsettings</command>.</para>
+      <para>Tracker はその設定を Gnome dconf バックエンド経由で保管し，
+      これ <command>gsettings</command> コマンドで変更できる．</para>
 
-      <para>Gnome dconf settings are per-user settings, so, as Netatalk runs
-      the Tracker processes as root, the settings are stored in the root user
-      context and reading or changing these settings must be perfomed as root
-      and Netatalk must be running (and again the enviroment must be set up
-      as shown above).</para>
+      <para>Gnome dconf の設定は各々のユーザーベースである．よって，Netatalk
+      は Tracker プロセスを root 権限で実行するため，設定は root 
+      ユーザーのコンテキストで保管され，これら設定の読み込み書き込みも root 
+      権限で行われ，Netatalk 
+      は（そして繰り返しになるが，環境を前記のように設定して）実行中でなければならない．</para>
 
       <para><screen># gsettings list-recursively | grep Tracker
 org.freedesktop.Tracker.Writeback verbosity 'debug'
 ...</screen></para>
 
-      <para>The following list describes some important Tracker options and
-      their default settings.</para>
+      <para>以下のリストで Tracker
+      の一部重要なオプションおよびそのデフォルト設定について示す．</para>
 
       <variablelist>
         <varlistentry>
@@ -1629,10 +1629,9 @@ org.freedesktop.Tracker.Writeback verbosity 'debug'
           index-recursive-directories</term>
 
           <listitem>
-            <para>This option controls which directories Tracker will index.
-            Don't change this option manually as it is automatically set by
-            Netatalk reflecting the setting of the <option>Spotlight</option>
-            option of Netatalk volumes.</para>
+            <para>このオプションは Tracker がどのディレクトリをインデックス化するかを制御する．
+            Netatalk は Netatalk ボリュームそれぞれの <option>Spotlight</option> 
+            オプションの設定を反映して自動的に本オプションが決定されるので，手動で変更してはならない．</para>
           </listitem>
         </varlistentry>
 
@@ -1641,12 +1640,11 @@ org.freedesktop.Tracker.Writeback verbosity 'debug'
           enable-monitors <parameter> true</parameter></term>
 
           <listitem>
-            <para>The value controls whether Tracker watches all configured
-            paths for modification. Depending on the filesystem modification
-            backend (FAM on Linux, FEN on Solaris), this feature may not work
-            as reliable as one might wish, so it may be safer to disable it
-            and instead rely on periodic crawling of Tracker itself. See aslo
-            the option <option>crawling-interval </option>.</para>
+            <para>この値は Tracker が全ての設定パスの変更を監視するかどうかを制御する．
+            ファイルシステムの変更バックエンド（Linux なら FAM，Solaris なら FEN）に依存しているので，
+            この機能は期待するほどの信頼度をもって動作しないかもしれない．
+            それ故，この機能は無効にして代わりに Tracker 自体が定期的にクローリングさせるほうが安全である．
+            オプション <option>crawling-interval </option> も参照のこと．</para>
           </listitem>
         </varlistentry>
 
@@ -1655,10 +1653,10 @@ org.freedesktop.Tracker.Writeback verbosity 'debug'
           crawling-interval <parameter>-1</parameter></term>
 
           <listitem>
-            <para>Interval in days to check the filesystem is up to date in
-            the database, maximum is 365, default is -1. -2 = crawling is
-            disabled entirely, -1 = crawling *may* occur on startup (if not
-            cleanly shutdown), 0 = crawling is forced</para>
+            <para>ファイルシステムをチェックして最新のデータベース状態にする間隔（日にち単位）．
+            最大は 365 まで，デフォルトでは -1，-2 = クローリングは完全に行われない．
+            -1 = スタートアップ時にクローリングが行われる“はず”（シャットダウンが完全でなかった場合）．
+            0 = 強制的にクローリングされる</para>
           </listitem>
         </varlistentry>
       </variablelist>
