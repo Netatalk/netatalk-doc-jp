@@ -83,7 +83,7 @@
           </listitem>
 
           <listitem>
-            <para>一括で変換する場合<command><link linkend="dbd.1">dbd</link></command> 
+            <para>一括で変換する場合 <command><link linkend="dbd.1">dbd</link></command> 
             を用いることができる</para>
           </listitem>
         </itemizedlist></para>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="configuration">
-  <title>AFP ファイルサーバーのセットアップ</title>
+  <title>Netatalk のセットアップ</title>
 
   <sect1>
     <title>ファイルサービス<indexterm>
@@ -18,7 +18,7 @@
     <sect2>
       <title>AFP ファイルサーバーのセットアップ</title>
 
-      <para>AFP (Apple Filing Protocol) はアップル・マッキントッシュがファイル共有時に用いるプロトコルである．
+      <para>AFP (Apple Filing Protocol) はアップル・マッキントッシュのファイルサービスに用いるプロトコルである．
       AFP プロトコルは年を追うごとに進展を見せ，最新の変更は Snow Leopard<indexterm>
           <primary>Snow Leopard</primary>
 
@@ -36,25 +36,25 @@
       <para>Mac OS X 10.5 (Leopard) で，AFP 経由での Time Machine バックアップがサポートされるようになった．
       二つの新機能で，バックアップをただサーバーのキャッシュにではなく，
       動作中のディスクに書き込むことを確実にしている．ホストのオペレーティングシステムが異なると，
-      このキャッシュをフラッシュする挙動も異なる．ヴォリュームを作成するために，
-      Time Machine ターゲットはボリュームオプション "<option>time machine = yes</option>" を使用する．</para>
+      このキャッシュをフラッシュする払い出し方も異なる．ヴォリュームを作成するために，
+      Time Machine ターゲットのボリューム作成にはボリュームオプション "<option>time machine = yes</option>" を使用する．</para>
 
       <para>Netatalk 2.1 以降では UNIX シンボリックリンク<indexterm>
-          <primary>symlink</primary>
+          <primary>シンボリックリンク</primary>
 
-          <secondary>UNIX symlink</secondary>
-        </indexterm>を使うことができる．その動作は例えば NFS と同じである，
+          <secondary>UNIX シンボリックリンク</secondary>
+        </indexterm>をサーバー上で使うことができる．セマンティクスは例えば NFS と同じである，
       すなわち，Netatalk はサーバー側でシンボリックリンクを追わないが，
-      クライアント側でシンボリックリンクを解決し切るのではなく，
-      結果としてクライアントのファイルシステムの認識内でしかるべき場所を示すリンクとなる．</para>
+      代わりにクライアント側でシンボリックリンクを解決できるよう完全に転送して，
+      結果としてクライアントのファイルシステムのビュー内でしかるべき場所を示すリンクとなる．</para>
 
       <sect3>
         <title>afp.conf</title>
 
-        <para><filename>afp.conf</filename> は AFP ファイルサーバーの動作と設定，
-        及びサーバーが提供する AFP ボリュームを指示するのに用いられる設定ファイルである．</para>
+        <para><filename>afp.conf</filename> は，AFP ファイルサーバー及び提供する AFP 
+        ボリュームの挙動と設定を決定するために afpd が使用する設定ファイルである．</para>
 
-        <para><filename>afp.conf</filename> は２つのサーバーセクションに分割できる．すなわち：
+        <para><filename>afp.conf</filename> は複数のサーバーセクションに分割できる．すなわち：
           <variablelist>
             <varlistentry>
               <term>[Global]</term>
@@ -71,11 +71,13 @@
                 <para>ホームセクションでユーザーのホームボリュームを定義する</para>
               </listitem>
             </varlistentry>
-          </variablelist><option>Global</option> でもなく <option>Homes</option>  でもなければ，
-        それは単なる一つの AFP ボリュームである，と解釈される</para>
+          </variablelist><option>Global</option> とも 
+          <option>Homes</option>，とも呼ばれないセクションは単なる一つの AFP 
+          ボリュームであると解釈される</para>
 
-        <para>ユーザーのホームディレクトリを共有するためには <option>Homes</option> を定義し，
-        <option>basedir regex</option> オプションを明記しなければならない．</para>
+        <para><option>Homes</option> を定義してユーザーのホームディレクトリを共有するために，
+        <option>basedir regex</option> オプションを明記しなければならない．
+        これは全てのユーザーのホームの親ディレクトリのパスあるいは正規表現からなる単純な文字列でよい．</para>
 
         <para>例：</para>
 
@@ -83,11 +85,11 @@
 basedir regex = /home
 </programlisting></para>
 
-        <para>この場合，AFP サーバーにログインできるユーザーはそれぞれ <filename>/home/NAME</filename> 
+        <para>この場合，AFP サーバーにログインできるユーザーはそれぞれ <filename>/home/（ユーザー名）</filename> 
         というパス名でのユーザーボリュームを使用できる．</para>
 
-        <para>より複雑に，膨大な数のユーザーホームを，
-        例えば下記のように２つの異なるファイルシステムに分けて管理するサーバーを構築することもできる：
+        <para>より複雑なセットアップで，例えば二つの異なったファイルシステムにわたって分割された，
+        大量のユーザーホームディレクトリーのあるサーバーなら：
           <itemizedlist>
             <listitem>
               <para>/RAID1/homes</para>
@@ -96,9 +98,9 @@ basedir regex = /home
             <listitem>
               <para>/RAID2/morehomes</para>
             </listitem>
-          </itemizedlist>そのための設定は：<programlisting>[Homes]
+          </itemizedlist>以下の設定が必要である：<programlisting>[Homes]
 basedir regex = /RAID./.*homes
-</programlisting>である．</para>
+</programlisting></para>
 
         <para>もし，<option>basedir regex</option> にシンボリックリンクが含まれる場合，
         正規化された絶対パスを指定すべきである．つまり，パス <filename>/home</filename> から 
@@ -119,9 +121,9 @@ basedir regex = /usr/home</programlisting></para>
 
           <secondary>Catalog Node ID</secondary>
         </indexterm> バックエンド<indexterm>
-          <primary>Backend</primary>
+          <primary>バックエンド</primary>
 
-          <secondary>CNID backend</secondary>
+          <secondary>CNID バックエンド</secondary>
         </indexterm></title>
 
       <para>SMB や NFS のようなほかのプロトコルとは異なり，ほとんどの場合，
@@ -131,14 +133,14 @@ basedir regex = /usr/home</programlisting></para>
       ファイル名 'Test' というのを開いてください．”</phrase>といった調子でディレクトリ ID<indexterm>
           <primary>DID</primary>
 
-          <secondary>Directory ID</secondary>
+          <secondary>ディレクトリ ID</secondary>
         </indexterm>とファイル名を用いる． 
       </para>
 
       <para>AFP ボリュームにある各々のファイルに一意のファイル ID<indexterm>
           <primary>FID</primary>
 
-          <secondary>File ID</secondary>
+          <secondary>ファイル ID</secondary>
         </indexterm> が割り当てられる．仕様により ID は絶対に再利用禁止であり，ID は 32 bit の数字である．
       （ディレクトリ ID は共通の ID プールを使用する）このため，
       ある AFP ボリュームにおよそ 40 億個以上のファイル・フォルダーを書き込むと，
@@ -148,7 +150,7 @@ basedir regex = /usr/home</programlisting></para>
       <para>Netatalk はホストのファイルシステム内で 
       ID とファイルあるいはフォルダーのマップ（ID との対応付け）をする必要がある．
       それを実現するためにいくつかの異なる CNID バックエンド<indexterm>
-          <primary>CNID backend</primary>
+          <primary>CNID バックエンド</primary>
         </indexterm>が用意されていて，<citerefentry>
           <refentrytitle>afp.conf</refentrytitle>
 
@@ -157,7 +159,7 @@ basedir regex = /usr/home</programlisting></para>
       scheme</option><indexterm>
           <primary>cnidscheme</primary>
 
-          <secondary>specifying a CNID backend</secondary>
+          <secondary>特定の CNID を指定する</secondary>
         </indexterm> オプションで選択が可能である．CNID バックエンドは基本的には，
         ストアされた ID &lt;-&gt; 名前を一対一対応させるデータベースである．</para>
 
@@ -173,7 +175,7 @@ basedir regex = /usr/home</programlisting></para>
         <itemizedlist>
           <listitem>
             <para>ボリュームをネスト（入れ子）にしてはならない．<indexterm>
-                <primary>Nested volumes</primary>
+                <primary>ボリュームをネスト（入れ子）にする</primary>
               </indexterm></para>
           </listitem>
 
@@ -186,9 +188,9 @@ basedir regex = /usr/home</programlisting></para>
             <para>もしファイルシステムに空き容量がなくなった場合，データベースは破損するかもしれない．
             それを回避するために取る策としては，<option>vol dbpath</option> オプションを使用して，
             データベースファイルをどこか別の場所に置く，か，クオータ<indexterm>
-                <primary>Quotas</primary>
+                <primary>クオータ</primary>
 
-                <secondary>Disk usage quotas</secondary>
+                <secondary>ディスク使用量のクオータ</secondary>
             </indexterm>を使っているならば CNID 
             データベースフォルダーがクオータなしでユーザー／グループのオーナーとなっているか確認する．
             のいずれかである．</para>
@@ -201,7 +203,7 @@ basedir regex = /usr/home</programlisting></para>
             もしどうしても NFS<indexterm>
                 <primary>NFS</primary>
 
-                <secondary>Network File System</secondary>
+                <secondary>ネットワークファイルシステム</secondary>
               </indexterm> マウントしたボリュームを使わねばならない場合は <option>vol dbpath</option> 
             ディレクティブを使用してデータベースをローカルディスクに置くべきである．</para>
           </listitem>
@@ -212,7 +214,7 @@ basedir regex = /usr/home</programlisting></para>
         <title>cdb<indexterm>
             <primary>CDB</primary>
 
-            <secondary>"cdb" CNID backend</secondary>
+            <secondary>"cdb" CNID バックエンド</secondary>
           </indexterm></title>
 
         <para>“コンカレント（concurrent:同時進行）データベース”は 
@@ -231,7 +233,7 @@ basedir regex = /usr/home</programlisting></para>
         <title>dbd<indexterm>
             <primary>DBD</primary>
 
-            <secondary>"dbd" CNID backend</secondary>
+            <secondary>"dbd" CNID バックエンド</secondary>
           </indexterm></title>
 
         <para>CNID データベースへのアクセスは cnid_dbd デーモンプロセスのみに制限されている．
@@ -245,7 +247,7 @@ basedir regex = /usr/home</programlisting></para>
         <title>tdb<indexterm>
             <primary>tdb</primary>
 
-            <secondary>"tdb" CNID backend</secondary>
+            <secondary>"tdb" CNID バックエンド</secondary>
           </indexterm></title>
 
         <para><abbrev>tdb</abbrev> はまた別の永続性のある CNID データベースの一つであり，
@@ -265,7 +267,7 @@ basedir regex = /usr/home</programlisting></para>
         <title>last<indexterm>
             <primary>Last</primary>
 
-            <secondary>"last" CNID backend</secondary>
+            <secondary>"last" CNID バックエンド</secondary>
           </indexterm></title>
 
         <para>last バックエンドはメモリーにデータを保持する tdb データベースである．それ故永続性がない．
@@ -277,7 +279,7 @@ basedir regex = /usr/home</programlisting></para>
         <title>mysql<indexterm>
             <primary>MySQL</primary>
 
-            <secondary>"mysql" CNID backend</secondary>
+            <secondary>"mysql" CNID バックエンド</secondary>
           </indexterm></title>
 
         <para>CNID バックエンドは MySQL サーバーを使用する．</para>
@@ -288,7 +290,7 @@ basedir regex = /usr/home</programlisting></para>
       <title>Charsets<indexterm>
           <primary>Charset</primary>
 
-          <secondary>character set</secondary>
+          <secondary>ギャラクターセット</secondary>
         </indexterm>/Unicode<indexterm>
           <primary>Unicode</primary>
         </indexterm></title>
@@ -303,7 +305,7 @@ basedir regex = /usr/home</programlisting></para>
         それ故各々の“字”には“数”が割り当てられている．キャラクターセット，しばしば
         <emphasis>charset</emphasis> あるいは
         <emphasis>codepage</emphasis><indexterm>
-            <primary>Codepage</primary>
+            <primary>コードページ</primary>
           </indexterm> とも呼ばれるが，これは“数”と“字”の一対一対応を規定している．</para>
 
         <para>二つあるいはそれ以上のコンピューターがお互いに通信する場合，
@@ -466,12 +468,12 @@ basedir regex = /usr/home</programlisting></para>
         <emphasis>UTF8</emphasis><indexterm>
             <primary>UTF8</primary>
 
-            <secondary>Netatalk's precomposed UTF-8 encoding</secondary>
+            <secondary>Netatalk の precomposed UTF-8 エンコーディング</secondary>
           </indexterm> と，decomposed UTF-8 を
         <emphasis>UTF8-MAC</emphasis><indexterm>
             <primary>UTF8-MAC</primary>
 
-            <secondary>Netatalk's decomposed UTF-8 encoding</secondary>
+            <secondary>Netatalk の decomposed UTF-8 エンコーディング</secondary>
           </indexterm> と呼ぶ．</para>
 
       </sect3>
@@ -536,7 +538,7 @@ basedir regex = /usr/home</programlisting></para>
             <term>unix charset<indexterm>
                 <primary>unix charset</primary>
 
-                <secondary>afpd's unix charset setting</secondary>
+                <secondary>afpd の unix charset セッティング</secondary>
               </indexterm></term>
 
             <listitem>
@@ -558,7 +560,7 @@ basedir regex = /usr/home</programlisting></para>
             <term>mac charset<indexterm>
                 <primary>mac charset</primary>
 
-                <secondary>afpd's mac charset setting</secondary>
+                <secondary>afpd の mac charset セッティング</secondary>
               </indexterm></term>
 
             <listitem>
@@ -583,7 +585,7 @@ basedir regex = /usr/home</programlisting></para>
             <term>vol charset<indexterm>
                 <primary>vol charset</primary>
 
-                <secondary>afpd's vol charset setting</secondary>
+                <secondary>afpd の vol charset セッティング</secondary>
               </indexterm></term>
 
             <listitem>
@@ -593,7 +595,7 @@ basedir regex = /usr/home</programlisting></para>
               url="http://www.gnu.org/software/libiconv/">iconv</ulink><indexterm>
                   <primary>Iconv</primary>
 
-                  <secondary>iconv encoding conversion engine</secondary>
+                  <secondary>iconv エンコーディング変換エンジン</secondary>
                 </indexterm> がインストールしてあるならば，
                 iconv が提供するキャラクターセットも使用することができる．</para>
 
@@ -601,9 +603,9 @@ basedir regex = /usr/home</programlisting></para>
               拡張マッキントッシュキャラクター，
               あるいは unix のファイル名として不正なキャラクターを保持しておく必要がある．
               初期のバージョンでは，いわゆる CAP エンコーディング<indexterm>
-                  <primary>CAP encoding</primary>
+                  <primary>CAP エンコーディング</primary>
 
-                  <secondary>CAP style character encoding</secondary>
+                  <secondary>CAP スタイルキャラクターエンコーディング</secondary>
                 </indexterm>を使った．拡張キャラクター (&gt;0x7F) は :xx 
               の 16 進数に変換される．例えば，アップルのロゴ (MacRoman:
               0xF0) は :f0 として保存される．
@@ -638,9 +640,9 @@ basedir regex = /usr/home</programlisting></para>
 
     <sect2 id="authentication">
       <title>認証<indexterm>
-          <primary>Authentication</primary>
+          <primary>認証</primary>
 
-          <secondary>between AFP client and server</secondary>
+          <secondary>AFP クライアントとサーバー間の</secondary>
         </indexterm></title>
 
       <sect3>
@@ -671,7 +673,7 @@ basedir regex = /usr/home</programlisting></para>
             <para>"No User Authent"<indexterm>
                 <primary>No User Authent</primary>
 
-                <secondary>"No User Authent" UAM (guest access)</secondary>
+                <secondary>“ユーザー認証なし”UAM（ゲストアクセス）</secondary>
               </indexterm> UAM（ユーザー認証なしのゲスト接続）</para>
           </listitem>
 
@@ -679,7 +681,7 @@ basedir regex = /usr/home</programlisting></para>
             <para>"Cleartxt Passwrd"<indexterm>
                 <primary>Cleartxt Passwrd</primary>
 
-                <secondary>"Cleartxt Passwrd" UAM</secondary>
+                <secondary>“クリアテキスト(平文)パスワード”UAM</secondary>
               </indexterm> UAM（クリアテキスト(平文)パスワード，暗号化なし）</para>
           </listitem>
 
@@ -691,7 +693,7 @@ basedir regex = /usr/home</programlisting></para>
               </indexterm>，"2-Way Randnum exchange"<indexterm>
                 <primary>2-Way Randnum exchange</primary>
 
-                <secondary>"2-Way Randnum exchange" UAM</secondary>
+                <secondary>“双方向乱数交換”UAM</secondary>
               </indexterm> UAM
             （乱数交換・双方向乱数交換，弱いパスワード暗号化，パスワードを別途保存する）</para>
           </listitem>
@@ -924,20 +926,19 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting>
                 <entry>No User Authent<indexterm>
                     <primary>uams_guest.so</primary>
 
-                    <secondary>"No User Authent" UAM (guest
-                    access)</secondary>
+                    <secondary>“ユーザー認証なし”UAM（ゲストアクセス）</secondary>
                   </indexterm></entry>
 
                 <entry>Cleartxt Passwrd<indexterm>
                     <primary>uams_cleartxt.so</primary>
 
-                    <secondary>"Cleartxt Passwrd" UAM</secondary>
+                    <secondary>“クリアテキスト(平文)パスワード”UAM</secondary>
                   </indexterm></entry>
 
                 <entry>(2-Way) Randnum exchange<indexterm>
                     <primary>uams_randnum.so</primary>
 
-                    <secondary>"(2-Way) Randnum exchange" UAM</secondary>
+                    <secondary>“（双方向）乱数交換”UAM</secondary>
                   </indexterm></entry>
 
                 <entry>DHCAST128<indexterm>
@@ -1171,7 +1172,7 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting>
 
     <sect2 id="acls">
       <title>ACL のサーポート<indexterm>
-          <primary>ACLs</primary>
+          <primary>ACL</primary>
         </indexterm></title>
 
       <para>ACL サポートは Solaris の ZFS ACL，派生したプラットフォーム，そして，
@@ -1605,7 +1606,7 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=$PREFIX/var/netatalk/spotlight.ipc"
     </sect2>
 
     <sect2>
-      <title>Tracker コマンドラインでのより進んだ設定</title>
+      <title>Tracker コマンドラインのより進んだ設定</title>
 
       <para>Tracker はその設定を Gnome dconf バックエンド経由で保管し，
       これ <command>gsettings</command> コマンドで変更できる．</para>
@@ -1837,33 +1838,31 @@ org.freedesktop.Tracker.Writeback verbosity 'debug'
   </sect1>
 
   <sect1>
-    <title>Starting and stopping Netatalk</title>
+    <title>Netatalk の起動と停止</title>
 
-    <para>The Netatalk distribution comes with several operating system
-    specific startup script templates that are tailored according to the
-    options given to the "configure" script before compiling. Currently,
-    templates are provided for RedHat (sysv style), RedHat (systemd style),
-    SUSE (sysv style), SUSE (systemd style), Gentoo, NetBSD, Debian and
-    Solaris. You can select to install the generated startup script(s)
-    <indexterm>
+    <para>Netatalk の配布物は，
+    いくつかのオペレーティングシステム固有のスタートアップ・スクリプト・テンプレートを備えている．
+    これらテンプレートは，コンパイル前に "configure" スクリプトに与えられるオプションに応じて最適化されている．
+    現時点で，RedHat（sysv 形式），RedHat（systemd 形式），SUSE（sysv 形式），SUSE（systemd 形式），Gentoo，
+    NetBSD，Debian，および Solaris 向けのものが用意されている．
+    "configure" スクリプトでシステムタイプを指示することで，スタートアップスクリプト
+      <indexterm>
         <primary>Startscript</primary>
 
-        <secondary>startup script</secondary>
-      </indexterm> by specifying a system type to "configure". To
-    automatically install startup scripts give one of the available
-    <option>--with-init-style</option> option to "configure".</para>
+        <secondary>スタートアップスクリプト</secondary>
+      </indexterm>を選び，生成されたものをインストールすれことができる．
+    スタートアップスクリプトを自動でインストールさせるには，"configure" のオプション 
+    <option>--with-init-style</option> で使用可能なものを指定する．</para>
 
-    <para>Since new releases of Linux distributions appear all the time and
-    the startup procedure for the other systems mentioned above might change
-    as well, it is probably a good idea to not blindly install a startup
-    script but to look at it first to see if it will work on your system. If
-    you use Netatalk as part of a fixed setup, like a Linux distribution, an
-    RPM or a BSD package, things will probably have been arranged properly for
-    you. The following therefore applies mostly for people who have compiled
-    Netatalk themselves.</para>
+    <para>Linux ディストーションの新しいリリースは頻繁に出てくるし，
+    上記で触れたようなほかのシステムのスタートアップの手続きもまた変わりうる．
+    それ故，盲目的にスタートアップスクリプトをインストールするのではなく，
+    自分のシステムで動作するであろうかということをまず見てみる，というのがおそらくいい考えである．
+    Linux ディストーションの RPM あるいは BSD のパッケージのような所定のセットアップの一部として使用する場合，
+    概ねの事々は実用に適するようにアレンジされる．
+    それ故，Netatalk そのものをコンパイルするユーザーには概ね下記のことが当てはまる．</para>
 
-    <para>The following daemon need to be started by whatever startup script
-    mechanism is used:</para>
+    <para>いかなるスタートアップスクリプト機構を使っていても，下記のデーモンは必要である：</para>
 
     <itemizedlist>
       <listitem>
@@ -1873,7 +1872,6 @@ org.freedesktop.Tracker.Writeback verbosity 'debug'
       </listitem>
     </itemizedlist>
 
-    <para>Additionally, make sure that the configuration file
-    <filename>afp.conf</filename> is in the right place.</para>
+    <para>加えて，設定ファイル <filename>afp.conf</filename> が正しい場所にあるか確認する．</para>
   </sect1>
 </chapter>
