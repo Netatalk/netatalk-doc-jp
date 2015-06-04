@@ -134,15 +134,17 @@ basedir regex = /usr/home</programlisting></para>
           <primary>DID</primary>
 
           <secondary>ディレクトリ ID</secondary>
-        </indexterm>とファイル名を用いる． 
-      </para>
+        </indexterm>とファイル名を用いる．
+      例えば，Mac での "Aliases" は基本的には ID 
+      として作用する（より最近の AFP クライアントでは絶対パスにフォールバックするが，
+      これは Finder のみで当てはまることであり，アプリケーションでは当てはまらない）．</para>
 
       <para>AFP ボリュームにある各々のファイルに一意のファイル ID<indexterm>
           <primary>FID</primary>
 
           <secondary>ファイル ID</secondary>
         </indexterm> が割り当てられる．仕様により ID は絶対に再利用禁止であり，ID は 32 bit の数字である．
-      （ディレクトリ ID は共通の ID プールを使用する）このため，
+      （ディレクトリ ID も同じ ID プールを使用する）このため，
       ある AFP ボリュームにおよそ 40 億個以上のファイル・フォルダーを書き込むと，
       その時点で ID プールが枯渇され，当該ボリュームへの新ファイルの書き込みができなくなる．
       愚痴はなしということでお願いしたい :-)</para>
@@ -204,8 +206,8 @@ basedir regex = /usr/home</programlisting></para>
                 <primary>NFS</primary>
 
                 <secondary>ネットワークファイルシステム</secondary>
-              </indexterm> マウントしたボリュームを使わねばならない場合は <option>vol dbpath</option> 
-            ディレクティブを使用してデータベースをローカルディスクに置くべきである．</para>
+              </indexterm> マウントしたボリュームを使わねばならない場合はデータベースをローカルディスクに置くために
+            <option>vol dbpath</option> ディレクティブを使用するべきである．</para>
           </listitem>
         </itemizedlist>
       </note>
@@ -217,13 +219,11 @@ basedir regex = /usr/home</programlisting></para>
             <secondary>"cdb" CNID バックエンド</secondary>
           </indexterm></title>
 
-        <para>“コンカレント（concurrent:同時進行）データベース”は 
-        Berkeley DB を基礎としたものである．
+        <para>“コンカレント（concurrent:同時進行）データベース”バックエンドは Berkeley DB を基礎としたものである．
         このバックエンドだと複数の afpd デーモンが CNID データベースに直接アクセスできる．
-        たとえ複数の afpd プロセスがあるボリュームに対して動作中の場合でも 
-        同期アクセスについては Berkeley DB ロック機構が全て負ってくれる． 
-        欠点としては，
-        一つの afpd プロセスのクラッシュのみでデータベースの破損するかもしれないという点である．
+        たとえ複数の afpd プロセスがある一つのボリュームに対して動作中の場合でも同期アクセスについては 
+        Berkeley DB ロック機構が全て負ってくれる．欠点としては，一つの afpd 
+        プロセスのクラッシュのみでデータベースの破損するかもしれないという点である．
         cdb は数多くのユーザーのホームディレクトリを共有するときのみ使用すべきで，
         <emphasis>かつ</emphasis>，
         多数の <command>cnid_dbd</command> プロセスという状態は確実に問題を引き起こすということである．</para>
