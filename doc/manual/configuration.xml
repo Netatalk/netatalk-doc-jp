@@ -290,7 +290,7 @@ basedir regex = /usr/home</programlisting></para>
       <title>Charsets<indexterm>
           <primary>Charset</primary>
 
-          <secondary>ギャラクターセット</secondary>
+          <secondary>キャラクターセット</secondary>
         </indexterm>/Unicode<indexterm>
           <primary>Unicode</primary>
         </indexterm></title>
@@ -1615,7 +1615,7 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=$PREFIX/var/netatalk/spotlight.ipc"
       は Tracker プロセスを root 権限で実行するため，設定は root 
       ユーザーのコンテキストで保管され，これら設定の読み込み書き込みも root 
       権限で行われ，Netatalk 
-      は（そして繰り返しになるが，環境を前記のように設定して）実行中でなければならない．</para>
+      は実行中でなければならない．（そして繰り返しになるが，環境を前記のように設定しなければならない）</para>
 
       <para><screen># gsettings list-recursively | grep Tracker
 org.freedesktop.Tracker.Writeback verbosity 'debug'
