@@ -812,7 +812,7 @@ basedir regex = /usr/home</programlisting></para>
             さもないと，意図しない権限のないアクセスを引き起こすことにもなる．
             ゲストアクセスを有効にしなければならない場合は，
             アクセスコントロールを使って，
-            ボリューム各々についてゲストアクセスを有効化することを強制化するように気を配るべきである．</para>
+            ボリューム各々についてゲストアクセスを有効化することを強制するように気を配るべきである．</para>
           </listitem>
 
           <listitem>
@@ -828,7 +828,7 @@ basedir regex = /usr/home</programlisting></para>
           <listitem>
             <para>"Randnum exchange" と "2-Way Randnum exchange" は 56 ビット DES 暗号化しか使わないので，
             これらもやはり回避すべきである．
-            そしてなおかつ不利なのは，パスワードがサーバーに平文テキストして保存されること，
+            そしてなおかつ不利なのは，パスワードがサーバーに平文テキストとして保存されなければならないこと，
             および PAM 環境とも古典的な /etc/shadow とも統合がとれない
             （もしクライアントがこれらの UAM を使わなければならない場合，<citerefentry>
                 <refentrytitle>afppasswd</refentrytitle>
@@ -898,7 +898,7 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting>
       </sect3>
 
       <sect3>
-        <title>Netatalk UAM を概要した表</title>
+        <title>Netatalk UAM を概要表</title>
 
         <para>最も一般的に用いられる UAM の概観．</para>
 
@@ -999,7 +999,7 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting>
                 <entry align="center" rotate="0"
                 valign="middle">暗号化</entry>
 
-                <entry>クライアント・サーバーかんで認証なくゲストアクセス可能．</entry>
+                <entry>クライアント・サーバー間で認証なくゲストアクセス可能．</entry>
 
                 <entry>パスワードがネットワーク上を暗号化されずに伝わっていく．
                 字句そのままに悪いので，可能ならば全面的に使用を回避すべき
@@ -1082,8 +1082,8 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting>
 
           <para>これは，
           "AFP over TCP" を“話すことができる”最初の AFP サーバーがネットワークに登場して以来うまく動作する．
-          リモートサーバーのポートをローカルの 548 番以外の異なるポートにトンネルし，
-          その後ローカルにつなぐだけである．OS X では以下のようにすればよい．</para>
+          リモートサーバーの AFP ポートをローカルの 548 番以外の異なるポートにトンネルし，
+          その後ローカルでこのポートににつなげるだけである．OS X では以下のようにすればよい．</para>
 
           <programlisting>ssh -l $USER $SERVER -L 10548:127.0.0.1:548 sleep 3000</programlisting>
 
@@ -1109,7 +1109,7 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting>
           「SSHを用いて安全な接続を可能にする」チェックボックスを追加した．
           この考えの裏にあるのは：サーバーが SSH で接続できるというサインを出した時，
           Mac OS X の AFP クライアントはトンネルを確立しようとし，
-          全ての AFP トラフィックをこのトンネルを通して送る．ということなのである．</para>
+          自動的に全ての AFP トラフィックをこのトンネルを通して送る．ということなのである．</para>
 
           <para>しかし，この機能が初めて…部分的に，
           動作するようになるのに Mac OS X 10.3 までかかった．
@@ -1129,7 +1129,7 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting>
 
           <itemizedlist>
             <listitem>
-              <para>（SSH がするように）TCP over TCP は最良の案ではない．
+              <para>（SSH がするように）TCP over TCP のトンネリングは最良の案ではない．
               IP レイヤーに基づいた VPN などのより良い解決法が存在する．</para>
             </listitem>
 
@@ -1150,7 +1150,7 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting>
             </listitem>
 
             <listitem>
-              <para>一方，AFP セッション全てが暗号化されていることを確実にしたい場合は，
+              <para>一方，AFP セッション全てが SSH で暗号化されていることを確実にしたい場合は，
               afpd へのアクセスを localhost のみ（TCP ラッパー）に制限すべきである．
               あるいは…</para>
             </listitem>
