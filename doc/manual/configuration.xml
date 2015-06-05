@@ -308,7 +308,7 @@ basedir regex = /usr/home</programlisting></para>
             <primary>コードページ</primary>
           </indexterm> とも呼ばれるが，これは“数”と“字”の一対一対応を規定している．</para>
 
-        <para>二つあるいはそれ以上のコンピューターがお互いに通信する場合，
+        <para>二つあるいはそれ以上のコンピューターがお互いに通信する必要がある場合，
         各々は同じキャラクターセットを使う必要がある．1960 年代には ASCII<indexterm>
             <primary>ASCII</primary>
 
@@ -318,20 +318,20 @@ basedir regex = /usr/home</programlisting></para>
         キャラクターセットが 
         ASA（米国標準協会：the American Standards Association）によって標準化された．
         オリジナルの ASCII 形式は，
-        英語で用いられるアルファベット及び数字を網羅するのに必要な数より多い 128 
-        のキャラクターを表している．
-        ASCII は今日においてもコンピューターで使われるキャラクタースキームである．</para>
+        英語で用いられるアルファベット及び数字を網羅するのに十分な数より多い 128 
+        のキャラクターを表している．今日においても，
+        ASCII はコンピューターで使われるキャラクタースキームの標準的なものである．</para>
 
         <para>国際的にもっと都合よく，そして若干内輪向けの記号文字を含めるために，
         つづくバージョンでは 256 のキャラクターを規定した．
         このエンコードの仕様だと一文字はきっちり 1 バイトに収まるが，
-        256 キャラクターというのは，
-        いろいろな言語で用いる全ての文字を一つのキャラクターに一対一対応させるのに十分ではなかった．
+        明らかに，256 キャラクターというのは，
+        いろいろな言語で用いる全ての文字を一つのキャラクターに一対一対応させるのに依然十分ではなかった．
         </para>
 
         <para>結果的には後にローカライズされたキャラクターセットが規定された．
         例えば ISO-8859 キャラクターセットである．
-        ほとんどのオペレーティングシステムベンダーは各々の要求を満たすために，
+        ほとんどのオペレーティングシステムベンダーは自らの要求を満たすために，
         独自のキャラクターセットを導入した．すなわち IBM であれば 
         <emphasis>コードページ 437 (DOSLatinUS)</emphasis>，アップルは 
         <emphasis>MacRoman</emphasis><indexterm>
@@ -341,23 +341,24 @@ basedir regex = /usr/home</programlisting></para>
           </indexterm> コードページ，などである．
         127 以上のキャラクターが定義されているものを<emphasis>拡張</emphasis>
         キャラクターと呼ぶ．
-        これらのキャラクターセットはお互いに異なるキャラクターに同じ番号をふってあるので衝突を起こす．</para>
+        これらのキャラクターセットは異なるキャラクターに同じ番号をふってあるので，
+        他のキャラクターセットとまたはキャラクターセット同士で衝突を起こす．</para>
 
         <para>そういったキャラクターセットのほぼ全てが 256 個のキャラクターを定義していて，
-        最初の 128 個（0 から 127 まで）のキャラクターを ASCII と同一対応となるようにしている．
-        結果的に違ったコードページを使っているシステム同士でコミュニケーションを効率よくするためには，
-        ASCII キャラクターセットに限定で行うしかない．</para>
+        最初の 128 個（0 から 127 まで）のキャラクターを ASCII と同一対応となるようにしている．        
+        結果的に，違ったコードページを使っているシステム同士の通信では，事実上
+        ASCII キャラクターセット限定となった．</para>
 
-        <para>この問題をすっぱり解決するために，より大きいキャラクターセットが規定された．
+        <para>この問題を新たに解決するために，より大きいキャラクターセットが規定された．
         より多くのキャラクターマッピングの場所を確保するために，
-        これらのキャラクターセットは一つのキャラクターのために最低でも 2 バイトを指定する．
+        これらのキャラクターセットは一つのキャラクターの格納のために最低でも 2 バイトを使用する．
         このためそういったキャラクターセットは<emphasis>マルチバイト</emphasis>
         キャラクターセットと呼ばれる．</para>
 
-        <para>標準的なマルチバイトキャラクターエンコード方式として知られているものの一つとして
+        <para>標準化されたマルチバイトキャラクターエンコード方式として知られているものの一つとして
         <ulink url="http://www.unicode.org/">ユニコード</ulink>がある．
-        マルチバイトキャラクターセットの大きな利点として“それ一つで済む”がある．
-        二つのコンピューターが通信しているときに両者が同一のキャラクターセットを使用しているか確認する必要がない．</para>
+        マルチバイトキャラクターセット使用の大きな利点として“それ一つで済む”がある．
+        二つのコンピューターが通信しているときに両者が同じキャラクターセットを使用しているか確認する必要がない．</para>
       </sect3>
 
       <sect3>
@@ -437,9 +438,9 @@ basedir regex = /usr/home</programlisting></para>
         </itemizedlist>
 
         <para>Mac OS X 以降そして AFP3 以降では <ulink url="http://www.utf-8.com/">UTF-8</ulink> 
-        が用いられる．UTF-8 は Unicode キャラクターを ASCII 互換のままエンコードする．
+        が用いられる．UTF-8 は Unicode キャラクターを ASCII 互換のやり方でエンコードする．
         各々の Unicode キャラクターは一個から六個の ASCII キャラクターにエンコードされる．
-        故に， UTF-8 自体はキャラクターセットではなく，ユニコードキャラクターセットのエンコードである．</para>
+        故に， UTF-8 自体が本当のキャラクターセットなのではなく，ユニコードキャラクターセットのエンコーディングなのである．</para>
 
         <para>厄介なことにも Unicode はいくつかの <emphasis> <ulink
         url="http://www.unicode.org/reports/tr15/index.html">normalization（正規化）</ulink>
@@ -460,7 +461,7 @@ basedir regex = /usr/home</programlisting></para>
 
         <para>例として、ドイツ語の文字 '<keycode>ä</keycode>' についてみてみる．
         Precomposed normalization を使えば Unicode はこの文字に 0xE4 を対応付ける．
-        一方，decomposed normalization では 'ä' を正確には 0x61 と 0x308 の二つの文字に対応付ける．
+        Decomposed normalization では 'ä' を正確には 0x61 と 0x308 の二つの文字に対応付ける．
         0x61 は 'a' に，0x308 は <emphasis>COMBINING
         DIAERESIS</emphasis>（訳注：いわゆるウムラウト）に対応付けられている．</para>
 
@@ -481,8 +482,8 @@ basedir regex = /usr/home</programlisting></para>
       <sect3>
         <title>afpd とキャラクターセット</title>
 
-        <para>新しい AFP 3.x も古い AFP 2.x クライアントも同時にサポートするために，
-        afpd は使われている様々なキャラクターセット間の変換が可能であることを求められた．
+        <para>新しい AFP 3.x クライアントも古い AFP 2.x クライアントも同時にサポートするために，
+        afpd は使われている様々なキャラクターセット間の変換が可能であることを必要とした．
         AFP 3.x クライアントは常に UTF8-MAC を，
         AFP 2.x クライアントは Apple コードページのうちの一つを使う．</para>
 
@@ -567,7 +568,7 @@ basedir regex = /usr/home</programlisting></para>
               <para>既に述べたように，
               旧式の Mac OS クライアント（AFP 2.2 までのもの）は 
               afpd と通信するのにコードページを用いる．しかしながら，
-              AFP プロトコルにはクライアントが使用しているコードページを解決するというサポートはない．
+              AFP プロトコルにはクライアントが使用しているコードページの折り合いをつけるというサポートはない．
               もしほかのどこかで指定されていないと，
               afpd は <emphasis>MacRoman</emphasis> コードページが使われていると仮定する．
               クライアントが別のコードページ，
@@ -589,7 +590,7 @@ basedir regex = /usr/home</programlisting></para>
               </indexterm></term>
 
             <listitem>
-              <para>これは afpd がディスク上のファイル名として使うべきキャラクターセットを定義する．
+              <para>これは afpd がディスク上のファイル名として使うべき charset を定義する．
               デフォルトでは <option>unix
               charset</option> と同じである．もし <ulink
               url="http://www.gnu.org/software/libiconv/">iconv</ulink><indexterm>
@@ -601,7 +602,7 @@ basedir regex = /usr/home</programlisting></para>
 
               <para>afpd はファイルを unix のファイルシステムに保存する時，
               拡張マッキントッシュキャラクター，
-              あるいは unix のファイル名として不正なキャラクターを保持しておく必要がある．
+              あるいは unix のファイル名として不正なキャラクターを保持する手段が必要である．
               初期のバージョンでは，いわゆる CAP エンコーディング<indexterm>
                   <primary>CAP エンコーディング</primary>
 
@@ -616,8 +617,8 @@ basedir regex = /usr/home</programlisting></para>
 
               <para>本ドキュメントでのバージョンではファイル名のデフォルトエンコーディングとして
               <option>UTF8</option> を使っているにもかかわらず，'/' は ':' に変換される．
-              欧米のユーザーにとって <option>vol charset = ISO-8859-15</option> 
-              という設定が有用となるかもしれない．</para>
+              欧米のユーザーにとって別の有用な設定として <option>vol charset = ISO-8859-15</option> 
+              もあり得る．</para>
 
               <para>もし，あるキャラクターが <option>mac charset</option> から選定した 
               <option>vol charset</option> への変換ができない場合，
