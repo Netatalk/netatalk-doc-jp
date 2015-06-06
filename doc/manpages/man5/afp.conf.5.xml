@@ -210,10 +210,10 @@
   </refsect1>
 
   <refsect1>
-    <title>EXPLANATION OF GLOBAL PARAMETERS</title>
+    <title>グローバルパラメータの説明</title>
 
     <refsect2>
-      <title>Authentication Options</title>
+      <title>認証オプション</title>
 
       <variablelist>
         <varlistentry>
@@ -221,9 +221,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Append @DOMAIN to username when authenticating. Useful in
-            Active Directory environments that otherwise would require the
-            user to enter the full user@domain string.</para>
+            <para>認証時にユーザ名に@DOMAINを追加する。Active Directory環境で有用。さもなくば、完全な文字列user@domainで参加するユーザを要求するだろう。</para>
           </listitem>
         </varlistentry>
 
@@ -232,12 +230,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Specifying eg "<option>admin auth user = root</option>"
-            whenever a normal user login fails, afpd will try to authenticate
-            as the specified <option>admin auth user</option>. If this
-            succeeds, a normal session is created for the original connecting
-            user. Said differently: if you know the password of <option>admin
-            auth user</option>, you can authenticate as any other user.</para>
+            <para>例えば"<option>admin auth user = root</option>"を指定すると、通常ユーザのログインが失敗したときにafpdは必ず指定した<option>admin auth user</option>として認証を試みる。これが成功した場合、元の接続ユーザとして通常のセッションが確立される。言い換えると、あなたが<option>admin auth user</option>のパスワードを知っている場合、如何なる他のユーザとしてでも認証できる。</para>
           </listitem>
         </varlistentry>
 
@@ -252,8 +245,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>These are required if the server supports the Kerberos 5
-            authentication UAM.</para>
+            <para>サーバがKerberos 5認証UAMをサポートする場合、これらが必要である。</para>
           </listitem>
         </varlistentry>
 
@@ -265,30 +257,25 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Use for eg. winbind authentication, prepends both strings
-            before the username from login and then tries to authenticate with
-            the result through the available and active UAM authentication
-            modules.</para>
+            <para>例えばwinbind認証で利用し、有効かつ動作中のUAM認証を通して、ログイン時のユーザ名の前に両方の文字列を付けたもので認証を試みる。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>save password = <replaceable>BOOLEAN</replaceable> (default:
+          <term>save password = <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>yes</emphasis>) <type>(G)</type></term>
 
           <listitem>
-            <para>Enables or disables the ability of clients to save passwords
-            locally.</para>
+            <para>パスワードをローカルに保存するクライアントの機能を有効または無効にする。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>set password = <replaceable>BOOLEAN</replaceable> (default:
+          <term>set password = <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>no</emphasis>) <type>(G)</type></term>
 
           <listitem>
-            <para>Enables or disables the ability of clients to change their
-            passwords via chooser or the "connect to server" dialog.</para>
+            <para>chooserや「サーバへ接続」のダイアログを通してパスワードの変更をするクライアントの機能を有効または無効にする。</para>
           </listitem>
         </varlistentry>
 
@@ -297,17 +284,16 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Space or comma separated list of UAMs. (The default is
-            "uams_dhx.so uams_dhx2.so").</para>
+            <para>スペースまたはカンマで区切られたUAMの一覧。(デフォルトは「uams_dhx.so uams_dhx2.so」)</para>
 
-            <para>The most commonly used UAMs are:</para>
+            <para>最も一般的に使われるUAMは以下の通り:</para>
 
             <variablelist>
               <varlistentry>
                 <term>uams_guest.so</term>
 
                 <listitem>
-                  <para>allows guest logins</para>
+                  <para>ゲストログインを許可する</para>
                 </listitem>
               </varlistentry>
 
@@ -315,8 +301,7 @@
                 <term>uams_clrtxt.so</term>
 
                 <listitem>
-                  <para>(uams_pam.so or uams_passwd.so) Allow logins with
-                  passwords transmitted in the clear. (legacy)</para>
+                  <para>(uams_pam.soまたはuams_passwd.so) 暗号化なしで転送されたパスワードによるログインを許可する。(時代遅れ)</para>
                 </listitem>
               </varlistentry>
 
@@ -324,15 +309,12 @@
                 <term>uams_randum.so</term>
 
                 <listitem>
-                  <para>allows Random Number and Two-Way Random Number
-                  Exchange for authentication (requires a separate file
-                  containing the passwords, either @pkgconfdir@/afppasswd file or
-                  the one specified via "<option>passwd file</option>". See
+                  <para>認証のための乱数および双方向乱数交換を許可する (パスワードを含んだファイル、つまり@pkgconfdir@/afppasswdファイルか"<option>passwd file</option>"で指定したファイルのどちらかが必要)。詳細は
                   <citerefentry>
                       <refentrytitle>afppasswd</refentrytitle>
 
                       <manvolnum>1</manvolnum>
-                    </citerefentry> for details. (legacy)</para>
+                    </citerefentry>を見よ。(時代遅れ)</para>
                 </listitem>
               </varlistentry>
 
@@ -340,8 +322,7 @@
                 <term>uams_dhx.so</term>
 
                 <listitem>
-                  <para>(uams_dhx_pam.so or uams_dhx_passwd.so) Allow
-                  Diffie-Hellman eXchange (DHX) for authentication.</para>
+                  <para>(uams_dhx_pam.soまたはuams_dhx_passwd.so) 認証のためのDiffie-Hellman交換(DHX)を許可する。</para>
                 </listitem>
               </varlistentry>
 
@@ -349,8 +330,7 @@
                 <term>uams_dhx2.so</term>
 
                 <listitem>
-                  <para>(uams_dhx2_pam.so or uams_dhx2_passwd.so) Allow
-                  Diffie-Hellman eXchange 2 (DHX2) for authentication.</para>
+                  <para>(uams_dhx2_pam.soまたはuams_dhx2_passwd.so) 認証のためのDiffie-Hellman交換2(DHX2)を許可する。</para>
                 </listitem>
               </varlistentry>
 
@@ -358,7 +338,7 @@
                 <term>uam_gss.so</term>
 
                 <listitem>
-                  <para>Allow Kerberos V for authentication (optional)</para>
+                  <para>認証のためのKerberos Vを許可する。(オプション)</para>
                 </listitem>
               </varlistentry>
             </variablelist>
@@ -370,8 +350,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Sets the default path for UAMs for this server (default is
-            @libdir@/netatalk).</para>
+            <para>このサーバのためのUAMのデフォルトパスを設定する(デフォルトは@libdir@/netatalk)。</para>
           </listitem>
         </varlistentry>
       </variablelist>
