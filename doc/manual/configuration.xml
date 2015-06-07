@@ -1176,42 +1176,41 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting>
           <primary>ACL</primary>
         </indexterm></title>
 
-      <para>ACL サポートは Solaris の ZFS ACL，派生したプラットフォーム，そして，
+      <para>afp の ACL サポートは Solaris の ZFS ACL，派生したプラットフォーム，そして，
       Linux の POSIX 1e ACL で実装されている．</para>
 
       <sect3>
         <title>環境設定</title>
 
         <para>基本的な方式で運用するならば設定することは何もない．
-        Netatalk は ACL をオンザフライで読み込み，そののち UARights<indexterm>
+        Netatalk は ACL をオンザフライで読み込み，そののちいわゆる UARights<indexterm>
             <primary>UARights</primary>
-          </indexterm> と呼ばれるパーミションビット経由で AFP 
-        クライアントに送られる有効なパーミッションを算出する．
+          </indexterm> パーミションビット経由で AFP クライアントに送られる有効なパーミッションを算出する．
         マック上では，これらのビットを Finder 
         ウィンドウ内のパーミッションと調整するために Finder が使用する．
         例えば，あるユーザーに UNIX 
-        モードでは読み込み権限しか結果的に与えられていないフォルダーに，ACL 
-        が書き込み権限を与えているならば，読み込み専用アイコンが表示されることもなく，
-        当該ユーザーはそのフォルダーに書き込みもできる．</para>
+        モードでは読み込み権限しか結果的に与えられていないフォルダーに読み込み専用アイコンが表示されることもなく，
+        ACL が書き込み権限を与えているならば，当該ユーザーはそのフォルダーに書き込みもできる．</para>
 
         <para>デフォルトでは，認証ユーザーに有効なパーミションは UNIX のモードではなく，
         前記 UARights<indexterm>
             <primary>UARights</primary>
-          </indexterm> に対応付けられる．
-        この挙動はオプション <link
+          </indexterm> の機構のみに対応付けられる．
+        この挙動は設定オプション <link
         linkend="map_acls">map acls</link> で修正することができる．</para>
 
         <para>しかしながら，Finder の“情報を見る”ウィンドウでもターミナルでも，
-        ACL を見ることは不可能で，そこで見ているのは OS X で ACL がどのような仕様なのかという結果である．
+        ACL を見ることは不可能で，そこで見ているのは OS X で ACL がどのように設計されたのかという結果である．
         もしクライアント上でも ACL を表示させたいと思うならば，諸々を認証ドメイン（ディレクトリサービス，
         例えば，LDAP やOpenDirectory）の一部と，より内包されているようにして，
         クライアント側でもサーバー側でもセットアップをおこなうべきである．
         その理由は，OS X ACL が ただ，uid と gid だけでなく UUID と紐付いているためである．
-        このため，OS X の UUID に紐付けられている UNIX uid と gid サーバー側の ACL に返せるように，
-        afpd は全てのファイルシステムの uid と gid をマップできるようにしなければならない．</para>
+        このため，afpd は全てのファイルシステムの uid と git を UUID に紐付けできなければならない．
+        そうすれば， afpd は OS X の UUID に紐付けた UNIX uid と gid も含めたサーバー側の ACL を返すことができる．
+        </para>
 
         <para>Netatalk は LDAP クエリーを使ってディレクトリサーバーに問い合わせができる．
-        ディレクトリサーバー（Active Directory，Open Directory）が既にユーザーとグループの UUID 属性を提供している
+        ディレクトリサーバー（Active Directory，Open Directory）が既にユーザーとグループの UUID 属性を提供している．
         あるいはディレクトリサーバー（例えば 
         OpenLDAP）に使用されていない属性を再利用する（あるいは新たに追加する）のいずれかである．</para>
 
@@ -1243,7 +1242,8 @@ aclmode = passthrough</screen>
 
             <itemizedlist>
               <listitem>
-                <para>UUID を何らかの属性に保管している場合は Open Directory サーバーが必要である．</para>
+                <para>UUID を何らかの属性に保管している場合は 
+                Open Directory サーバーないしは LDAP サーバーが必要である．</para>
               </listitem>
 
               <listitem>
@@ -1282,8 +1282,8 @@ aclmode = passthrough</screen>
         ACL はオプションなので，UNIX パーミションはアクセス制御のデフォルトのメカニズムの役割をする．
         オブジェクトの UNIX パーミションを変更しても ACL は手付かずのままで，
         ACL の修正でもオブジェクトの UNIX パーミションは決して変更されない．アクセスチェックの間，
-        OS X は最初に以下の順序で ACE の評価をしているオブジェクトの ACL を調べる：
-        全てのリクエストが許可されるまで，リクエストされた権限が ACE によって明示的に拒否された，
+        OS X は最初に以下の順序で ACE の評価をして，オブジェクトの ACL を検査する：
+        全てのリクエスト権限が許可されるまで，リクエストされた権限が ACE によって明示的に拒否された，
         あるいはリストの最後までたどり着いた．である．ACL がない，
         あるいは ACL に許可されたパーミションがリクエストを実行するのに十分でない場合，
         OS X は次にオブジェクトの UNIX パーミションの評価に入る．
@@ -1371,16 +1371,15 @@ aclmode = passthrough</screen>
               <listitem>
                 <para>ACL_MASK：ACL_GROUP_OBJ，ACL_USER および ACL_GROUP 
                 タイプのエントリーで許可されうるアクセス権の最大値を制限する．名前の示すように，
-                このエントリーはマスクとして働く．一つの ACL あたり一個だけの ACL_MASK が許される．
+                このエントリーはマスクとして働く．一つの ACL あたり一個だけの ACL_MASK エントリーが許される．
                 もし ACL に，ACL_USER ないしは ACL_GROUP エントリーが含まれているのであれば，
-                ACL_MASK エントリーも存在しなければならない．それらが含まれていなければ，
-                ACL_MASK はオプションである．</para>
+                ACL_MASK エントリーも存在しなければならない．さもなくば，ACL_MASK はオプションである．</para>
               </listitem>
             </itemizedlist></para>
 
           <para>ACL を意識していないアプリケーションとの互換性を維持のため，
           Posix 1003.1e は，オブジェクトの UNIX 
-          パーミションを検索したり処理するシステムコールやアプリケーションのセマンティクスを変える．
+          パーミションを検索したり処理するシステムコールやユーティリティーのセマンティクスを変える．
           オブジェクトが必要最低限の ACL のみ保持している場合，
           UNIX パーミションのグループパーミションビットは ACL_GROUP_OBJ エントリーの値に対応する．</para>
 
@@ -1389,7 +1388,7 @@ aclmode = passthrough</screen>
           UNIX パーミションのグループパーミションビットは ACL_MASK エントリーの値に対応する，
           すなわち，"chmod g-w" の呼び出しは，グループに対する書き込みアクセスを無効にするだけでなく，
           ACL_USER ないしは ACL_GROUP 
-          エントリーによって許可されていた全てのエントリーに対する書き込みアクセスも無効にするのである．</para>
+          エントリーによって許可されていた書き込みアクセスのエンティティ全てを無効にするのである．</para>
         </sect4>
 
         <sect4>
@@ -1399,12 +1398,12 @@ aclmode = passthrough</screen>
           afpd は Posix ACL からそれに等価な OS X の ACL にマップする．
           オブジェクトの ACL の書き込みには afpd が OS X の ACL を Posix ACL にマップすることが要求される．
           Posix ACL の設計上の制約から，
-          通常マッピングを経た結果がオリジナルの ACL 
-          のセマンティクスと概ね同じになるような正確なマッピングを見出すことは不可能である．</para>
+          マッピングを経た結果がオリジナルの ACL 
+          のセマンティクスと概ね同じになるような正確なマッピングを見出すことは通常不可能である．</para>
 
           <para><itemizedlist>
               <listitem>
-                <para>afpd は拒否されたパーミション一式を通告なしに破棄する．
+                <para>afpd はパーミション一式を拒否したエントリーを通告なしに破棄する．
                 これは Posix の設計では表現する手立てがないためである．</para>
               </listitem>
 
