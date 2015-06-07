@@ -1500,7 +1500,7 @@ aclmode = passthrough</screen>
       <title>設定</title>
 
       <para><option>spotlight</option> オプションを使って，
-      全体グローバルに，あるいは，ボリューム単位ごとに Spotlight とインデックス化を有効にできる．</para>
+      グローバルで，あるいは，ボリューム単位ごとに Spotlight とインデックス化を有効にできる．</para>
 
       <warning>
         <para>一旦 Spotlight をどこか単一のボリュームで有効にすると，
@@ -1509,7 +1509,7 @@ aclmode = passthrough</screen>
 
       <para><command>dbus-daemon</command> の実行バイナリが，パス
       <filename>/bin/dbus-daemon</filename> にインストールされていない場合，
-      グローバルオプション <option>dbus daemon</option> で正しいパスを指定なければならない．
+      正しいパスを指示するためにグローバルオプション <option>dbus daemon</option> を用いなければならない．
       例えば Solaris 上で OpenCSW 由来の Tracker を用いている場合は以下のようにする：
       <screen>dbus daemon = /opt/csw/bin/dbus-daemon</screen></para>
     </sect2>
@@ -1521,10 +1521,10 @@ aclmode = passthrough</screen>
         <listitem>
           <para>大きいファイルシステム</para>
 
-          <para>Linux 上の Tracker はファイルシステム変更の追跡に inotify カーネルファイルシステムイベント
-          API を使用する．大きなファイルシステムではこれが問題になりやすい．
+          <para>Linux 上の Tracker はファイルシステム変更の追跡に inotify 
+          カーネルファイルシステム変更イベント API を使用する．大きなファイルシステムではこれが問題になりやすい．
           なぜなら，この inotofy API は再帰的ディレクトリ監視を提供してはおらず，
-          代わりにあらゆるサブディレクトリの監視を各々で要求してくるからである．</para>
+          代わりにあらゆるサブディレクトリの監視が各々で追加されなければならないということを要求してくるからである．</para>
 
           <para>Solaris ではファイルイベント通知（FEN: File Event Notification) が用いられる．
           この Solaris のサブシステムではどんな制限とリソース消費があるのか不明である．</para>
@@ -1541,7 +1541,7 @@ aclmode = passthrough</screen>
     <sect2>
       <title>サーバー上での Tracker コマンドラインツールの使用</title>
 
-      <para>Netatalk の動作とコマンドの実行は root 権限で行わなければならない．
+      <para>Netatalk は動作中でなければならず，コマンドの実行は root 権限で行わなければならない．
       そしていくつかの環境変数を設定されなければならない（PREFIX は Netatalk 
       をインストールしたベースディレクトリにあわせて読み替える）：<screen>$ su
 # cat .tracker_profile
@@ -1615,7 +1615,7 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=$PREFIX/var/netatalk/spotlight.ipc"
       は Tracker プロセスを root 権限で実行するため，設定は root 
       ユーザーのコンテキストで保管され，これら設定の読み込み書き込みも root 
       権限で行われ，Netatalk 
-      は実行中でなければならない．（そして繰り返しになるが，環境を前記のように設定しなければならない）</para>
+      はこのとき動作中でなければならない．（そして繰り返しになるが，環境を前記のように設定しなければならない）</para>
 
       <para><screen># gsettings list-recursively | grep Tracker
 org.freedesktop.Tracker.Writeback verbosity 'debug'
@@ -1631,8 +1631,8 @@ org.freedesktop.Tracker.Writeback verbosity 'debug'
 
           <listitem>
             <para>このオプションは Tracker がどのディレクトリをインデックス化するかを制御する．
-            Netatalk は Netatalk ボリュームそれぞれの <option>Spotlight</option> 
-            オプションの設定を反映して自動的に本オプションが決定されるので，手動で変更してはならない．</para>
+            本オプションは Netatalk ボリュームそれぞれの <option>Spotlight</option> 
+            オプションの設定を反映して自動的に Netatalk によってセットされるので，手動で変更してはならない．</para>
           </listitem>
         </varlistentry>
 
@@ -1644,7 +1644,7 @@ org.freedesktop.Tracker.Writeback verbosity 'debug'
             <para>この値は Tracker が全ての設定パスの変更を監視するかどうかを制御する．
             ファイルシステムの変更バックエンド（Linux なら FAM，Solaris なら FEN）に依存しているので，
             この機能は期待するほどの信頼度をもって動作しないかもしれない．
-            それ故，この機能は無効にして代わりに Tracker 自体が定期的にクローリングさせるほうが安全である．
+            それ故，この機能は無効にして代わりに Tracker 自体の定期的なクローリングに頼るほうが安全であろう．
             オプション <option>crawling-interval </option> も参照のこと．</para>
           </listitem>
         </varlistentry>
@@ -1654,7 +1654,7 @@ org.freedesktop.Tracker.Writeback verbosity 'debug'
           crawling-interval <parameter>-1</parameter></term>
 
           <listitem>
-            <para>ファイルシステムをチェックして最新のデータベース状態にする間隔（日にち単位）．
+            <para>ファイルシステムがデータベース上で最新であるかチェックする間隔（日にち単位）．
             最大は 365 まで，デフォルトでは -1，-2 = クローリングは完全に行われない．
             -1 = スタートアップ時にクローリングが行われる“はず”（シャットダウンが完全でなかった場合）．
             0 = 強制的にクローリングされる</para>
@@ -1744,13 +1744,13 @@ org.freedesktop.Tracker.Writeback verbosity 'debug'
             </row>
 
             <row>
-              <entry>内容のピクセルの幅：画像ならばピクセル幅，動画ならばフレームの幅</entry>
+              <entry>コンテンツの幅（ピクセル）：例えば，画像ならばピクセル幅，動画ならばフレームの幅</entry>
 
               <entry>kMDItemPixelWidth</entry>
             </row>
 
             <row>
-              <entry>内容の高さ（ピクセル）：画像ならばピクセルでの高さ，動画ならばフレームの高さ</entry>
+              <entry>コンテンツの高さ（ピクセル）：例えば，画像ならばピクセルでの高さ，動画ならばフレームの高さ</entry>
 
               <entry>kMDItemPixelHeight</entry>
             </row>
@@ -1762,13 +1762,13 @@ org.freedesktop.Tracker.Writeback verbosity 'debug'
             </row>
 
             <row>
-              <entry>サンプルあたりのビット値（分解能）</entry>
+              <entry>サンプルあたりのビット値（訳注：分解能，量子化ビット数，色深度など）</entry>
 
               <entry>kMDItemBitsPerSample</entry>
             </row>
 
             <row>
-              <entry>レンズの焦点距離（単位：ミリメートル）</entry>
+              <entry>レンズの焦点距離（ミリメートル）</entry>
 
               <entry>kMDItemFocalLength</entry>
             </row>
@@ -1780,25 +1780,25 @@ org.freedesktop.Tracker.Writeback verbosity 'debug'
             </row>
 
             <row>
-              <entry>ドキュメントの向き．許容される値は 0（ランドスケイプ：横向き）と 1 （ポートレイト：縦向き）</entry>
+              <entry>ドキュメントの向き．許容される値は 0（ランドスケープ：横向き）と 1 （ポートレイト：縦向き）</entry>
 
               <entry>kMDItemOrientation</entry>
             </row>
 
             <row>
-              <entry>水平解像度（単位：DPI）</entry>
+              <entry>水平解像度（DPI）</entry>
 
               <entry>kMDItemResolutionWidthDPI</entry>
             </row>
 
             <row>
-              <entry>垂直解像度（単位：DPI）</entry>
+              <entry>垂直解像度（DPI）</entry>
 
               <entry>kMDItemResolutionHeightDPI</entry>
             </row>
 
             <row>
-              <entry>シャッタースピード：秒</entry>
+              <entry>シャッタースピード（秒）</entry>
 
               <entry>kMDItemExposureTimeSeconds</entry>
             </row>
@@ -1844,22 +1844,22 @@ org.freedesktop.Tracker.Writeback verbosity 'debug'
     いくつかのオペレーティングシステム固有のスタートアップ・スクリプト・テンプレートを備えている．
     これらテンプレートは，コンパイル前に "configure" スクリプトに与えられるオプションに応じて最適化されている．
     現時点で，RedHat（sysv 形式），RedHat（systemd 形式），SUSE（sysv 形式），SUSE（systemd 形式），Gentoo，
-    NetBSD，Debian，および Solaris 向けのものが用意されている．
-    "configure" スクリプトでシステムタイプを指示することで，スタートアップスクリプト
+    NetBSD，Debian，および Solaris 向けのテンプレートが用意されている．
+    "configure" スクリプトにシステムタイプを指示することで，どのスタートアップスクリプト
       <indexterm>
         <primary>Startscript</primary>
 
         <secondary>スタートアップスクリプト</secondary>
-      </indexterm>を選び，生成されたものをインストールすれことができる．
-    スタートアップスクリプトを自動でインストールさせるには，"configure" のオプション 
-    <option>--with-init-style</option> で使用可能なものを指定する．</para>
+      </indexterm>を生成してインストールするのか選ぶことができる．
+    スタートアップスクリプトを自動でインストールさせるには，
+    <option>--with-init-style</option> オプションで有効なものを "configure" に加える．</para>
 
     <para>Linux ディストーションの新しいリリースは頻繁に出てくるし，
     上記で触れたようなほかのシステムのスタートアップの手続きもまた変わりうる．
     それ故，盲目的にスタートアップスクリプトをインストールするのではなく，
     自分のシステムで動作するであろうかということをまず見てみる，というのがおそらくいい考えである．
     Linux ディストーションの RPM あるいは BSD のパッケージのような所定のセットアップの一部として使用する場合，
-    概ねの事々は実用に適するようにアレンジされる．
+    諸々の事は概ねよしなに取り計らわれるだろう．
     それ故，Netatalk そのものをコンパイルするユーザーには概ね下記のことが当てはまる．</para>
 
     <para>いかなるスタートアップスクリプト機構を使っていても，下記のデーモンは必要である：</para>
