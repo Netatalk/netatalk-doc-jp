@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="configuration">
+  <chapterinfo>
+    <author role="first-last">
+      <firstname>Eiichirou</firstname>
+      
+      <surname>UDA（日本語訳）</surname>
+    </author>
+    
+    <pubdate>2015 年 6 月 8 日（訳）</pubdate>
+    
+  </chapterinfo>
+
   <title>Netatalk のセットアップ</title>
 
   <sect1>

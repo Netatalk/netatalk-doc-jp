@@ -2,59 +2,63 @@
 <chapter id="installation">
   <chapterinfo>
     <date>22.8.2014</date>
+    
+    <author role="first-last">
+      <firstname>Eiichirou</firstname>
+      
+      <surname>UDA（日本語訳）</surname>
+    </author>
+
   </chapterinfo>
 
-  <title>Installation</title>
+  <title>インストール</title>
 
   <warning>
-    <para>If you have previously used an older version of Netatalk, please
-    read the chapter about <link linkend="upgrade">upgrading</link> first
-    !!!</para>
+    <para>もし，以前に Netatalk の古いバージョンを使ったことがあるなら，
+    “<link linkend="upgrade">Netatalk 2 からのアップグレード</link>”の章をまず読んでいただきたい！！！</para>
   </warning>
 
   <sect1>
-    <title>How to obtain Netatalk</title>
+    <title>Netatalk の入手の仕方</title>
 
-    <para>Please have a look at the netatalk page on sourceforge for the most
-    recent informations on this issue.</para>
+    <para>この件の最新の情報は sourceforge の netatalk のページを一読いただきたい。</para>
 
     <para><ulink
     url="http://sourceforge.net/projects/netatalk/">http://sourceforge.net/projects/netatalk/</ulink></para>
 
     <sect2>
-      <title>Binary packages</title>
+      <title>バイナリーパッケージ</title>
 
-      <para>Binary packages of Netatalk are included in some Linux and UNIX
-      distributions. You might want to have a look at the usual locations,
-      too.</para>
+      <para>Netatalk のバイナリーパッケージは，いくつかの Linux，Unix
+      ディストリビューションに含まれている．通常の配布元も見たいだろうと思う。</para>
 
-      <para>Ubuntu package: <ulink
+      <para>Ubuntu パッケージ：<ulink
       url="https://launchpad.net/ubuntu">https://launchpad.net/ubuntu
       </ulink></para>
 
-      <para>Debian package: <ulink
+      <para>Debian パッケージ：<ulink
       url="http://packages.debian.org/">http://packages.debian.org/
       </ulink></para>
 
-      <para>various RPM package: <ulink
+      <para>様々な RPM パッケージ：<ulink
       url="http://rpmfind.net/">http://rpmfind.net/ </ulink></para>
 
-      <para>Fedora/RHEL package: <ulink
+      <para>Fedora/RHEL パッケージ：<ulink
       url="http://koji.fedoraproject.org/koji/search">http://koji.fedoraproject.org/koji/search
       </ulink></para>
 
-      <para>Gentoo package: <ulink
+      <para>Gentoo パッケージ：<ulink
       url="http://packages.gentoo.org/">http://packages.gentoo.org/
       </ulink></para>
 
-      <para>openSUSE package: <ulink
+      <para>openSUSE パッケージ：<ulink
       url="http://software.opensuse.org/">http://software.opensuse.org/
       </ulink></para>
 
-      <para>Solaris package: <ulink
+      <para>Solaris パッケージ：<ulink
       url="http://www.opencsw.org/packages/CSWnetatalk/">http://www.opencsw.org/</ulink></para>
 
-      <para>FreeBSD ports: <ulink
+      <para>FreeBSD ポート：<ulink
       url="http://www.freebsd.org/ports/index.html">http://www.freebsd.org/ports/index.html
       </ulink></para>
 
@@ -66,7 +70,7 @@
       url="http://openports.se/search.php">http://openports.se/search.php
       </ulink></para>
 
-      <para>etc.<indexterm>
+      <para>などである．<indexterm>
           <primary>RPM</primary>
 
           <secondary>Red Hat Package Manager package</secondary>
@@ -82,33 +86,31 @@
     </sect2>
 
     <sect2>
-      <title>Source packages</title>
+      <title>ソースパッケージ</title>
 
       <sect3>
-        <title>Tarballs</title>
+        <title>Tarball</title>
 
-        <para>Prepacked tarballs in .tar.gz and tar.bz2 format are available
-        on the netatalk page on <ulink
-        url="http://netatalk.sourceforge.net/">sourceforge</ulink>.</para>
+        <para>Netatalk のソースを tar で固めた .tar.gz および tar.bz2 形式のものが <ulink
+        url="http://netatalk.sourceforge.net/">sourceforge の netatalk のページ</ulink>にある．</para>
       </sect3>
 
       <sect3>
         <title>Git</title>
 
-        <para>Downloading the Git repository can be done quickly and
-        easily:</para>
+        <para>Git レポジトリ のダウンロードは迅速で容易である：</para>
 
         <orderedlist>
           <listitem>
-            <para>Make sure you have Git installed. <command>which
-            git</command> should produce a path to git.</para>
+            <para>Git がインストールしてあることを確認する．<command>which
+            git</command> は git のパスを示してくれるはずである．</para>
 
             <screen><prompt>$ </prompt><userinput>which git</userinput>
 <computeroutput>/usr/bin/git</computeroutput></screen>
           </listitem>
 
           <listitem>
-            <para>Now get the source:</para>
+            <para>ソースを取得してみよう．</para>
 
             <screen><prompt>$</prompt> <userinput>git clone -b develop git://git.code.sf.net/p/netatalk/code netatalk-code
 </userinput><computeroutput>Initialized empty Git repository in /path/to/new/source/dir/netatalk/.git/
@@ -116,31 +118,28 @@ remote: Counting objects: 2503, done.
 ...
 </computeroutput></screen>
 
-            <para>This will create a local directory called
-            <filename>netatalk-code</filename> containing a complete and fresh
-            copy of the whole Netatalk source from the Git repository.</para>
+            <para>上記で Git リポジトリから，Netatalk のソース全体の完全でまっさらのコピーを含む
+            <filename>netatalk-code</filename> という名前のローカルディレクトリが作成される．</para>
           </listitem>
 
           <listitem>
-            <para>In order to keep your repository copy updated, occasionally
-            run:</para>
+            <para>レポジトリのコピーを最新の状態にしておきたい場合，適宜以下を実行する．</para>
 
             <screen><prompt>$</prompt> <userinput>git pull</userinput></screen>
           </listitem>
 
           <listitem>
-            <para>Now <command>cd</command> to the netatalk directory and run
-            <command>./bootstrap</command>. This will create the
-            <filename>configure</filename> script required in the next
-            step.</para>
+            <para>netatalk ディレクトリに <command>cd</command> して，
+            <command>./bootstrap</command>を実行する．これで次の段階で必要となる
+            <filename>configure</filename> スクリプトが作成される．</para>
 
             <screen><prompt>$</prompt> <userinput>./bootstrap</userinput></screen>
           </listitem>
         </orderedlist>
 
-        <para>For futher information refer to this <ulink
-        url="http://netatalk.sourceforge.net/wiki/index.php/Developer_Infos">wiki</ulink>
-        page.</para>
+        <para>さらなる情報については<ulink
+        url="http://netatalk.sourceforge.net/wiki/index.php/Developer_Infos">この wiki ページ</ulink>
+        も参照のこと．</para>
       </sect3>
     </sect2>
   </sect1>
