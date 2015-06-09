@@ -145,13 +145,13 @@ remote: Counting objects: 2503, done.
   </sect1>
 
   <sect1>
-    <title>Compiling Netatalk</title>
+    <title>Netatalk のコンパイル</title>
 
     <sect2>
-      <title>Prerequisites</title>
+      <title>前提条件</title>
 
       <sect3>
-        <title>Required third party software</title>
+        <title>必要なサードパーティソフトウェア</title>
 
         <itemizedlist>
           <listitem>
@@ -159,61 +159,56 @@ remote: Counting objects: 2503, done.
                 <primary>BDB</primary>
                 <secondary>Berkeley DB</secondary>
               </indexterm>.</para>
-            <para>At the time of writing you need at least version 4.6.</para>
+            <para>書き込みの時に最低でもバージョン 4.6 が必要となる．</para>
           </listitem>
 
           <listitem>
             <para>Libgcrypt</para>
 
-            <para>Required for OS X 10.7 and later. Libgcrypt is needed for
-            DHX2.</para>
+            <para>OS X 10.7 とそれ以降では DHX2 のために Libgcrypt が必要である．</para>
 
-            <para>Libgcrypt can be downloaded from: <ulink
-            url="http://directory.fsf.org/wiki/Libgcrypt">
-            http://directory.fsf.org/wiki/Libgcrypt</ulink>.</para>
+            <para>Libgcrypt は <ulink url="http://directory.fsf.org/wiki/Libgcrypt">
+            http://directory.fsf.org/wiki/Libgcrypt</ulink> からダウンロードできる．</para>
           </listitem>
         </itemizedlist>
       </sect3>
 
       <sect3>
-        <title>Optional third party software</title>
+        <title>任意のサードパーティソフトウェア</title>
 
-        <para>Netatalk can use the following third party software to enhance
-        it's functionality.</para>
+        <para>Netatalk はその機能性を拡充するために以下のサードパーティソフトウェアを使用することができる．</para>
 
         <itemizedlist>
           <listitem>
-            <para>Tracker for Spotlight<indexterm>
+            <para>Spotlight<indexterm>
                 <primary>Spotlight</primary>
-              </indexterm> support</para>
+              </indexterm> サポートのための Tracker</para>
 
-            <para>Netatalk uses <ulink
-            url="http://projects.gnome.org/tracker/">Tracker</ulink> as the
-            metadata backend. Recent Linux distributions will provide the
-            libtracker-sparql library which is available since Tracker version
-            0.7.</para>
+            <para>Netatalk はメタデータのバックエンドとして
+            <ulink url="http://projects.gnome.org/tracker/">Tracker</ulink> 
+            を使用する．最近の Linux ディストリビューションには，Tracker のバージョン 0.7 以来使用可能な
+            libtracker-sparql が提供されている．</para>
           </listitem>
 
           <listitem>
-            <para>mDNSresponderPOSIX or Avahi for Bonjour (aka
-            Zeroconf)</para>
+            <para>Bonjour（Zeroconf としても知られる）のための mDNSresponderPOSIX または Avahi</para>
 
-            <para>Mac OS X 10.2 and later use Bonjour (aka Zeroconf) for
-            service discovery.</para>
+            <para>サービス探索のために Mac OS X 10.2 及び以降のものは 
+            Bonjour（Zeroconf としても知られる）を使用する．</para>
 
-            <para>Avahi must be build with DBUS support (
-            <userinput>--enable-dbus</userinput>).</para>
+            <para>Avahi は DBUS サポートのもとで (
+            <userinput>--enable-dbus</userinput>) ビルドされなければならない．</para>
           </listitem>
 
           <listitem>
             <para>TCP wrappers</para>
 
-            <para>Wietse Venema's network logger, also known as TCPD or
-            LOG_TCP.</para>
+            <para>TCPD または LOG_TCP としても知られる Wietse Venema のネットワークロガー．</para>
 
-            <para>Security options are: access control per host, domain and/or
-            service; detection of host name spoofing or host address spoofing;
-            booby traps to implement an early-warning system.</para>
+            <para>セキュリティオプションは：
+            ホストごとドメインごとかつ／ないしはサービスごとのアクセス制御；
+            ホスト名のなりすましあるいはホストアドレスのなりすまし検出；
+            早期警告システムを実装するブービートラップ；である．</para>
           </listitem>
 
           <listitem>
@@ -223,73 +218,67 @@ remote: Counting objects: 2503, done.
                 <secondary>Pluggable Authentication Modules</secondary>
               </indexterm></para>
 
-            <para>PAM provides a flexible mechanism for authenticating users.
-            PAM was invented by SUN<indexterm>
+            <para>PAM はユーザー認証の柔軟な機構を実現する．PAM は SUN<indexterm>
                 <primary>SUN</primary>
 
                 <secondary>Sun Microsystems</secondary>
-              </indexterm> Microsystems. Linux-PAM is a suite of shared
-            libraries that enable the local system administrator to choose how
-            applications authenticate users.</para>
+              </indexterm> Microsystems によって作り出された．
+            Linux-PAM はアプリケーションがどのようにユーザーを認証するのかを選択できるようなローカルシステム管理を実現する共有ライブラリーのセットである．</para>
           </listitem>
 
           <listitem>
             <para>iconv</para>
 
-            <para>iconv provides conversion routines for many character
-            encodings. Netatalk uses it to provide charsets it does not have
-            built in conversions for, like ISO-8859-1. On glibc systems,
-            Netatalk can use the glibc provided iconv implementation.
-            Otherwise you can use the GNU libiconv implementation.</para>
+            <para>iconv はたくさんの文字エンコーディングの変換ルーチンを提供する．Netatalk 
+            は iconv を使用して内蔵されていない ISO-8859-1 のようなキャラクターセット変換を実現する．
+            glibc システムでは glibc の提供する iconv 実装を使うことができる．さもなくば GNU libiconv
+            実装を使うことができる．</para>
           </listitem>
         </itemizedlist>
       </sect3>
     </sect2>
 
     <sect2 id="compiling-netatalk">
-      <title>Compiling<indexterm>
-          <primary>Compile</primary>
+      <title>Netatalk のコンパイル<indexterm>
+          <primary>コンパイル</primary>
 
-          <secondary>Compiling Netatalk from Source</secondary>
-        </indexterm> Netatalk</title>
+          <secondary>Netatalk のソースからのコンパイル</secondary>
+        </indexterm></title>
 
       <sect3>
-        <title>Configuring the build</title>
+        <title>ビルドの設定をする</title>
 
-        <para>To build the binaries, first run the program
-        <command>./configure</command> in the source directory. This should
-        automatically configure Netatalk for your operating system. If you
-        have unusual needs, then you may wish to run</para>
+        <para>バイナリーをビルドするには最初にソースのディレクトリで 
+        <command>./configure</command> プログラムを実行する．これによって Netatalk 
+        がターゲットのオペレーティングシステム向けに自動的に設定されるはずである．
+        もし普通とは違う要求がある場合，以下を実行すれば特殊なオプションで有効化できるものを見ることができる．</para>
 
         <screen>$ <userinput>./configure --help</userinput></screen>
 
-        <para>to see what special options you can enable.</para>
-
-        <para>The most used configure options are:</para>
+        <para>最も頻繁に使用されるオプションは：</para>
 
         <itemizedlist>
           <listitem>
             <para><option>--with-init-style</option>=redhat-sysv|redhat-systemd|suse-sysv|suse-systemd|gentoo|netbsd|debian-sysv|debian-systemd|solaris|systemd</para>
 
-            <para>This option helps netatalk to determine where to install the
-            start scripts.</para>
+            <para>このオプションがスタートアップスクリプトをどこにインストールするかの助けになる．</para>
           </listitem>
 
           <listitem>
             <para><option>--with-bdb</option>=<replaceable>/path/to/bdb/installation/</replaceable></para>
 
-            <para>In case you installed Berkeley DB in a non-standard
-            location, you will <emphasis>have</emphasis> to give the install
-            location to netatalk, using this switch.</para>
+            <para>Berkeley DB を標準的な場所以外にインストールした場合，このオプションを使って netatalk 
+            に Berkeley DB をインストールした場所（訳注：すなわち 
+            <replaceable>/path/to/bdb/installation/</replaceable>
+            ）を指示<emphasis>しなければならない</emphasis>．</para>
           </listitem>
         </itemizedlist>
 
-        <para>Now run configure with any options you need</para>
+        <para>そして必要なあらゆるオプションを含めて configure を実行する．</para>
 
         <screen><prompt>$</prompt> <userinput>./configure [arguments]</userinput></screen>
 
-        <para>Configure will end up in an overview showing the settings the
-        Netatalk Makefiles have been created with.</para>
+        <para>Netatalk の Makefile 作成に使われた設定の概要を表示して configure は終了する．</para>
       </sect3>
 
       <sect3 id="spotlight-compile">
@@ -297,37 +286,38 @@ remote: Counting objects: 2503, done.
             <primary>Spotlight</primary>
           </indexterm></title>
 
-        <para>Netatalk uses Gnome <ulink url="https://projects.gnome.org/tracker/">Tracker</ulink> as the
-        metadata backend. The minimum required version is 0.7 as that's the
-        first version to support <ulink url="https://wiki.gnome.org/Tracker/Documentation">SPARQL</ulink>.</para>
+        <para>Netatalk はメタデータのバックエンドに Gnome 
+        <ulink url="https://projects.gnome.org/tracker/">Tracker</ulink> を用いる．少なくとも最初に
+        <ulink url="https://wiki.gnome.org/Tracker/Documentation">SPARQL</ulink> 
+        をサポートしたバージョン 0.7 以降が必要である．</para>
 
-        <para>If not already installed, install the packages
-        <emphasis>tracker</emphasis> and <emphasis>tracker-devel</emphasis>,
-        on Solaris install <ulink url="http://www.opencsw.org/">OpenCSW</ulink> and then install
-        the Tracker package from the OpenCSW unstable repository.</para>
+        <para>まだインストールしていなければ <emphasis>tracker</emphasis> パッケージと 
+        <emphasis>tracker-devel</emphasis> パッケージをインストールする．Solaris では 
+        <ulink url="http://www.opencsw.org/">OpenCSW</ulink> をインストールした後に OpenCSW 
+        の不安定版レポジトリーにある Tracker のパッケージをインストールする．</para>
 
-        <para>The tracker packages are found via pkg-config, you may have to
-        pass the version suffix as you may have a newer version installed then
-        the default 0.12, eg</para>
+        <para>Tracker のパッケージは pkg-config 経由で見つかる．デフォルトのバージョン 0.12 
+        より新しいバージョンがインストールされている場合もあるので，
+        末尾のバージョン番号も渡す必要があるかもしれない．すなわち</para>
 
         <screen><prompt>$ </prompt><userinput>pkg-config --list-all | grep tracker
 </userinput>tracker-extract-0.16  tracker-extract - Tracker : A library to develop metadata extractors for 3rd party file types.
 tracker-sparql-0.16   tracker-sparql - Tracker : A library to perform SPARQL queries and updates in the              Tracker Store
 tracker-miner-0.16    tracker-miner - A library to develop tracker data miners</screen>
 
-        <para>So:</para>
+        <para>であれば：</para>
 
         <screen><prompt>$ </prompt><userinput>./configure --with-tracker-pkgconfig-version=0.16 ...</userinput></screen>
+        
+        <para>とする．</para>
 
-        <para>If you're using Solaris and Tracker from OpenCSW, then you need
-        to set the PKG_CONFIG_PATH environment variable, add the
-        --with-tracker-prefix configure option and add
-        LDFLAGS="-R/opt/csw/lib"</para>
+        <para>もし Solaris と OpenCSW 由来の Tracker を使っていれば，PKG_CONFIG_PATH 
+        環境変数を設定し，--with-tracker-prefix configure オプションを加え，
+        LDFLAGS="-R/opt/csw/lib" を加える必要がある．</para>
 
         <screen>PKG_CONFIG_PATH=/opt/csw/lib/pkgconfig LDFLAGS="-R/opt/csw/lib" ./configure --with-tracker-prefix=/opt/csw --with-tracker-pkgconfig-version=0.16 ...</screen>
 
-        <para>Check the configure output whether the Tracker libs were
-        found:</para>
+        <para>Tracker ライブラリーが見つけられているかどうか，configure の出力を確認する：</para>
 
         <screen>checking for TRACKER... yes
 checking for TRACKER_MINER... yes
@@ -340,21 +330,20 @@ Configure summary:
       </sect3>
 
       <sect3>
-        <title>Compile and install</title>
+        <title>コンパイルとインストール</title>
 
-        <para>Next, running</para>
+        <para>次に以下を実行</para>
 
         <screen><prompt>$</prompt> <userinput>make</userinput></screen>
 
-        <para>should produce the Netatalk binaries (this step can take several
-        minutes to complete).</para>
+        <para>すると Netatalk のバイナリーを生成するはずである．（この段階は完了するのに数分かかる）</para>
 
-        <para>When the process finished you can use</para>
+        <para>この過程が終了すれば，以下のコマンドを使って</para>
 
         <screen><prompt>$</prompt> <userinput>make install</userinput></screen>
 
-        <para>to install the binaries and documentation (must be done as
-        "root" when using default locations).</para>
+        <para>ドキュメントとバイナリーのインストール（デフォルトの場所を使う場合は 
+        "root" として行わなければならない）ができる．</para>
       </sect3>
     </sect2>
   </sect1>
