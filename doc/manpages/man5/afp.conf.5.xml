@@ -396,7 +396,7 @@
     </refsect2>
 
     <refsect2>
-      <title>Password Options</title>
+      <title>パスワードオプション</title>
 
       <variablelist>
         <varlistentry>
@@ -404,8 +404,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Sets the path to the Randnum UAM passwd file for this server
-            (default is @pkgconfdir@/afppasswd).</para>
+            <para>このサーバの乱数UAMパスワードファイルのパスを設定する (デフォルトは@pkgconfdir@/afppasswd)。</para>
           </listitem>
         </varlistentry>
 
@@ -414,38 +413,29 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Sets the minimum password length, if supported by the
-            UAM</para>
+            <para>UAMが最小パスワード長をサポートする場合、それを設定する。</para>
           </listitem>
         </varlistentry>
       </variablelist>
     </refsect2>
 
     <refsect2>
-      <title>Network Options</title>
+      <title>ネットワークオプション</title>
 
       <variablelist>
         <varlistentry>
-          <term>advertise ssh = <replaceable>BOOLEAN</replaceable> (default:
+          <term>advertise ssh = <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>no</emphasis>) <type>(G)</type></term>
 
           <listitem>
-            <para>Allows old Mac OS X clients (10.3.3-10.4) to automagically
-            establish a tunneled AFP connection through SSH. If this option is
-            set, the server's answers to client's FPGetSrvrInfo requests
-            contain an additional entry. It depends on both client's settings
-            and a correctly configured and running <citerefentry>
+            <para>古いMac OS Xクライアント(10.3.3から10.4)にSSHでトンネルしたAFP接続を魔法のように自動的に確立させる。このオプションを設定した場合、クライアントのFPGetSrvrInfo要求へのサーバの返答は追加エントリを含む。これはクライアントの設定と<citerefentry>
                 <refentrytitle>sshd</refentrytitle>
 
                 <manvolnum>8</manvolnum>
-              </citerefentry> on the server to let things work.</para>
+              </citerefentry>が正しく設定されて動作するサーバ上で実行中であるかに依存する。</para>
 
             <note>
-              <para>Setting this option is not recommended since globally
-              encrypting AFP connections via SSH will increase the server's
-              load significantly. On the other hand, Apple's client side
-              implementation of this feature in MacOS X versions prior to
-              10.3.4 contained a security flaw.</para>
+              <para>SSHを介した全体を暗号化するAFP接続はサーバの負荷を著しく増加させるので、このオプションの設定は推奨しない。一方、バージョン10.3.4より前のMacOS Xにおけるこの機能のAppleクライアント側の実装はセキュリティ欠陥があった。</para>
             </note>
           </listitem>
         </varlistentry>
@@ -454,9 +444,7 @@
           <term>afp interfaces = <replaceable>name [name ...]</replaceable>
             <type>(G)</type></term>
           <listitem>
-            <para>Specifies the network interfaces that the server should
-            listens on. The default is advertise the first IP address of the
-            system, but to listen for any incoming request.</para>
+            <para>サーバがリッスンするネットワークインターフェースを指定する。デフォルトではシステムの最初のIPアドレスを宣伝するが、入ってくる如何なる要求もリッスンする。</para>
           </listitem>
         </varlistentry>
 
@@ -465,14 +453,8 @@
           ...]</replaceable> <type>(G)</type></term>
 
           <listitem>
-            <para>Specifies the IP address that the server should advertise
-            <emphasis role="bold">and</emphasis> listens to. The default is
-            advertise the first IP address of the system, but to listen for
-            any incoming request. The network address may be specified either
-            in dotted-decimal format for IPv4 or in hexadecimal format for
-            IPv6.</para>
-            <para>IPv6 address + port combination must use URL the format
-            using square brackets [IPv6]:port</para>
+            <para>サーバが宣伝<emphasis role="bold">および</emphasis>リッスンするIPアドレスを指定する。デフォルトではシステムの最初のIPアドレスを宣伝するが、入ってくる如何なる要求もリッスンする。ネットワークアドレスはIPv4のドット付き10進数フォーマットやIPv6の16進数フォーマットのどちらでも指定してよい。</para>
+            <para>IPv6 address + portの組み合わせは角かっこを使ったフォーマット[IPv6]:portのURLを使わなければならない。</para>
           </listitem>
         </varlistentry>
 
@@ -481,9 +463,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Allows a different TCP port to be used for AFP. The default
-            is 548. Also sets the default port applied when none specified in
-            an <option>afp listen</option> option.</para>
+            <para>異なるTCPポートをAFPに使わせる。デフォルトは548である。<option>afp listen</option>オプションで何も指定しなかった場合も適用されたデフォルトポートを設定する。</para>
           </listitem>
         </varlistentry>
 
@@ -492,9 +472,7 @@
           address[:port] ...]</replaceable> <type>(G)</type></term>
 
           <listitem>
-            <para>Specifies the IP address that the CNID server should listen
-            on. The default is <emphasis
-            role="bold">localhost:4700</emphasis>.</para>
+            <para>CNIDサーバがリッスンするIPアドレスを指定する。デフォルトは<emphasis role="bold">localhost:4700</emphasis>である。</para>
           </listitem>
         </varlistentry>
 
@@ -503,9 +481,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Keep disconnected AFP sessions for
-            <parameter>number</parameter> hours before dropping them. Default
-            is 24 hours.</para>
+            <para>ドロップする前に、切断されたAFPセッションを<parameter>number</parameter>時間維持する。デフォルトは24時間である。</para>
           </listitem>
         </varlistentry>
 
@@ -514,14 +490,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Scale factor that determines the size of the DSI/TCP
-            readahead buffer, default is 12. This is multiplies with the DSI
-            server quantum (default ~300k) to give the size of the buffer.
-            Increasing this value might increase throughput in fast local
-            networks for volume to volume copies. <emphasis>Note</emphasis>:
-            This buffer is allocated per afpd child process, so specifying
-            large values will eat up large amount of memory (buffer size *
-            number of clients).</para>
+            <para>DSI/TCP先読みバッファのサイズを決定する係数。デフォルトは12である。これにDSI server quantum (デフォルトは約300k)をかけるとバッファサイズになる (訳注: 情報が古い。現在のserver quantumのデフォルトは1MiB)。この値を増やすと速いローカルネットワークでのボリュームからボリュームへのコピーのスループットが増えるかもしれない。 <emphasis>注記</emphasis>: このバッファはafpdの子プロセス毎に割り当てられるので、大きな値を指定すると大量のメモリが食われる (バッファサイズ * クライアント数)。</para>
           </listitem>
         </varlistentry>
 
@@ -530,13 +499,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Specifies a fully-qualified domain name, with an optional
-            port. This is discarded if the server cannot resolve it. This
-            option is not honored by AppleShare clients &lt;= 3.8.3. This
-            option is disabled by default. Use with caution as this will
-            involve a second name resolution step on the client side. Also
-            note that afpd will advertise this name:port combination but not
-            automatically listen to it.</para>
+            <para>完全修飾ドメイン名をオプションのポート番号と共に指定する。サーバがこれを解決できない場合は破棄される。AppleShare clients 3.8.3以前はこのオプションを評価しない。このオプションはデフォルトで無効である。これによりクライアント側は名前解決を二段階踏むことになるので注意して使ってください。afpdはこのname:portの組み合わせを宣伝しますが自動的にはリッスンしないことにも注意してください。</para>
           </listitem>
         </varlistentry>
 
@@ -545,11 +508,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Use this instead of the result from calling hostname for
-            determining which IP address to advertise, therefore the hostname
-            is resolved to an IP which is the advertised. This is NOT used for
-            listening and it is also overwritten by <option>afp
-            listen</option>.</para>
+            <para>宣伝用のIPアドレスを決定するため、ホスト名の呼出結果の代わりにこれを用いる。従って、このホスト名から宣伝用IPアドレスが解決されるようになる。これはリスニングには使われないし、<option>afp listen</option>によっても上書きされてしまう。</para>
           </listitem>
         </varlistentry>
 
@@ -558,8 +517,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Sets the maximum number of clients that can simultaneously
-            connect to the server (default is 200).</para>
+            <para>同時にサーバに接続できるクライアントの最大数を設定する(デフォルトは200)。</para>
           </listitem>
         </varlistentry>
 
@@ -568,11 +526,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>This specifies the DSI server quantum. The default value is
-            0x100000 (1 MiB). The maximum value is 0xFFFFFFFFF, the minimum is
-            32000. If you specify a value that is out of range, the default
-            value will be set. Do not change this value unless you're
-            absolutely sure, what you're doing</para>
+            <para>これはDSI server quantumを指定する。デフォルト値は0x100000 (1MiB)である。最大値は0xFFFFFFFFFであり最小値は32000である。範囲外の値を指定した場合、デフォルト値が設定される。自分が何をしようとしているか確信がない限り、この値を変更しないでください。</para>
           </listitem>
         </varlistentry>
 
@@ -581,9 +535,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Keep sleeping AFP sessions for <parameter>number</parameter>
-            hours before disconnecting clients in sleep mode. Default is 10
-            hours.</para>
+            <para>スリープモードにおいてクライアントを切断する前に、スリープ中のAFPセッションを<parameter>number</parameter>時間維持する。デフォルトは10時間である。</para>
           </listitem>
         </varlistentry>
 
@@ -592,9 +544,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Try to set TCP receive buffer using setsockpt(). Often OSes
-            impose restrictions on the applications ability to set this
-            value.</para>
+            <para>setsockopt()を使ってTCP受信バッファの設定を試みる。しばしばOSはこの値を設定しようとするアプリケーションの資格を制限します。</para>
           </listitem>
         </varlistentry>
 
@@ -603,53 +553,50 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Try to set TCP send buffer using setsockpt(). Often OSes
-            impose restrictions on the applications ability to set this
-            value.</para>
+            <para>setsockopt()を使ってTCP送信バッファの設定を試みる。しばしばOSはこの値を設定しようとするアプリケーションの資格を制限します。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>recvfile = <replaceable>BOOLEAN</replaceable> (default:
+          <term>recvfile = <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>no</emphasis>) <type>(G)</type></term>
 
           <listitem>
-            <para>Whether to use splice() on Linux for receiving data.</para>
+            <para>データ受信のためにLinuxのsplice()を使うかどうか。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>splice size = <replaceable>number</replaceable> (default:
+          <term>splice size = <replaceable>number</replaceable> (デフォルト:
           <emphasis>64k</emphasis>) <type>(G)</type></term>
 
           <listitem>
-            <para>Maximum number of bytes spliced.</para>
+            <para>spliceする最大バイト数。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>use sendfile = <replaceable>BOOLEAN</replaceable> (default:
+          <term>use sendfile = <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>yes</emphasis>) <type>(G)</type></term>
 
           <listitem>
-            <para>Whether to use sendfile<indexterm>
+            <para>クライアントにファイルデータを送るためにsendfile<indexterm>
                 <primary>sendfile</primary>
-              </indexterm> syscall for sending file data to clients.</para>
+              </indexterm>システムコールを使うかどうか。</para>
           </listitem>
         </varlistentry>
 
 
         <varlistentry>
-          <term>zeroconf = <replaceable>BOOLEAN</replaceable> (default:
+          <term>zeroconf = <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>yes</emphasis>) <type>(G)</type></term>
 
           <listitem>
-            <para>Whether to use automatic Zeroconf<indexterm>
+            <para>AvahiまたはmDNSResponder込みでコンパイル済の場合、自動的なZeroconf<indexterm>
                 <primary>Zeroconf</primary>
 
                 <secondary>Bonjour</secondary>
-              </indexterm> service registration if Avahi or mDNSResponder were
-            compiled in.</para>
+              </indexterm>サービス登録を使うかどうか。</para>
           </listitem>
         </varlistentry>
       </variablelist>
