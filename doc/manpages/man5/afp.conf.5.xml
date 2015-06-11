@@ -603,7 +603,7 @@
     </refsect2>
 
     <refsect2>
-      <title>Miscellaneous Options</title>
+      <title>雑多なオプション</title>
 
       <variablelist>
         <varlistentry>
@@ -611,29 +611,25 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Allows users of a certain group to be seen as the superuser
-            when they log in. This option is disabled by default.</para>
+            <para>信頼できるグループのユーザがログインしたときスーパユーザとして見えるようにする。このオプションはデフォルトで無効である。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>afp read locks = <replaceable>BOOLEAN</replaceable> (default:
+          <term>afp read locks = <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>no</emphasis>) <type>(G)</type></term>
 
           <listitem>
-            <para>Whether to apply locks to the byte region read in FPRead
-            calls. The AFP spec mandates this, but it's not really in line
-            with UNIX semantics and is a performance hug.</para>
+            <para>FPReadコールにおいてバイト領域リードロックを適用するかどうか。AFPの仕様はこれを義務付けるが、実際のところこれはUNIXの動作に合致しないし、パフォーマンスを抑え込む。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>afpstats = <replaceable>BOOLEAN</replaceable> (default:
+          <term>afpstats = <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>no</emphasis>) <type>(G)</type></term>
 
           <listitem>
-            <para>Whether to provide AFP runtime statistics (connected
-            users, open volumes) via dbus.</para>            
+            <para>dbusを介してAFPランタイム統計 (接続ユーザ、開いてるボリューム) を提供するかどうか。</para>
           </listitem>
         </varlistentry>
 
@@ -642,46 +638,35 @@
           <type>(H)</type></term>
 
           <listitem>
-            <para>Regular expression which matches the parent directory of the
-            user homes. If <option>basedir regex</option> contains symlink,
-            you must set the canonicalized absolute path. In the simple case
-            this is just a path ie <option>basedir regex =
-            /home</option></para>
+            <para>ユーザホームの親ディレクトリにマッチする正規表現。<option>basedir regex</option>がシンボリックリンクを含む場合、正規化した絶対パスを設定しなければならない。簡単なケースだとこれは単に一つのパスである。つまり<option>basedir regex = /home</option>である。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>chmod request = <replaceable>preserve (default) | ignore | simple</replaceable>
+          <term>chmod request = <replaceable>preserve (デフォルト) | ignore | simple</replaceable>
           <type>(G/V)</type></term>
 
           <listitem>
-            <para>Advanced permission control that deals with ACLs.</para>
+            <para>ACLに対応する高度なパーミッション制御。</para>
 
             <itemizedlist>
-              <listitem><para> <option>ignore</option> - UNIX chmod()
-              requests are completely ignored, use this option to
-              allow the parent directory's ACL inheritance full
-              control over new items.  </para></listitem>
+              <listitem><para> <option>ignore</option> - UNIXのchmod()要求を完全に無視する。新規作成を上書きして親ディレクトリのACL継承に完全コントロールさせるためにこのオプションを使う。</para></listitem>
               <listitem><para>
-                <option>preserve</option> - preserve ZFS ACEs for
-                named users and groups or POSIX ACL group mask
+                <option>preserve</option> - ユーザメイトグループ名のためのZFS ACEやPOSIX ACLグループマスクを維持する
 		      </para></listitem>
               <listitem><para>
-                <option>simple</option> - just to a chmod() as
-                requested without any extra steps
+		<option>simple</option> -  いかなる追加の手順も踏まず、単に要求通りにchmod()する
 		      </para></listitem>
 		    </itemizedlist>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>close vol = <replaceable>BOOLEAN</replaceable> (default:
+          <term>close vol = <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>no</emphasis>) <type>(G)</type></term>
 
           <listitem>
-            <para>Whether to close volumes possibly opened by clients when
-            they're removed from the configuration and the configuration is
-            reloaded.</para>
+            <para>ボリュームが設定から削除され、その設定が再読み込みされたとき、クライアントが既に開いているボリュームを可能な限り閉じるかどうか。</para>
           </listitem>
         </varlistentry>
 
@@ -690,8 +675,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>name or address of a MySQL server for use with the mysql CNID
-            backend.</para>
+            <para>mysql CNIDバックエンド利用時のMySQLサーバの名前またはアドレス。</para>
           </listitem>
         </varlistentry>
 
@@ -700,7 +684,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>MySQL user for authentication with the server.</para>
+            <para>MySQLサーバ認証のためのユーザ名。</para>
           </listitem>
         </varlistentry>
 
@@ -709,7 +693,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Password for MySQL server.</para>
+            <para>MySQLサーバのためのパスワード。</para>
           </listitem>
         </varlistentry>
 
@@ -718,8 +702,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Name of an existing database for which the specified user
-            has full privileges.</para>
+            <para>指定ユーザが完全アクセス権を持つための存続しているデータベースの名前。</para>
           </listitem>
         </varlistentry>
 
@@ -728,10 +711,7 @@
           <type>(G)/(V)</type></term>
 
           <listitem>
-            <para>Specifies the IP address and port of a cnid_metad server,
-            required for CNID dbd backend. Defaults to localhost:4700. The
-            network address may be specified either in dotted-decimal format
-            for IPv4 or in hexadecimal format for IPv6.-</para>
+            <para>cnid_metadサーバのIPアドレスとポート番号を指定する。CNID dbdバックエンドのために必要。デフォルトはlocalhost:4700。ネットワークアドレスはIPv4のドット分割10進数フォーマットでもよいし、IPv6の16進数フォーマットでもよい。</para>
           </listitem>
         </varlistentry>
 
@@ -740,8 +720,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Sets the path to dbus-daemon binary used by Spotlight feature.
-            The default is <filename>/bin/dbus-daemon</filename>.</para>
+            <para>Spotlight機能が使用するdbus-daemon実行ファイルのパスを設定する。デフォルトは<filename>/bin/dbus-daemon</filename>である。</para>
           </listitem>
         </varlistentry>
 
@@ -750,15 +729,9 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Maximum possible entries in the directory cache. The cache
-            stores directories and files. It is used to cache the full path to
-            directories and CNIDs which considerably speeds up directory
-            enumeration.</para>
+            <para>ディレクトリキャッシュにおける最大エントリ数。キャッシュはディレクトリとファイルを格納する。これはディレクトリのフルパスと、ディレクトリ一覧を大幅にスピードアップするCNIDをキャッシュするために使われる。</para>
 
-            <para>Default size is 8192, maximum size is 131072. Given value is
-            rounded up to nearest power of 2. Each entry takes about 100
-            bytes, which is not much, but remember that every afpd child
-            process for every connected user has its cache.</para>
+            <para>デフォルトサイズは8192、最大サイズは131072。与えられた値は最も近い2の累乗に丸められる。それぞれのエントリは約100バイトを消費し、これは大きな値とは言えないが、それぞれの接続ユーザ毎のafpd子プロセスがキャッシュを持つことを念頭に置いてください。</para>
           </listitem>
         </varlistentry>
 
@@ -767,24 +740,19 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Sets the path to the file which defines file extension
-            type/creator mappings. (default is @pkgconfdir@/extmap.conf).</para>
+            <para>ファイル拡張子とタイプ/クリエータのマッピングを定義するファイルのパスを設定する。(デフォルトは@pkgconfdir@/extmap.confである)</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
           <term>force xattr with sticky bit =
-          <replaceable>BOOLEAN</replaceable> (default:
+          <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>no</emphasis>) <type>(G/V)</type></term>
 
           <listitem>
-            <para>Writing metadata xattr on directories with the
-            sticky bit set may fail even though we may have write
-            access to a directory, because if the sticky bit is set
-            only the owner is allowed to write xattrs.</para>
+            <para>ディレクトリへの書き込み権限があったとしても、スティッキービット設定を使ってメタデータ(拡張属性)を書き込むことに失敗するかもしれない。なぜなら、スティッキービットが設定されている場合、所有者だけが拡張属性への書き込みを許されるからである。</para>
 
-            <para>By enabling this option Netatalk will write the
-            metadata xattr as root.</para>
+            <para>このオプションを有効にするとNetatalkはroot権限でメタデータ(拡張属性)を書き込む。</para>
           </listitem>
         </varlistentry>
 
@@ -793,8 +761,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Specifies the user that guests should use (default is
-            "nobody"). The name should be quoted.</para>
+            <para>ゲストが利用するユーザ名を指定する (デフォルトは"nobody"である)。ユーザ名は引用符で囲むべきである。</para>
           </listitem>
         </varlistentry>
 
@@ -803,8 +770,7 @@
           <type>(H)</type></term>
 
           <listitem>
-            <para>AFP user home volume name. The default is <emphasis>user's
-            home</emphasis>.</para>
+            <para>AFPユーザのホームのボリューム名。デフォルトは<emphasis>user's home</emphasis>である。</para>
           </listitem>
         </varlistentry>
 
@@ -813,13 +779,8 @@
           <type>(G)/(V)</type></term>
 
           <listitem>
-            <para>Speficy a set of file and directory attributes that shall
-            be ignored by the server, <option>all</option> includes all
-            the other options.</para>
-            <para>In OS X when the Finder sets a lock on a file/directory or you
-            set the BSD uchg flag in the Terminal, all three attributes are
-            used. Thus in order to ignore the Finder lock/BSD uchg flag, add
-            set <emphasis>ignored attributes = all</emphasis>.</para>
+            <para>サーバが無視すべきファイルとディレクトリの属性を設定する。<option>all</option>はオプション全部という意味である。</para>
+            <para>OS Xにおいて、Finderがファイル/ディレクトリのロックを設定する場合、またはターミナルでBSD uchgフラグを設定する場合、3つの属性が全て使われる。従って、Finderロック/BSD uchgフラグを無視する目的で<emphasis>ignored attributes = all</emphasis>の設定を追加してください。</para>
           </listitem>
         </varlistentry>
 
@@ -828,9 +789,7 @@
           <type>(G)/(V)</type></term>
 
           <listitem>
-            <para>Sets a message to be displayed when clients logon to the
-            server. The message should be in <option>unix charset</option> and
-            should be quoted. Extended characters are allowed.</para>
+            <para>クライアントがサーバにログオンしたときに表示されるメッセージを設定する。メッセージは<option>unix charset</option>で書いて引用符で囲むべきです。拡張文字が使えます。</para>
           </listitem>
         </varlistentry>
 
@@ -839,9 +798,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Specifies the icon model that appears on clients. Defaults
-            to off. Note that afpd must support Zeroconf.
-            Examples: RackMac (same as Xserve), PowerBook, PowerMac,
+            <para>クライアント上に表示されるアイコンモデルを指定する。デフォルトではオフになっている。afpdがZeroconfをサポートしなければならないことに注意してください。例: RackMac (same as Xserve), PowerBook, PowerMac,
             Macmini, iMac, MacBook, MacBookPro, MacBookAir, MacPro,
             AppleTV1,1, AirPort.</para>
           </listitem>
@@ -851,108 +808,94 @@
           <term>signature = &lt;text&gt; <type>(G)</type></term>
 
           <listitem>
-            <para>Specify a server signature. The maximum length is 16
-            characters. This option is useful for clustered environments, to
-            provide fault isolation etc. By default, afpd generate signature
-            and saving it to
-            <filename>@localstatedir@/netatalk/afp_signature.conf</filename>
-            automatically (based on random number). See also
-            asip-status.pl(1).</para>
+            <para>サーバシグネチャを指定する。最大長は16文字である。このオプションは障害隔離などを提供するクラスタ環境において有用である。デフォルトでは、afpdは自動的にシグネチャを(乱数を元に)生成し、それを<filename>@localstatedir@/netatalk/afp_signature.conf</filename>に保存する。asip-status.pl(1)も見よ。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
           <term>solaris share reservations =
-          <replaceable>BOOLEAN</replaceable> (default:
+          <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>yes</emphasis>) <type>(G)</type></term>
 
           <listitem>
-            <para>Use share reservations on Solaris. Solaris CIFS server uses
-            this too, so this makes a lock coherent multi protocol
-            server.</para>
+            <para>Solarisの共有予約を利用する。Solaris CIFSサーバもこれを利用するので、ロックを統一したマルチプロトコルサーバを形成する。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
           <term>sparql results limit =
-          <replaceable>NUMBER</replaceable> (default:
-          <emphasis>UNLIMITED</emphasis>) <type>(G)</type></term>
+          <replaceable>NUMBER</replaceable> (デフォルト:
+          <emphasis>無制限</emphasis>) <type>(G)</type></term>
 
           <listitem>
-            <para>Impose a limit on the number of results queried from Tracker
-	    via SPARQL queries.</para>
+            <para>SPARQLクエリを介したTrackerからのクエリ結果の数に制限を課す。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
           <term>spotlight =
-          <replaceable>BOOLEAN</replaceable> (default:
+          <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>no</emphasis>) <type>(G)/(V)</type></term>
 
           <listitem>
-            <para>Whether to enable Spotlight searches. Note: once the global
-            option is enabled, any volume that is not enabled won't be
-            searchable at all. See also <emphasis>dbus daemon</emphasis>
-            option.</para>
+            <para>Spotlight検索を有効にするかどうか。注記: 一度グローバルオプションで有効にすると、有効でないボリュームは全く検索できない。<emphasis>dbus daemon</emphasis>オプションも見よ。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
           <term>spotlight attributes =
-          <replaceable>COMMA SEPERATED STRING</replaceable> (default:
-          <emphasis>EMPTY</emphasis>) <type>(G)</type></term>
+          <replaceable>カンマで分割した文字列</replaceable> (デフォルト:
+          <emphasis>空</emphasis>) <type>(G)</type></term>
 
           <listitem>
-            <para>A list of attributes that are allowed to be used in
-            Spotlight searches. By default all attributes can be
+            <para>Spotlight検索で使うことを許された属性のリスト。デフォルトでは全ての属性を検索できる。
+
+	      By default all attributes can be
             searched, passing a string limits attributes to elements
-            of the string. Example: <programlisting>spotlight
-            attributes = *,kMDItemTextContent</programlisting>
+            of the string.
+
+	    例:
+	    <programlisting>spotlight attributes = *,kMDItemTextContent</programlisting>
 	    </para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
           <term>spotlight expr =
-          <replaceable>BOOLEAN</replaceable> (default:
+          <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>yes</emphasis>) <type>(G)</type></term>
 
           <listitem>
-            <para>Whether to allow the use of logic expression in
-            searches.</para>
+            <para>検索において論理式の使用を認めるかどうか。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
           <term>start dbus =
-          <replaceable>BOOLEAN</replaceable> (default:
+          <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>yes</emphasis>) <type>(G)</type></term>
 
           <listitem>
-            <para>Whether to start a dbus instance for use with Tracker.</para>
+            <para>Trackerを使うためにdbusインスタンスを開始するかどうか。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
           <term>start tracker =
-          <replaceable>BOOLEAN</replaceable> (default:
+          <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>yes</emphasis>) <type>(G)</type></term>
 
           <listitem>
-            <para>Whether to start Tracker with 
-            <emphasis>tracker-control -s</emphasis>.</para>
+            <para><emphasis>tracker-control -s</emphasis>によってTrackerを開始するかどうか。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>veto message = <replaceable>BOOLEAN</replaceable> (default:
+          <term>veto message = <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>no</emphasis>) <type>(G)</type></term>
 
           <listitem>
-            <para>Send optional AFP messages for vetoed files. Then whenever a
-            client tries to access any file or directory with a vetoed name,
-            it will be sent an AFP message indicating the name and the
-            directory.</para>
+            <para>禁止ファイルに関するオプションのAFPメッセージを送る。クライアントが禁止名を持つファイルやディレクトリにアクセスを試みたとき、名前とディレクトリを示したAFPメッセージを送る。</para>
           </listitem>
         </varlistentry>
 
@@ -961,21 +904,16 @@
           <type>(G)/(V)</type></term>
 
           <listitem>
-            <para>Sets the database information to be stored in path. You have
-            to specify a writable location, even if the volume is read only.
-            The default is
-            <filename>@localstatedir@/netatalk/CNID/$v/</filename>.</para>
+            <para>データベース情報をpathに格納するように設定する。ボリュームが読み込み専用だったとしても、書き込み可能な場所を設定しなければならない。デフォルトは<filename>@localstatedir@/netatalk/CNID/$v/</filename>である。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>vol dbnest = <replaceable>BOOLEAN</replaceable> (default:
+          <term>vol dbnest = <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>no</emphasis>) <type>(G)</type></term>
 
           <listitem>
-            <para>Setting this option to true brings back Netatalk 2
-            behaviour of storing the CNID database in a folder called
-            .AppleDB inside the volume root of each share.</para>
+            <para>このオプションをtrueに設定するとNetatalk 2の動作に立ち返る。つまり、それぞれの共有のボリュームルートの下にある.AppleDBというフォルダにCNIDデータベースを格納する。</para>
           </listitem>
         </varlistentry>
 
@@ -984,14 +922,13 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Max length of UTF8-MAC volume name for Mac OS X. Note that
-            Hangul is especially sensitive to this.</para>
+            <para>Mac OS XのためのUTF8-MACボリューム名の最大長。ハングルはこれに特に敏感なので注意してください。</para>
 
-            <para><programlisting> 73: limit of Mac OS X 10.1 80: limit of Mac
-            OS X 10.4/10.5 (default) 255: limit of recent Mac OS
-            X</programlisting> Mac OS 9 and earlier are not influenced by
-            this, because Maccharset volume name is always limited to 27
-            bytes.</para>
+            <para><programlisting>
+73: Mac OS X 10.1の制限
+80: Mac OS X 10.4/10.5の制限 (デフォルト)
+255: 最近のMac OS Xの制限</programlisting>
+            Mac OS 9以前はこれに影響されない。なぜならMac文字セットのボリューム名は常に27バイト制限がある。</para>
           </listitem>
         </varlistentry>
 
@@ -1000,9 +937,7 @@
           <type>(G)/(V)</type></term>
 
           <listitem>
-            <para>Use section <option>name</option> as option preset for all
-            volumes (when set in the [Global] section) or for one volume (when
-            set in that volume's section).</para>
+            <para>([Global]セクションで設定したときは) 全ボリューム、(ボリュームセクションで設定したときは)そのボリュームのオプション初期設定となるセクションの<option>name</option>を使う。</para>
           </listitem>
         </varlistentry>
       </variablelist>
