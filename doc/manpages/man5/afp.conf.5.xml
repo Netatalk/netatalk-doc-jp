@@ -944,7 +944,7 @@
     </refsect2>
 
     <refsect2>
-      <title>Logging Options</title>
+      <title>ログのオプション</title>
 
       <variablelist>
         <varlistentry>
@@ -952,8 +952,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>If not specified Netatalk logs to syslogs daemon facility.
-            Otherwise it logs to <option>logfile</option>.</para>
+            <para>指定しない場合、Netatalkはsyslogデーモン機能にログを出力する。そうでない場合は<option>logfile</option>に出力する。</para>
           </listitem>
         </varlistentry>
 
@@ -965,19 +964,17 @@
           ...]</replaceable> <type>(G)</type></term>
 
           <listitem>
-            <para>Specify that any message of a loglevel up to the given
-            <option>log level</option> should be logged.</para>
+            <para>与えられた<option>log level</option>までのログレベルのメッセージを出力するように設定する。</para>
 
-            <para>By default afpd logs to syslog with a default logging setup
-            equivalent to <option>default:note</option></para>
+            <para>デフォルトではafpdは<option>default:note</option>に相当する設定でsyslogに出力する。</para>
 
-            <para>logtypes: default, afpdaemon, logger, uamsdaemon</para>
+            <para>ログタイプ: default, afpdaemon, logger, uamsdaemon</para>
 
-            <para>loglevels: severe, error, warn, note, info, debug, debug6,
+            <para>ログレベル: severe, error, warn, note, info, debug, debug6,
             debug7, debug8, debug9, maxdebug</para>
 
             <note>
-              <para>Both logtype and loglevels are case insensitive.</para>
+              <para>ログタイプとログレベルはどちらも大文字小文字を区別しない。</para>
             </note>
           </listitem>
         </varlistentry>
