@@ -1087,9 +1087,9 @@
     </refsect2>
 
     <refsect2>
-      <title>Debug Parameters</title>
+      <title>デバッグパラメータ</title>
 
-      <para>These options are useful for debugging only.</para>
+      <para>これらのオプションはデバッグのみに有用である。</para>
 
       <variablelist>
         <varlistentry>
@@ -1097,8 +1097,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Sets the tickle timeout interval (in seconds). Defaults to
-            30.</para>
+            <para>tickleタイムアウトの間隔を(秒単位で)設定する。デフォルトは30。</para>
           </listitem>
         </varlistentry>
 
@@ -1107,28 +1106,18 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Specify the number of tickles to send before timing out a
-            connection. The default is 4, therefore a connection will timeout
-            after 2 minutes.</para>
+            <para>接続がタイムアウトする前に送るtickleの数を指定する。デフォルトは4なので、2分後に接続がタイムアウトする。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>client polling = <replaceable>BOOLEAN</replaceable> (default:
+          <term>client polling = <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>no</emphasis>) <type>(G)</type></term>
 
           <listitem>
-            <para>With this option enabled, afpd won't advertise that it is
-            capable of server notifications, so that connected clients poll
-            the server every 10 seconds to detect changes in opened server
-            windows. <emphasis>Note</emphasis>: Depending on the number of
-            simultaneously connected clients and the network's speed, this can
-            lead to a significant higher load on your network!</para>
+            <para>このオプションを有効にすると、afpdはserver notificationの機能があることを宣伝しない。これは、接続中のクライアントが開いているサーバのウインドウの変更を検出するために10秒毎にポーリングするのを目的としている。<emphasis>注記</emphasis>: 同時接続クライアント数とネットワークスピード次第でネットワークの負荷が相当に高くなる!</para>
 
-            <para>Do not use this option any longer as present Netatalk
-            correctly supports server notifications, allowing connected
-            clients to update folder listings in case another client changed
-            the contents.</para>
+            <para>現在のNetatalkはserver notificationを正確にサポートしており、接続中のクライアントは他のクライアントが内容を変更したときにフォルダ内の一覧を更新できるので、もはやこのオプションは使わないでください。</para>
           </listitem>
         </varlistentry>
       </variablelist>
