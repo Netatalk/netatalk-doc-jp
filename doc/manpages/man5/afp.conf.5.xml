@@ -1728,77 +1728,57 @@
     </refsect2>
 
     <refsect2>
-      <title>Volume options</title>
+      <title>ボリュームオプション</title>
 
-      <para>Boolean volume options.</para>
+      <para>ブーリアン型のボリュームオプション．</para>
 
       <variablelist>
         <varlistentry>
-          <term>acls = <replaceable>BOOLEAN</replaceable> (default:
+          <term>acls = <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>yes</emphasis>) <type>(V)</type></term>
 
           <listitem>
-            <para>Whether to flag volumes as supporting ACLs. If ACL support
-            is compiled in, this is yes by default.</para>
+            <para>ボリュームが ACL をサポートしてるというフラグを立てるかどうか． もし ACL サポートでコンパイルしていれば，これはデフォルトで yes．</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>case sensitive = <replaceable>BOOLEAN</replaceable> (default:
+          <term>case sensitive = <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>yes</emphasis>) <type>(V)</type></term>
 
           <listitem>
-            <para>Whether to flag volumes as supporting case-sensitive
-            filenames. If the filesystem is case-insensitive, set to no.
-            However, it is not fully verified.</para>
+            <para>ボリュームが大文字小文字を区別したファイル名をサポートしてるというフラグを立てるかどうか． もしファイルシステムが大文字小文字を区別しなければ no を設定せよ．しかしながらこれは完全には確かめられていない．</para>
             <note>
-              <para>In spite of being case sensitive as a matter of fact,
-              netatalk 3.1.3 and earlier did not notify kCaseSensitive flag
-              to the client. Starting with 3.1.4, it is notified correctly by
-              default.</para>
+              <para>実際には大文字小文字を区別しているにもかかわらず，netatalk 3.1.3 とそれ以前のものはクライアントに kCaseSensitive フラグを通知しなかった．バージョン 3.1.4 からはデフォルトで正しく通知される．</para>
             </note>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>cnid dev = <replaceable>BOOLEAN</replaceable> (default:
+          <term>cnid dev = <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>yes</emphasis>) <type>(V)</type></term>
 
           <listitem>
-            <para>Whether to use the device number in the CNID backends. Helps
-            when the device number is not constant across a reboot, eg
-            cluster, ...</para>
+            <para>CNID バックエンド内でデバイス番号を使うかどうか． 例えばクラスターなどでリブートを経るとデバイス番号が固定ではない時有用．</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
           <term>convert appledouble = <replaceable>BOOLEAN</replaceable>
-          (default: <emphasis>yes</emphasis>) <type>(V)</type></term>
+          (デフォルト: <emphasis>yes</emphasis>) <type>(V)</type></term>
 
           <listitem>
-            <para>Whether automatic conversion from <option>appledouble =
-            v2</option> to <option>appledouble = ea</option> is performed when
-            accessing filesystems from clients. This is generally useful, but
-            costs some performance. It's recommendable to run
-            <command>dbd</command> on volumes and do the conversion with that.
-            Then this option can be set to no.</para>
+            <para>クライアントからのファイルシステムへのアクセス時， <option>appledouble = v2</option> から <option>appledouble = ea</option> への自動的な変換を行うかどうか．これは概して有用であるがいくらかパフォーマンスが犠牲となる．ボリューム上で <command>dbd</command> を実行しそれで変換をするのが推奨される．その後このオプションを no に設定することもできる．</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
           <term>delete veto files = <replaceable>BOOLEAN</replaceable>
-          (default: <emphasis>no</emphasis>) <type>(V)</type></term>
+          (デフォルト: <emphasis>no</emphasis>) <type>(V)</type></term>
 
           <listitem>
-            <para>This option is used when Netatalk is attempting to delete a
-            directory that contains one or more vetoed files or directories
-            (see the veto files option). If this option is set to no (the
-            default) then if a directory contains any non-vetoed files or
-            directories then the directory delete will fail. This is usually
-            what you want.</para>
-            <para>If this option is set to yes, then Netatalk will attempt to
-            recursively delete any files and directories within the vetoed
-            directory.</para>
+            <para>このオプションは Netatalk が一つあるいはそれ以上の veto されたファイルあるいはディレクトリ（veto files オプションを見よ）を削除しようとした時用いられる．もしこのオプションを no に設定し（デフォルト），そしてもしあるディレクトリが何か非 veto ファイルないしはディレクトリを含んでいたら，ディレクトリの削除は失敗するであろう．これは通常あなたの望むところの動作である．</para>
+            <para>もしこのオプションが yes に設定されていたら，Netatalk は veto 化ディレクトリ・ディレクトリ内も含めあらゆるファイル，ディレクトリを再帰的に削除しようとするであろう．</para>
           </listitem>
         </varlistentry>
 
