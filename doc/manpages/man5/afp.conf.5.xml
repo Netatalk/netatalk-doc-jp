@@ -1772,123 +1772,95 @@
         </varlistentry>
 
         <varlistentry>
-          <term>follow symlinks = <replaceable>BOOLEAN</replaceable> (default:
+          <term>follow symlinks = <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>no</emphasis>) <type>(V)</type></term>
 
           <listitem>
-            <para>The default setting is false thus symlinks are not followed
-            on the server. This is the same behaviour as OS X's AFP server.
-            Setting the option to true causes afpd to follow symlinks on the
-            server. symlinks may point outside of the AFP volume, currently
-            afpd doesn't do any checks for "wide symlinks".</para>
+            <para>デフォルトの設定では偽なのでサーバー上でシンボリックリンクは辿られない．これは OS X の AFP サーバーと同じ挙動である．オプションを真に設定すると afpd がサーバー上でシンボリックリンクを辿るようにさせる．今のところ afpd は "wide symlinks" を全く検査しないので，シンボリックリンクは AFP ボリューム以外を指しているかもしれない．</para>
             <note>
-              <para>This option will subtly break when the symlinks point
-              across filesystem boundaries.</para>
+              <para>シンボリックリンクがファイルシステムの境界をまたいで張られている時，このオプションは巧妙に断ち切る．</para>
             </note>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>invisible dots = <replaceable>BOOLEAN</replaceable> (default:
+          <term>invisible dots = <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>no</emphasis>) <type>(V)</type></term>
 
           <listitem>
-            <para>make dot files invisible. WARNING: enabling this option will
-              lead to unwanted sideeffects were OS X applications when saving
-              files to a temporary file starting with a dot first, then renaming
-              the temp file to its final name, result in the saved file being
-              invisible. The only thing this option is useful for is making
-              files that start with a dot invisible on Mac OS 9. It's
-              completely useless on Mac OS X, as both in Finder and in Terminal
-              files starting with a dot are hidden anyway.</para>
+            <para>ドットファイルを不可視にする． 警告：このオプションを有効にすると，望まない副作用を OS X アプリケーションに引き起こす．つまり， 先頭がドットではじまる一時ファイルにファイルをセーブし，それから一時ファイルを最終的なファイル名にリネームした時， 結果としてセーブしたファイルが見えなくなる．唯一このオプションが有用なのは，Mac OS 9 でドットからはじまるファイルを見えなくさせるためである．Mac OS X では，Finder でもターミナルでもドットではじまるファイルはいずれにしても隠しファイルなので，完全に無駄である．</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>network ids = <replaceable>BOOLEAN</replaceable> (default:
+          <term>network ids = <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>yes</emphasis>) <type>(V)</type></term>
 
           <listitem>
-            <para>Whether the server support network ids. Setting this to
-            <emphasis>no</emphasis> will result in the client not using ACL
-            AFP functions.</para>
+            <para>サーバーがネットワーク id をサポートするかどうか．これを <emphasis>no</emphasis> に設定すると結果としてクライアントは ACL AFP 機能を使わなくなる．</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>preexec close = <replaceable>BOOLEAN</replaceable> (default:
+          <term>preexec close = <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>no</emphasis>) <type>(V)</type></term>
 
           <listitem>
-            <para>A non-zero return code from preexec close the volume being
-            immediately, preventing clients to mount/see the volume in
-            question.</para>
+            <para>preexec からの 0 以外のリターンコードで，クライアントがボリュームをマウントする／見ることを防ぐために当該ボリュームを即座に閉じる．</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>read only = <replaceable>BOOLEAN</replaceable> (default:
+          <term>read only = <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>no</emphasis>) <type>(V)</type></term>
 
           <listitem>
-            <para>Specifies the share as being read only for all users.
-            Overwrites <option>ea = auto</option> with <option>ea =
-            none</option></para>
+            <para>その共有を全てのユーザーに対して読み込み専用と指定する．<option>ea = auto</option> は <option>ea = none</option> で上書きされる．</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
           <term>root preexec close= <replaceable>BOOLEAN</replaceable>
-          (default: <emphasis>no</emphasis>) <type>(V)</type></term>
+          (デフォルト: <emphasis>no</emphasis>) <type>(V)</type></term>
 
           <listitem>
-            <para>A non-zero return code from root_preexec closes the volume
-            immediately, preventing clients to mount/see the volume in
-            question.</para>
+            <para>root_preexec からの 0 以外のリターンコードで，クライアントがボリュームをマウントする／見ることを防ぐために当該ボリュームを即座に閉じる．</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>search db = <replaceable>BOOLEAN</replaceable> (default:
+          <term>search db = <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>no</emphasis>) <type>(V)</type></term>
 
           <listitem>
-            <para>Use fast CNID database namesearch instead of slow recursive
-            filesystem search. Relies on a consistent CNID database, ie Samba
-            or local filesystem access lead to inaccurate or wrong results.
-            Works only for "dbd" CNID db volumes.</para>
+            <para>低速な再帰的ファイルシステム検索の代わりに高速な CNID データベースの名前検索を用いる．矛盾のない CNID データベースを信頼する，すなわち Samba やローカルのファイルシステムのアクセスが不正確さらには誤った結果を招く．"dbd" CNID db のボリュームのみで動作する．</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>stat vol = <replaceable>BOOLEAN</replaceable> (default:
+          <term>stat vol = <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>yes</emphasis>) <type>(V)</type></term>
 
           <listitem>
-            <para>Whether to stat volume path when enumerating volumes list,
-            useful for automounting or volumes created by a preexec
-            script.</para>
+            <para>ボリュームリストを列挙するときにボリュームパスを stat するかどうか．オートマウントや preexec スクリプトで作成されたボリュームに有用である．</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>time machine = <replaceable>BOOLEAN</replaceable> (default:
+          <term>time machine = <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>no</emphasis>) <type>(V)</type></term>
 
           <listitem>
-            <para>Whether to enable Time Machine support for this
-            volume.</para>
+            <para>このボリュームの Time Machine サポートを有効にするかどうか．</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>unix priv = <replaceable>BOOLEAN</replaceable> (default:
+          <term>unix priv = <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>yes</emphasis>) <type>(V)</type></term>
 
           <listitem>
-            <para>Whether to use AFP3 UNIX privileges. This should be set for
-            OS X clients. See also: <option>file perm</option>,
-            <option>directory perm</option> and <option>umask</option>.</para>
+            <para>AFP3 UNIX 権限を使うかどうか．これは OS X クライアントに対しては設定すべきである．<option>file perm</option>， <option>directory perm</option> 及び <option>umask</option> も参照．</para>
           </listitem>
         </varlistentry>
       </variablelist>
