@@ -1124,12 +1124,9 @@
     </refsect2>
 
     <refsect2 id="acl_options">
-      <title>Options for ACL handling</title>
+      <title>ACL処理のためのオプション</title>
 
-      <para>By default, the effective permission of the authenticated user are
-      only mapped to the mentioned UARights permission structure, not the UNIX
-      mode. You can adjust this behaviour with the configuration option
-      <option>mac acls</option>:</para>
+      <para>デフォルトでは、認証済ユーザの有効な権限は記載済UARights権限構造にだけマップされる。UNIXモードではない。この挙動は設定オプション<option>mac acls</option>で調整できる:</para>
 
       <variablelist id="map_acls">
         <varlistentry>
@@ -1142,7 +1139,7 @@
                   <term>none</term>
 
                   <listitem>
-                    <para>no mapping of ACLs </para>
+                    <para>ACLのマッピングをしない</para>
                   </listitem>
                 </varlistentry>
 
@@ -1150,8 +1147,7 @@
                   <term>rights</term>
 
                   <listitem>
-                    <para>effective permissions are mapped to UARights
-                    structure. This is the default.</para>
+                    <para>有効な権限がUARights構造にマップされる。これがデフォルトである。</para>
                   </listitem>
                 </varlistentry>
 
@@ -1159,8 +1155,7 @@
                   <term>mode</term>
 
                   <listitem>
-                    <para>ACLs are additionally mapped to the UNIX mode of the
-                    filesystem object.</para>
+                    <para>ACLはファイルシステムオブジェクトのUNIXモードにもマップされる。</para>
                   </listitem>
                 </varlistentry>
               </variablelist></para>
