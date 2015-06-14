@@ -1398,24 +1398,19 @@
   </refsect1>
 
   <refsect1>
-    <title>EXPLANATION OF VOLUME PARAMETERS</title>
+    <title>ボリュームパラメータの説明</title>
 
     <refsect2>
-      <title>Parameters</title>
+      <title>パラメータ</title>
 
-      <para>The section name defines the volume name.
-      No two volumes may have the same
-      name. The volume name cannot contain the <keycode>':'</keycode>
-      character. The volume name is mangled if it is very long. Mac charset
-      volume name is limited to 27 characters. UTF8-MAC volume name is limited
-      to volnamelen parameter.</para>
+      <para>セクション名ボリューム名を定義する．同じ名前の二つのボリュームというのは無いであろう．ボリューム名が文字 <keycode>':'</keycode> を含むことはできない． ボリューム名がとても長ければマングルされる．Mac キャラクターセットのボリューム名は27 文字までに制限される．UTF8-MAC ボリューム名は volnamelen パラメータで制限される．</para>
 
       <variablelist>
         <varlistentry>
           <term>path = <replaceable>PATH</replaceable> <type>(V)</type></term>
 
           <listitem>
-            <para>The path name must be a fully qualified path name.</para>
+            <para>パス名は完全修飾パス名でなければならない．</para>
           </listitem>
         </varlistentry>
 
@@ -1424,29 +1419,16 @@
           <type>(V)</type></term>
 
           <listitem>
-            <para>Specify the format of the metadata files, which are used for
-            saving Mac resource fork as well. Earlier versions used
-            AppleDouble v2, the new default format is <emphasis
-            role="bold">ea</emphasis>.</para>
+            <para>メタデータファイルのフォーマットを指定する．これは Mac のリソースフォークの保存にも用いられる．初期のバージョンでは AppleDouble v2 が用いられ，新しいデフォルトのフォーマットは <emphasis role="bold">ea</emphasis> である．</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>vol size limit = <replaceable>size in MiB</replaceable>
+          <term>vol size limit = <replaceable>MiB 単位でのサイズ</replaceable>
           <type>(V)</type></term>
 
           <listitem>
-            <para>Useful for Time Machine: limits the reported volume size,
-            thus preventing Time Machine from using the whole real disk space
-            for backup. Example: "vol size limit = 1000" would limit the
-            reported disk space to 1 GB. <emphasis role="bold">IMPORTANT:
-            </emphasis> This is an approximated calculation taking into
-            account the contents of Time Machine sparsebundle images. Therefor
-            you MUST NOT use this volume to store other content when using
-            this option, because it would NOT be accounted. The calculation
-            works by reading the band size from the Info.plist XML file of the
-            sparsebundle, reading the bands/ directory counting the number of
-            band files, and then multiplying one with the other.</para>
+            <para>Time Machine に有用：報告されるボリュームサイズを制限する．故に Time Machine がバックアップのために実ディスク領域全体を使うことを防止する．例えば "vol size limit = 1000" は報告されるディスク領域を 1 GB に制限する． <emphasis role="bold">重要:</emphasis> これは Time Machine sparsebundle イメージの中身を考慮した概算である．それ故このオプションを使用した時，このボリュームを他のコンテンツを保管するのに使用 “してはならない”．なぜなら勘定に入っていないからである．計算は: sparsebundle の Info.plist XML ファイルからバンドサイズを読む，バンドファイルの数を数えて バンド／ディレクトリ を読む，そしてお互いの乗算をする．ことによって行われる．</para>
           </listitem>
         </varlistentry>
 
@@ -1455,10 +1437,7 @@
           <type>(V)</type></term>
 
           <listitem>
-            <para>The allow option allows the users and groups that access a
-            share to be specified. Users and groups are specified, delimited
-            by spaces or commas. Groups are designated by a @ prefix. Names
-            may be quoted in order to allow for spaces in names. Example:
+            <para>この許可オプションは指定された共有にそのユーザーとグループのアクセスを許可する．ユーザーとグループはスペースかコンマで区切って指定する．グループは @ プレフィックスで明示する．名前の中にあるスペースを許すために名前を引用符で囲んでもよい．例:
             <programlisting>valid users = user "user 2" @group “@group 2"</programlisting></para>
           </listitem>
         </varlistentry>
@@ -1468,36 +1447,30 @@
           <type>(V)</type></term>
 
           <listitem>
-            <para>The deny option specifies users and groups who are not
-            allowed access to the share. It follows the same format as the
-            "valid users" option.</para>
+            <para>この拒否オプションはその共有にアクセスを許可しないユーザーとグループを指定する．それ以外は "valid users" オプションと同じフォーマットである．</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>hosts allow = <replaceable>IP host address/IP netmask bits [
+          <term>hosts allow = <replaceable>IPホストアドレス/IPマスクビット [
           ... ]</replaceable> <type>(V)</type></term>
 
           <listitem>
-            <para>Only listed hosts and networks are allowed, all others are
-            rejected. The network address may be specified either in
-            dotted-decimal format for IPv4 or in hexadecimal format for
-            IPv6.</para>
+            <para>列挙されたホストとネットワークのみが許可され，ほかの全ては拒否される．ネットワークアドレスは IPv4 のドット区切りフォーマット， IPv6の16進数フォーマットのどちらでもよい．</para>
 
-            <para>Example: hosts allow = 10.1.0.0/16 10.2.1.100
+            <para>例: hosts allow = 10.1.0.0/16 10.2.1.100
             2001:0db8:1234::/48</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>hosts deny = <replaceable>IP host address/IP netmask bits [
+          <term>hosts deny = <replaceable>IPホストアドレス/IPマスクビット [
           ... ]</replaceable> <type>(V)</type></term>
 
           <listitem>
-            <para>Listed hosts and nets are rejected, all others are
-            allowed.</para>
+            <para>列挙されたホストとネットのみが拒否され，ほかの全ては許可される．</para>
 
-            <para>Example: hosts deny = 192.168.100/24 10.1.1.1
+            <para>例: hosts deny = 192.168.100/24 10.1.1.1
             2001:db8::1428:57ab</para>
           </listitem>
         </varlistentry>
@@ -1507,9 +1480,7 @@
           <type>(V)</type></term>
 
           <listitem>
-            <para>set the CNID backend to be used for the volume, default is
-            [@DEFAULT_CNID_SCHEME@] available schemes:
-            [@compiled_backends@]</para>
+            <para>そのボリュームに使う CNID バックエンドをセットする．デフォルトのバックエンドは [@DEFAULT_CNID_SCHEME@] で，有効なバックエンドは [@compiled_backends@] である．</para>
           </listitem>
         </varlistentry>
 
@@ -1518,23 +1489,16 @@
           <type>(V)</type></term>
 
           <listitem>
-            <para>Specify how Extended Attributes<indexterm>
-                <primary>Extended Attributes</primary>
-              </indexterm> are stored. <option>auto</option> is the
-            default.</para>
+            <para>拡張属性<indexterm>
+                <primary>拡張属性</primary>
+              </indexterm>をどのように保存するか指定する． <option>auto</option> がデフォルトである．</para>
 
             <variablelist>
               <varlistentry>
                 <term>auto</term>
 
                 <listitem>
-                  <para>Try <option>sys</option> (by setting an EA on the
-                  shared directory itself), fallback to <option>ad</option>.
-                  Requires writable volume for performing test. "<option>read
-                  only = yes</option>" overwrites <option>auto</option> with
-                  <option>none</option>. Use explicit "<option>ea =
-                  sys|ad</option>" for read-only volumes where
-                  appropriate.</para>
+                  <para>（共有ディレクトリ自体に EA を設定することにより） <option>sys</option> を試行して，フォールバックすると <option>ad</option> になる．試行を実行するためにはボリュームが書き込み可能であることが必要である． "<option>read only = yes</option>" ならば <option>auto</option> は <option>none</option> で上書きされる．書き込み専用のボリュームには必要に応じて明確に "<option>ea = sys|ad</option>" を使ってください．</para>
                 </listitem>
               </varlistentry>
 
@@ -1542,7 +1506,7 @@
                 <term>sys</term>
 
                 <listitem>
-                  <para>Use filesystem Extended Attributes.</para>
+                  <para>ファイルシステムの拡張属性を使う．</para>
                 </listitem>
               </varlistentry>
 
@@ -1550,8 +1514,7 @@
                 <term>ad</term>
 
                 <listitem>
-                  <para>Use files in <emphasis>.AppleDouble</emphasis>
-                  directories.</para>
+                  <para><emphasis>.AppleDouble</emphasis> ディレクトリ内のファイルを使う．</para>
                 </listitem>
               </varlistentry>
 
@@ -1559,7 +1522,7 @@
                 <term>none</term>
 
                 <listitem>
-                  <para>No Extended Attributes support.</para>
+                  <para>拡張属性をサポートしない．</para>
                 </listitem>
               </varlistentry>
             </variablelist>
@@ -1571,11 +1534,7 @@
           <type>(V)</type></term>
 
           <listitem>
-            <para>specifies the Mac client charset for this Volume, e.g.
-            <emphasis>MAC_ROMAN</emphasis>, <emphasis>MAC_CYRILLIC</emphasis>.
-            If not specified the global setting is applied. This setting is
-            only required if you need volumes, where the Mac charset differs
-            from the one globally set in the [Global] section.</para>
+            <para>もしグローバル設定を適用する指定がなければ，そのボリュームに対しての Mac クライアントのキャラクターセット，例えば <emphasis>MAC_ROMAN</emphasis>，<emphasis>MAC_CYRILLIC</emphasis> 等を指定する．この設定は Mac キャラクターセットが [Global] セクションで全体的にセットしたキャラクターセットと異なるというボリュームを必要とする時のみ必須である．</para>
           </listitem>
         </varlistentry>
 
@@ -1583,20 +1542,15 @@
           <term>casefold = <option>option</option> <type>(V)</type></term>
 
           <listitem>
-            <para>The casefold option handles, if the case of filenames should
-            be changed. The available options are:</para>
+            <para>ファイル名の大文字小文字を変更すべき場合，casefold オプションが処理する．有効なオプションは:</para>
 
-            <para><option>tolower</option> - Lowercases names in both
-            directions.</para>
+            <para><option>tolower</option> - 双方向で名前を小文字に変換する。</para>
 
-            <para><option>toupper</option> - Uppercases names in both
-            directions.</para>
+            <para><option>toupper</option> - 双方向で名前を大文字に変換する。</para>
 
-            <para><option>xlatelower</option> - Client sees lowercase, server
-            sees uppercase.</para>
+            <para><option>xlatelower</option> - クライアントでは小文字に見えて、サーバでは大文字に見える。</para>
 
-            <para><option>xlateupper</option> - Client sees uppercase, server
-            sees lowercase.</para>
+            <para><option>xlateupper</option> - クライアントでは大文字に見えて、サーバでは小文字にみえる。</para>
           </listitem>
         </varlistentry>
 
@@ -1605,9 +1559,7 @@
           <type>(V)</type></term>
 
           <listitem>
-            <para>This option allows you to set a volume password, which can
-            be a maximum of 8 characters long (using ASCII strongly
-            recommended at the time of this writing).</para>
+            <para>このオプションはボリュームパスワードの設定を許可する．パスワードは最大で 8 文字の長さ（これを記入するときには ASCII を強く推奨）</para>
           </listitem>
         </varlistentry>
 
