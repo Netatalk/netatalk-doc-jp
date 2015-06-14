@@ -1126,7 +1126,7 @@
     <refsect2 id="acl_options">
       <title>ACL処理のためのオプション</title>
 
-      <para>デフォルトでは、認証済ユーザの有効な権限は記載済UARights権限構造にだけマップされる。UNIXモードではない。この挙動は設定オプション<option>mac acls</option>で調整できる:</para>
+      <para>デフォルトでは、認証済ユーザの有効な権限は記載済UARights権限構造にだけマップされる。UNIXモードではない。この挙動は設定オプション<option>map acls</option>で調整できる:</para>
 
       <variablelist id="map_acls">
         <varlistentry>
