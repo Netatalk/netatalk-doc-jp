@@ -1566,16 +1566,13 @@
           <type>(V)</type></term>
 
           <listitem>
-            <para>Add(or) with the client requested permissions: <option>file
-            perm</option> is for files only, <option>directory perm</option>
-            is for directories only. Don't use with "<option>unix priv =
-            no</option>".</para>
+            <para>クライアントが要求した権限との論理和(or)をとる． <option>file perm</option> はファイルにのみ， <option>directory perm</option> はディレクトリにのみ用いる． "<option>unix priv = no</option>" と共に用いてはならない．</para>
 
             <example>
-              <title>Volume for a collaborative workgroup</title>
+              <title>共同ワークグループ用ボリューム</title>
 
-              <para><programlisting>file perm = 0660 directory perm =
-              0770</programlisting></para>
+              <para><programlisting>file perm = 0660
+directory perm = 0770</programlisting></para>
             </example>
           </listitem>
         </varlistentry>
@@ -1585,8 +1582,7 @@
           <type>(V)</type></term>
 
           <listitem>
-            <para>set perm mask. Don't use with "<option>unix priv =
-            no</option>".</para>
+            <para>権限のマスクを設定する． "<option>unix priv = no</option>" と共に用いてはならない．</para>
           </listitem>
         </varlistentry>
 
@@ -1595,8 +1591,7 @@
           <type>(V)</type></term>
 
           <listitem>
-            <para>command to be run when the volume is mounted, ignored for
-            user defined volumes</para>
+            <para>ボリュームがマウントされる時に実行されるコマンド．ユーザー定義ボリュームに対しては無視される．</para>
           </listitem>
         </varlistentry>
 
@@ -1605,8 +1600,7 @@
           <type>(V)</type></term>
 
           <listitem>
-            <para>command to be run when the volume is closed, ignored for
-            user defined volumes</para>
+            <para>ボリュームが閉じられる時に実行されるコマンド．ユーザー定義ボリュームに対しては無視される．</para>
           </listitem>
         </varlistentry>
 
@@ -1615,8 +1609,7 @@
           <type>(V)</type></term>
 
           <listitem>
-            <para>command to be run as root when the volume is mounted,
-            ignored for user defined volumes</para>
+            <para>ボリュームがマウントされる時にルート権限で実行されるコマンド．ユーザー定義ボリュームに対しては無視される．</para>
           </listitem>
         </varlistentry>
 
@@ -1625,8 +1618,7 @@
           <type>(V)</type></term>
 
           <listitem>
-            <para>command to be run as root when the volume is closed, ignored
-            for user defined volumes</para>
+            <para>ボリュームが閉じられる時にルート権限で実行されるコマンド．ユーザー定義ボリュームに対しては無視される．</para>
           </listitem>
         </varlistentry>
 
@@ -1634,8 +1626,7 @@
           <term>rolist = <option>users/groups</option> <type>(V)</type></term>
 
           <listitem>
-            <para>Allows certain users and groups to have read-only access to
-            a share. This follows the allow option format.</para>
+            <para>信頼するユーザー及びグループの共有に対する読み込み専用アクセスを許可する．フォーマットは allow オプションに準ずる．</para>
           </listitem>
         </varlistentry>
 
@@ -1644,8 +1635,7 @@
           <type>(V)</type></term>
 
           <listitem>
-            <para>Allows certain users and groups to have read/write access to
-            a share. This follows the allow option format.</para>
+            <para>信頼するユーザー及びグループの共有に対する読み込み／書き込みアクセスを許可する．フォーマットは allow オプションに準ずる．</para>
           </listitem>
         </varlistentry>
 
@@ -1654,10 +1644,7 @@
           <type>(V)</type></term>
 
           <listitem>
-            <para>hide files and directories,where the path matches one of the
-            '/' delimited vetoed names. The veto string must always be
-            terminated with a '/', eg. "veto files = veto1/", "veto files =
-            veto1/veto2/".</para>
+            <para>'/' で区切られた 禁止名のどれかに一致するパスのファイルとディレクトリを隠す．禁止文字列は常に '/' で終わらなければならない．例えば，"veto files = veto1/"，"veto files = veto1/veto2/"．</para>
           </listitem>
         </varlistentry>
       </variablelist>
