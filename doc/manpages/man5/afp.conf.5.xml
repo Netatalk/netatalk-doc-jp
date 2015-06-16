@@ -1163,21 +1163,11 @@
         </varlistentry>
       </variablelist>
 
-      <para>If you want to be able to display ACLs on the client, you must
-      setup both client and server as part on a authentication domain
-      (directory service, eg LDAP, Open Directory, Active Directory). The
-      reason is, in OS X ACLs are bound to UUIDs, not just uid's or gid's.
-      Therefor Netatalk must be able to map every filesystem uid and gid to a
-      UUID so that it can return the server side ACLs which are bound to UNIX
-      uid and gid mapped to OS X UUIDs.</para>
+      <para>もしクライアント上で ACL を表示できるようにしたければ， クライアントもサーバーも認証ドメイン（ディレクトリサービス，例えば，LDAP，Open Directory， Active Directory）の一部としてセットアップしなければならない．その理由は，OS X の ACL は単に uid ないしは gid と結合しているのではなく，UUID と結合しているからである．それ故，Netatalk は，OS X の UUID と紐付けした UNIX uid と gid に結合したサーバー側の ACL を返せるように，ファイルシステム全ての uid と gid を UUID と紐付けできるようにしなければならない．</para>
 
-      <para>Netatalk can query a directory server using LDAP queries. Either
-      the directory server already provides an UUID attribute for user and
-      groups (Active Directory, Open Directory) or you reuse an unused
-      attribute (or add a new one) to you directory server (eg
-      OpenLDAP).</para>
+      <para>Netatalk は LDAP 検索を用いてディレクトリサーバーを検索をすることができる．ディレクトリサーバーが既にユーザーとグループの UUID 属性を提供している（Active Directory，Open Directory）か，ディレクトリサーバー（例えばOpenLDAP）の未使用の属性を再使用（あるいは新しい属性を追加）するか，のいずれかである．</para>
 
-      <para>The following LDAP options must be configured for Netatalk:</para>
+      <para>Netatalk では以下の LDAP オプションが設定されなければならない:</para>
 
       <variablelist>
         <varlistentry>
@@ -1185,7 +1175,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Authentication method: <option>none | simple |
+            <para>認証方式: <option>none | simple |
             sasl</option></para>
 
             <para><variablelist>
@@ -1193,7 +1183,7 @@
                   <term>none</term>
 
                   <listitem>
-                    <para>anonymous LDAP bind</para>
+                    <para>匿名 LDAP 認証</para>
                   </listitem>
                 </varlistentry>
 
@@ -1201,7 +1191,7 @@
                   <term>simple</term>
 
                   <listitem>
-                    <para>simple LDAP bind</para>
+                    <para>簡易 LDAP 認証</para>
                   </listitem>
                 </varlistentry>
 
@@ -1209,7 +1199,7 @@
                   <term>sasl</term>
 
                   <listitem>
-                    <para>SASL. Not yet supported !</para>
+                    <para>SASL. まだサポートされていない!</para>
                   </listitem>
                 </varlistentry>
               </variablelist></para>
@@ -1221,7 +1211,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Distinguished Name of the user for simple bind.</para>
+            <para>簡易認証でのユーザーの識別名．</para>
           </listitem>
         </varlistentry>
 
@@ -1230,7 +1220,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Distinguished Name of the user for simple bind.</para>
+            <para>簡易認証でのユーザーの識別名．(訳注: 原文のミスと思われる。「簡易認証でのパスワード」であろう。)</para>
           </listitem>
         </varlistentry>
 
@@ -1239,15 +1229,14 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Name or IP address of your LDAP Server. This is only needed
-            for explicit ACL support in order to be able to query LDAP for
-            UUIDs.</para>
+            <para>LDAP サーバーの名前か IP アドレス．これは，LDAP に UUID の問い合わせをできるようにするために，明示的な ACL サポートを必要とする時のみ必要．</para>
 
-            <para>You can use <citerefentry>
+            <para>設定の構文的なチェックのために <citerefentry>
                 <refentrytitle>afpldaptest</refentrytitle>
 
                 <manvolnum>1</manvolnum>
-              </citerefentry> to syntactically check your config.</para>
+              </citerefentry>
+            を使うこともできる．</para>
           </listitem>
         </varlistentry>
 
@@ -1256,7 +1245,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>DN of the user container in LDAP.</para>
+            <para>LDAP 内のユーザーコンテナの DN．</para>
           </listitem>
         </varlistentry>
 
@@ -1265,8 +1254,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Search scope for user search: <option>base | one |
-            sub</option></para>
+            <para>ユーザー検索での検索スコープ: <option>base | one | sub</option></para>
           </listitem>
         </varlistentry>
 
@@ -1275,7 +1263,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>DN of the group container in LDAP.</para>
+            <para>LDAP 内のグループコンテナの DN．</para>
           </listitem>
         </varlistentry>
 
@@ -1284,8 +1272,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Search scope for user search: <option>base | one |
-            sub</option></para>
+            <para>ユーザー検索での検索スコープ: <option>base | one | sub</option> (訳注: 原文のミスと思われる。「グループ検索での検索スコープ」ではないか。)</para>
           </listitem>
         </varlistentry>
 
@@ -1294,9 +1281,9 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Name of the LDAP attribute with the UUIDs.</para>
+            <para>UUID のある LDAP 属性の名前．</para>
 
-            <para>Note: this is used both for users and groups.</para>
+            <para>注記: これはユーザーでもグループでも双方で用いられる．</para>
           </listitem>
         </varlistentry>
 
@@ -1305,7 +1292,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Name of the LDAP attribute with the users short name.</para>
+            <para>ユーザーの短縮名のある LDAP 属性の名前．</para>
           </listitem>
         </varlistentry>
 
@@ -1314,8 +1301,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Name of the LDAP attribute with the groups short
-            name.</para>
+            <para>グループの短縮名のある LDAP 属性の名前．</para>
           </listitem>
         </varlistentry>
 
@@ -1324,34 +1310,25 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Format of the uuid string in the directory. A series of x
-            and -, where every x denotes a value 0-9a-f and every - is a
-            separator.</para>
+            <para>ディレクトリでの UUID 文字列のフォーマット．'x' と '-'を続けたもので，それぞれの 'x' は 0-9a-f の値を示し，'-' はそれぞれ区切り文字である．</para>
 
-            <para>Default: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</para>
+            <para>デフォルト: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>ldap uuid encoding = <parameter>string | ms-guid (default:
+          <term>ldap uuid encoding = <parameter>string | ms-guid (デフォルト:
           string)</parameter> <type>(G)</type></term>
 
           <listitem>
-            <para>Format of the UUID of the LDAP attribute, allows usage of
-            the binary objectGUID fields from Active Directory. If left
-            unspecified, string is the default, which passes through the ASCII
-            UUID returned by most other LDAP stores. If set to ms-guid, the
-            internal UUID representation is converted to and from the binary
-            format used in the objectGUID attribute found on objects in Active
-            Directory when interacting with the server.</para>
-            <para>See also the options <option>ldap user filter</option> and
-            <option>ldap group filter</option>.</para>
+            <para>LDAP 属性の UUID のフォーマットは Active Directory からの obhectGUID バイナリーフィールドの使用を許す．もし未指定のままだと string がデフォルトとなる．これはほとんどの LDAP ストアによって ASCII UUID を通して渡される．もし ms-guid が設定されると，サーバーと相互に動作する時 Active Directory 内にあるオブジェクトの objectGUID 属性で用いられる内部 UUID 表記とバイナリー形式が相互に変換される．</para>
+            <para>オプション <option>ldap user filter</option> 及び <option>ldap group filter</option> も参照のこと．</para>
             <para><variablelist>
                 <varlistentry>
                   <term>string</term>
 
                   <listitem>
-                    <para>UUID is a string, use with eg OpenDirectory.</para>
+                    <para>UUID は文字列．例えば OpenDirectory とで使用する．</para>
                   </listitem>
                 </varlistentry>
 
@@ -1359,7 +1336,7 @@
                   <term>ms-guid</term>
 
                   <listitem>
-                    <para>Binary objectGUID from Active Directory</para>
+                    <para>Active Directory からの objectGUID バイナリー．</para>
                   </listitem>
                 </varlistentry>
               </variablelist></para>
@@ -1367,24 +1344,22 @@
         </varlistentry>
 
         <varlistentry>
-          <term>ldap user filter = <parameter>STRING (default: unused)</parameter>
+          <term>ldap user filter = <parameter>STRING (デフォルト: 未使用)</parameter>
           <type>(G)</type></term>
 
           <listitem>
-            <para>Optional LDAP filter that matches user objects. This is necessary for Active Directory
-            environments where users and groups are stored in the same directory subtree.</para>
-            <para>Recommended setting for Active Directory: <parameter>objectClass=user</parameter>.</para>
+            <para>ユーザーオブジェクトにマッチする任意の LDAP フィルター．これは，ユーザーとグループが同じディレクトリのサブツリーに保存されている Active Directory 環境で必要．</para>
+            <para>Active Directory での推奨設定: <parameter>objectClass=user</parameter></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>ldap group filter = <parameter>STRING (default: unused)</parameter>
+          <term>ldap group filter = <parameter>STRING (デフォルト: 未使用)</parameter>
           <type>(G)</type></term>
 
           <listitem>
-            <para>Optional LDAP filter that matches group objects. This is necessary for Active Directory
-            environments where users and groups are stored in the same directory subtree.</para>
-            <para>Recommended setting for Active Directory: <parameter>objectClass=group</parameter>.</para>
+            <para>グループオブジェクトにマッチする任意の LDAP フィルター．これは，ユーザーとグループが同じディレクトリのサブツリーに保存されている Active Directory 環境で必要．</para>
+            <para>Active Directory での推奨設定: <parameter>objectClass=group</parameter></para>
           </listitem>
         </varlistentry>
 
