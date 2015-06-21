@@ -51,7 +51,7 @@
   </refsect1>
 
   <refsect1>
-    <title>OPTIONS</title>
+    <title>オプション</title>
 
     <para><command>netatalk-config</command> は以下のオプションを受け付ける:</para>
 
@@ -134,7 +134,7 @@
   </refsect1>
 
   <refsect1>
-    <title>COPYRIGHT</title>
+    <title>著作権</title>
 
     <para>Copyright © 1998 Owen Taylor</para>
 

@@ -47,7 +47,7 @@
   </refsect1>
 
   <refsect1>
-    <title>OPTIONS</title>
+    <title>オプション</title>
 
     <variablelist remap="TP">
       <varlistentry>
@@ -88,7 +88,7 @@
   </refsect1>
 
   <refsect1 id="see_also">
-    <title>SEE ALSO</title>
+    <title>参照</title>
 
     <para><citerefentry><refentrytitle>afp.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry></para>
   </refsect1>

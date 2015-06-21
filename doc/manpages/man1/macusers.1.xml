@@ -37,7 +37,7 @@
   </refsynopsisdiv>
 
   <refsect1 id="description">
-    <title>DESCRIPTION</title>
+    <title>説明</title>
 
     <para><command>macusers</command>はAFP経由で接続しているユーザをリストします。</para>
 
