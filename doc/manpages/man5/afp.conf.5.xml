@@ -982,26 +982,24 @@
     </refsect2>
 
     <refsect2 id="fceconf">
-      <title>Filesystem Change Events (FCE<indexterm>
+      <title>ファイルシステム変更イベント (FCE<indexterm>
           <primary>FCE</primary>
         </indexterm>)</title>
 
-      <para>Netatalk includes a nifty filesystem change event mechanism where
-      afpd processes notify interested listeners about certain filesystem
-      event by UDP network datagrams.</para>
+	<para>Netatalk には素敵なファイルシステム変更イベント機構が含まれている．ここで， afpd プロセスは，なにがしかのファイルシステムイベントについて，関心を寄せているリスナーに， UDP ネットワークデータグラムで通知する．</para>
 
-      <para>The following FCE events are defined:</para>
+      <para>以下の FCE イベントが定義されている:</para>
 
       <itemizedlist>
-        <listitem><para>file modification (<option>fmod</option>)</para></listitem>
-        <listitem><para>file deletion (<option>fdel</option>)</para></listitem>
-        <listitem><para>directory deletion (<option>ddel</option>)</para></listitem>
-        <listitem><para>file creation (<option>fcre</option>)</para></listitem>
-        <listitem><para>directory creation (<option>dcre</option>)</para></listitem>
-        <listitem><para>file move or rename (<option>fmov</option>)</para></listitem>
-        <listitem><para>directory move or rename (<option>dmov</option>)</para></listitem>
-        <listitem><para>login (<option>login</option>)</para></listitem>
-        <listitem><para>logout (<option>logout</option>)</para></listitem>
+        <listitem><para>ファイル変更 (<option>fmod</option>)</para></listitem>
+        <listitem><para>ファイル削除 (<option>fdel</option>)</para></listitem>
+        <listitem><para>ディレクトリ削除 (<option>ddel</option>)</para></listitem>
+        <listitem><para>ファイル作成 (<option>fcre</option>)</para></listitem>
+        <listitem><para>ディレクトリ作成 (<option>dcre</option>)</para></listitem>
+        <listitem><para>ファイル移動または名前変更 (<option>fmov</option>)</para></listitem>
+        <listitem><para>ディレクトリ移動または名前変更 (<option>dmov</option>)</para></listitem>
+        <listitem><para>ログイン (<option>login</option>)</para></listitem>
+        <listitem><para>ログアウト (<option>logout</option>)</para></listitem>
       </itemizedlist>
 
       <variablelist>
@@ -1010,10 +1008,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Enables sending FCE events to the specified
-            <parameter>host</parameter>, default <parameter>port</parameter>
-            is 12250 if not specified. Specifying multiple listeners is done
-            by having this option once for each of them.</para>
+            <para>FCE イベントを指定された <parameter>host</parameter> に送ることができるようにする．もし指定されていなければデフォルトの <parameter>port</parameter> は 12250 である．複数のリスナーを指定するにはそれぞれのリスナーに対するオプションを一度に指定することである．</para>
           </listitem>
         </varlistentry>
 
@@ -1022,8 +1017,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>FCE protocol version, default is 1. You need version
-            2 for the fmov, dmov, login or logout events.</para>
+            <para>FCE プロトコルのヴァージョンで，デフォルトでは 1 である．fmov，dmov，login あるいは logout イベントのためにはバージョン 2 が必要である．</para>
           </listitem>
         </varlistentry>
 
@@ -1033,8 +1027,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Specifies which FCE events are active, default is
-            <parameter>fmod,fdel,ddel,fcre,dcre</parameter>.</para>
+            <para>どの FCE イベントがアクティブかを指定する．デフォルトでは <parameter>fmod,fdel,ddel,fcre,dcre</parameter> である．</para>
           </listitem>
         </varlistentry>
 
@@ -1043,7 +1036,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Coalesce FCE events.</para>
+            <para>FCE イベントを結合する．</para>
           </listitem>
         </varlistentry>
 
@@ -1052,13 +1045,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>This determines the time delay in seconds which is always
-            waited if another file modification for the same file is done by a
-            client before sending an FCE file modification event (fmod). For
-            example saving a file in Photoshop would generate multiple events
-            by itself because the application is opening, modifying and
-            closing a file multiple times for every "save". Default: 60
-            seconds.</para>
+            <para>これは，もしクライアントによって FCE ファイル変更イベント (fmod) を送信する前に同じファイルに対する別の変更が同時に行われる場合，常に待機する遅延時間を秒単位で決定する．例えば，フォトショップでファイルを保存することでそのファイル自体の複数のイベントを引き起こす．なぜなら，アプリケーションはその“保存する”たびにファイルを複数回，開き，変更しそして閉じるからである．デフォルトでは 60 秒である．</para>
           </listitem>
         </varlistentry>
 
@@ -1067,8 +1054,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Slash delimited list of filenames for which FCE
-            events shall not be generated. Default: .DS_Store.</para>
+            <para>FCE イベントを生成すべきでないファイル名をスラッシュで区切ったリスト．デフォルトでは .DS_Store．</para>
           </listitem>
         </varlistentry>
 
@@ -1077,9 +1063,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Script which will be executed for every FCE event,
-            see contrib/shell_utils/fce_ev_script.shfrom the Netatalk
-            sources for an example script.</para>
+            <para>各々の FCE イベントに対して実行されるスクリプト．スクリプト例については，Netatalk のソースの contrib/shell_utils/fce_ev_script.sh を参照のこと．</para>
           </listitem>
         </varlistentry>
 
