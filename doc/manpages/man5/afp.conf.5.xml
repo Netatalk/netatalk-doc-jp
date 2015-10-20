@@ -1204,7 +1204,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>簡易認証でのユーザーの識別名．(訳注: 原文のミスと思われる。「簡易認証でのパスワード」であろう。)</para>
+            <para>簡易認証でのパスワード．</para>
           </listitem>
         </varlistentry>
 
@@ -1256,7 +1256,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>ユーザー検索での検索スコープ: <option>base | one | sub</option> (訳注: 原文のミスと思われる。「グループ検索での検索スコープ」ではないか。)</para>
+            <para>グループ検索での検索スコープ: <option>base | one | sub</option></para>
           </listitem>
         </varlistentry>
 
