@@ -848,15 +848,8 @@
           <emphasis>空</emphasis>) <type>(G)</type></term>
 
           <listitem>
-            <para>Spotlight検索で使うことを許された属性のリスト。デフォルトでは全ての属性を検索できる。
-
-	      By default all attributes can be
-            searched, passing a string limits attributes to elements
-            of the string.
-
-	    例:
-	    <programlisting>spotlight attributes = *,kMDItemTextContent</programlisting>
-	    </para>
+            <para>Spotlight検索で使うことを許された属性のリスト。デフォルトでは全ての属性を検索できるが、文字列を渡せば属性をその文字列の要素に制限できる。 例:
+	    <programlisting>spotlight attributes = *,kMDItemTextContent</programlisting></para>
           </listitem>
         </varlistentry>
 
