@@ -5,7 +5,7 @@
 
     <manvolnum>1</manvolnum>
 
-    <refmiscinfo class="date">02 Sep 2011</refmiscinfo>
+    <refmiscinfo class="date">05 Dec 2015</refmiscinfo>
 
     <refmiscinfo class="source">@NETATALK_VERSION@</refmiscinfo>
   </refmeta>
@@ -35,9 +35,7 @@
   <refsect1>
     <title>説明</title>
 
-    <para><command>ad</command>は、Netatalk互換のUNIXファイルユーティリティ一式である。<filename>.AppleDouble</filename>ディレクトリのAppleDouble<indexterm>
-        <primary>AppleDouble</primary>
-      </indexterm>ファイルとCNIDデータベースを適切に更新する。(訳注: 説明が古い。AppleDoubleファイルは.AppleDoubleディレクトリとは限らないし、拡張属性に保存する場合もある。)</para>
+    <para><command>ad</command>は、Netatalk互換のUNIXファイルユーティリティ一式である。AppleDoubleデータ (ファイルの拡張属性や、同じディレクトリ内の._fileや、<filename>.AppleDouble</filename>ディレクトリ内のファイル) とCNIDデータベースを適切に更新する。</para>
   </refsect1>
 
   <refsect1>
@@ -104,6 +102,8 @@
 
       <arg choice="req">file|directory</arg>
     </cmdsynopsis>
+
+    <para>ファイルやディレクトリを削除する。</para>
 
     <cmdsynopsis>
       <command>ad -v|--version</command>
@@ -188,7 +188,7 @@ Note: any letter appearing in uppercase means the flag is set but it's a directo
 
     <para>上の概要で示した一番目の形式では、cpユーティリティはsrc_fileの内容をdst_fileへコピーする。二番目の形式では、それぞれの名前のsrc_fileの内容は配布先のdst_directoryにコピーされる。ファイル自身の名前は変更されない。ファイルを自分自身へコピーしようとしているのをcpが検出したら、コピーは失敗する。</para>
 
-    <para>ボリュームルートに".AppleDesktop"ディレクトリがあることで、Netatlak AFPボリュームであることが検出される。(訳注: この説明は古い。現在は別の方法で検出する。) AFPボリュームへのコピーであると検出された場合、CNIDデータベースデーモンに接続し、全てのコピーはCNIDデータベースの手続きを踏む。ターゲットがAFPボリュームの場合はAppleDoubleファイルもまたコピーされ、必要なら作成される。(訳注: この説明も古い。メタデータはAppleDoubleファイルとは限らず、拡張属性に入っている場合もある。)</para>
+    <para>AFPボリュームへのコピーであると検出された場合、CNIDデータベースデーモンに接続し、全てのコピーはCNIDデータベースの手続きを踏む。ターゲットがAFPボリュームの場合はAppleDoubleデータもまたコピーされ、必要なら作成される。</para>
 
     <para>オプション:</para>
 
