@@ -30,11 +30,11 @@
       <title>AFP ファイルサーバーのセットアップ</title>
 
       <para>AFP (Apple Filing Protocol) はアップル・マッキントッシュのファイルサービスに用いるプロトコルである．
-      AFP プロトコルは年を追うごとに進展を見せ，最新の変更は Snow Leopard<indexterm>
-          <primary>Snow Leopard</primary>
+      AFP プロトコルは年を追うごとに進展を見せ，最新の変更は OS X Lion<indexterm>
+          <primary>Lion</primary>
 
-          <secondary>Mac OS X 10.6</secondary>
-        </indexterm> (Mac OS X 10.6) のリリースにあわせて加えられた "AFP 3.3" である．</para>
+          <secondary>Mac OS X 10.7</secondary>
+        </indexterm> (10.7) のマイナーリリースにあわせて加えられた "AFP 3.4" である．</para>
 
       <para>afpd デーモンはアップルのクライアントに対してファイルサービスを提供する．唯一必要な設定ファイルは  
       <filename>afp.conf</filename> のみで，"ini" スタイルの構文で記述する．</para>
@@ -187,9 +187,11 @@ basedir regex = /usr/home</programlisting></para>
 
         <itemizedlist>
           <listitem>
-            <para>ボリュームをネスト（入れ子）にしてはならない．<indexterm>
+            <para>"<option>vol dbnest = yes</option>"
+            が指定してある時以外はボリュームをネスト（入れ子）にしてはならない．<indexterm>
                 <primary>ボリュームをネスト（入れ子）にする</primary>
               </indexterm></para>
+
           </listitem>
 
           <listitem>
@@ -1197,11 +1199,10 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting>
         Netatalk は ACL をオンザフライで読み込み，そののちいわゆる UARights<indexterm>
             <primary>UARights</primary>
           </indexterm> パーミションビット経由で AFP クライアントに送られる有効なパーミッションを算出する．
-        マック上では，これらのビットを Finder 
-        ウィンドウ内のパーミッションと調整するために Finder が使用する．
-        例えば，あるユーザーに ACL が書き込み権限を与えているならば，UNIX 
-        モードでは読み込み権限しか結果的に与えられていないフォルダーに，読み込み専用アイコンが表示されることもなく，
-        当該ユーザーはそのフォルダーに書き込みもできる．</para>
+        マック上では，これらのビットを Finder ウィンドウ内のパーミッションと調整するために Finder が使用する．
+        例：UNIX のモードでは書き込み専用だが ACL がユーザーに書き込み権限を与えているフォルダーは有効な読み書き権限を表示する．
+        権限のマッピングなしに Finder は読み込み専用アイコンを表示するだろうし，
+        ユーザーはそのフォルダーに書き込みはできないであろう．</para>
 
         <para>デフォルトでは，認証ユーザーに有効なパーミションは UNIX のモードではなく，
         前記 UARights<indexterm>
@@ -1854,8 +1855,8 @@ org.freedesktop.Tracker.Writeback verbosity 'debug'
     <para>Netatalk の配布物は，
     いくつかのオペレーティングシステム固有のスタートアップ・スクリプト・テンプレートを備えている．
     これらテンプレートは，コンパイル前に "configure" スクリプトに与えられるオプションに応じて最適化されている．
-    現時点で，RedHat（sysv 形式），RedHat（systemd 形式），SUSE（sysv 形式），SUSE（systemd 形式），Gentoo，
-    NetBSD，Debian，および Solaris 向けのテンプレートが用意されている．
+    現時点で，RedHat（sysv 形式），RedHat（systemd 形式），SUSE（sysv 形式），SUSE（systemd 形式），
+    Debian（sysv 形式），Debian（systemd 形式），Gentoo，NetBSD，および Solaris 向けのテンプレートが用意されている．
     "configure" スクリプトにシステムタイプを指示することで，どのスタートアップスクリプト
       <indexterm>
         <primary>Startscript</primary>
