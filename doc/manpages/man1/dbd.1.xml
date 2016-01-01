@@ -5,7 +5,7 @@
 
     <manvolnum>1</manvolnum>
 
-    <refmiscinfo class="date">28 Dec 2012</refmiscinfo>
+    <refmiscinfo class="date">12 Nov 2015</refmiscinfo>
 
     <refmiscinfo class="source">@NETATALK_VERSION@</refmiscinfo>
   </refmeta>
@@ -18,9 +18,7 @@
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>dbd<indexterm>
-          <primary>dbd</primary>
-        </indexterm></command>
+      <command>dbd</command>
 
       <arg choice="opt">-cfFstuvV</arg>
 
@@ -42,7 +40,7 @@
         <term>-c</term>
 
         <listitem>
-          <para>adouble:v2からadouble:eaへ変換する</para>
+          <para>「<option>appledouble = v2</option>」から「<option>appledouble = ea</option>」へ変換する</para>
         </listitem>
       </varlistentry>
 
