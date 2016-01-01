@@ -16,11 +16,9 @@
     <refpurpose>AFPサーバに機能を問い合わせる</refpurpose>
   </refnamediv>
 
-  <refsynopsisdiv>
+ <refsynopsisdiv>
     <cmdsynopsis>
-      <command>asip-status.pl<indexterm>
-          <primary>asip-status.pl</primary>
-        </indexterm></command>
+      <command>asip-status.pl</command>
 
       <arg choice="opt">-d</arg>
       <arg choice="opt">-i</arg>
@@ -29,12 +27,8 @@
       <arg choice="plain">HOSTNAME[:PORT]</arg>
     </cmdsynopsis>
 
-    <sbr />
-
     <cmdsynopsis>
-      <command>asip-status.pl<indexterm>
-          <primary>asip-status.pl</primary>
-        </indexterm></command>
+      <command>asip-status.pl</command>
 
       <group choice="plain">
         <arg choice="plain">-v</arg>
