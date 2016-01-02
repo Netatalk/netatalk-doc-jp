@@ -1458,7 +1458,7 @@
                 <term>samba</term>
 
                 <listitem>
-                  <para>ファイルシステムの拡張属性を使うが，Sambaのvfs_streams_xattrとの互換性の目的でそれぞれの拡張属性に一つのゼロのバイトを追加する．</para>                </listitem>
+                  <para>ファイルシステムの拡張属性を使うが，Sambaのvfs_streams_xattrとの互換性の目的で，それぞれの拡張属性に値がゼロの1バイトを追加する．</para>                </listitem>
               </varlistentry>
 
               <varlistentry>
