@@ -5,7 +5,7 @@
 
     <manvolnum>8</manvolnum>
 
-    <refmiscinfo class="date">22 Mar 2012</refmiscinfo>
+    <refmiscinfo class="date">22 Nov 2015</refmiscinfo>
 
     <refmiscinfo class="source">@NETATALK_VERSION@</refmiscinfo>
   </refmeta>
@@ -18,22 +18,14 @@
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>netatalk<indexterm>
-          <primary>netatalk</primary>
-        </indexterm></command>
-
-      <sbr />
-
-      <command>netatalk<indexterm>
-          <primary>netatalk</primary>
-        </indexterm></command>
+      <command>netatalk</command>
     </cmdsynopsis>
   </refsynopsisdiv>
 
   <refsect1>
     <title>説明</title>
 
-    <para><command>netatalk</command>は、AFPデーモン<command>afpd</command>とCNIDデーモン<command>cnid_metad</command>の起動と再起動を請け負うサービスコントローラデーモンである。これは通常、ブート時に/etc/rcから起動される。</para>
+    <para><command>netatalk</command>は、AFPデーモン<command>afpd</command>とCNIDデーモン<command>cnid_metad</command>の起動と再起動を請け負うサービスコントローラデーモンである。これは通常、ブート時にinitシステム (BSDスタイルinit、SysVスタイルinit、systemd、Upstart、OpenRC、SMF等) によって起動される。</para>
   </refsect1>
 
   <refsect1>
@@ -66,7 +58,7 @@
         <term><filename>@pkgconfdir@/afp.conf</filename></term>
 
         <listitem>
-          <para>afpdとcnid_metadが使う設定ファイル</para>
+          <para><command>netatalk</command>(8)と<command>afpd</command>(8)と<command>cnid_metad</command>(8)が使う設定ファイル</para>
         </listitem>
       </varlistentry>
     </variablelist>
