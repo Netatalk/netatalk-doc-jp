@@ -14,9 +14,7 @@
   <refnamediv>
     <refname>afp_voluuid.conf</refname>
 
-    <refpurpose>Time MachineボリュームのUUIDを指定するためにafpd(8)が利用する設定ファイル<indexterm>
-        <primary>afp_voluuid.conf</primary>
-      </indexterm></refpurpose>
+    <refpurpose>Time MachineボリュームのUUIDを指定するためにafpd(8)が利用する設定ファイル</refpurpose>
   </refnamediv>
 
   <refsect1>
@@ -24,7 +22,7 @@
 
     <para><filename>@localstatedir@/netatalk/afp_voluuid.conf</filename>はTime MachineボリュームのUUIDを魔法のように自動的に指定するために<command>afpd</command>が利用する設定ファイルである。設定行は以下のように構成される。</para>
 
-    <para><replaceable>"volume name"</replaceable>
+    <para><replaceable>"volume name" </replaceable>
     <replaceable>uuid-string</replaceable></para>
 
     <para>最初のフィールドはボリューム名である。ボリューム名がスペースを含む場合、それを引用符で囲まなければならない。第二のフィールドは36文字からなるUUIDの16進数ASCII文字列表現である。</para>
