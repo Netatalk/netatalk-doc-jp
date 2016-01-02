@@ -5,7 +5,7 @@
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">06 Aug 2014</refmiscinfo>
+    <refmiscinfo class="date">26 Oct 2015</refmiscinfo>
 
     <refmiscinfo class="source">@NETATALK_VERSION@</refmiscinfo>
   </refmeta>
@@ -13,9 +13,7 @@
   <refnamediv>
     <refname>afp.conf</refname>
 
-    <refpurpose>Netatalkの設定ファイル<indexterm>
-        <primary>afp.conf</primary>
-      </indexterm></refpurpose>
+    <refpurpose>Netatalkの設定ファイル</refpurpose>
   </refnamediv>
 
   <refsect1>
@@ -38,13 +36,13 @@
 
     <para>セクション名とパラメータ名は大文字と小文字の区別がある。</para>
 
-    <para>パラメータに最初に現れる等号だけは重要な意味を持つ。最初の等号の前後にある空白は破棄される。セクション名とパラメータ名の前、後、途中にある空白は意味を持たない。パラメータ値の前後の空白は破棄される。パラメータ値の途中の空白はそのまま維持される。</para>
+    <para>パラメータに最初に現れる等号だけは重要な意味を持つ。最初の等号の前後にある空白は破棄される。セクション名とパラメータ名の前、後、途中にある空白は意味を持たない。パラメータ値の前後の空白は破棄される。パラメータ値の途中の空白はそのま維持される。</para>
 
     <para>セミコロン(<quote>;</quote>)やハッシュ文字(<quote>#</quote>)で始まるいかなる行も、空白だけの行と同様に無視される。</para>
 
     <para><quote> <literal>\</literal> </quote>で終わるいかなる行も、通例のUNIX方式で次の行に続くことを意味する。</para>
 
-    <para>パラメータにおいて等号の後ろに続く値は、文字列(引用符は必要ない)または真偽値である。真偽値はyes/no、1/0、true/falseで表現する。大文字と小文字の区別は真偽値では意味を持たないが、文字列では保存される。create maskのようないくつかの項目は数値を表す。(訳注: afp.confにcreate maskというパラメータ名は存在しない。smb.confのmanpageを流用したときのミス。)</para>
+    <para>パラメータにおいて等号の後ろに続く値は、文字列(引用符は必要ない)または真偽値である。真偽値はyes/no、1/0、true/falseで表現する。大文字と小文字の区別は真偽値では意味を持たないが、文字列では保存される。「file perm」のようないくつかの項目は数値を表す。</para>
 
     <para>「<option>include =　<replaceable>path</replaceable></option>」というパラメータは、設定ファイルの中にもう一つの設定ファイルを組み込むことを可能にする。そのファイルはまるでその場所に書き込まれたように、そっくりそのまま組み込まれる。入れ子になった組み込みはサポートされない。</para>
   </refsect1>
@@ -490,12 +488,12 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>DSI/TCP先読みバッファのサイズを決定する係数。デフォルトは12である。これにDSI server quantum (デフォルトは約300k)をかけるとバッファサイズになる (訳注: 情報が古い。現在のserver quantumのデフォルトは1MiB)。この値を増やすと速いローカルネットワークでのボリュームからボリュームへのコピーのスループットが増えるかもしれない。 <emphasis>注記</emphasis>: このバッファはafpdの子プロセス毎に割り当てられるので、大きな値を指定すると大量のメモリが食われる (バッファサイズ * クライアント数)。</para>
+            <para>DSI/TCP先読みバッファのサイズを決定する係数。デフォルトは12である。これにDSI server quantum (デフォルトは1MiB)をかけるとバッファサイズになる。この値を増やすと速いローカルネットワークでのボリュームからボリュームへのコピーのスループットが増えるかもしれない。 <emphasis>注記</emphasis>: このバッファはafpdの子プロセス毎に割り当てられるので、大きな値を指定すると大量のメモリが食われる (バッファサイズ * クライアント数)。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>fqdn = <replaceable>name:port</replaceable>
+          <term>fqdn = <replaceable>name[:port]</replaceable>
           <type>(G)</type></term>
 
           <listitem>
@@ -644,7 +642,7 @@
 
         <varlistentry>
           <term>chmod request = <replaceable>preserve (デフォルト) | ignore | simple</replaceable>
-          <type>(G/V)</type></term>
+          <type>(G)/(V)</type></term>
 
           <listitem>
             <para>ACLに対応する高度なパーミッション制御。</para>
@@ -770,7 +768,7 @@
           <type>(H)</type></term>
 
           <listitem>
-            <para>AFPユーザのホームのボリューム名。デフォルトは<emphasis>user's home</emphasis>である。</para>
+            <para>AFPユーザのホームのボリューム名。デフォルトは<emphasis>$u's home</emphasis>である。</para>
           </listitem>
         </varlistentry>
 
@@ -917,8 +915,7 @@
           <listitem>
             <para>Mac OS XのためのUTF8-MACボリューム名の最大長。ハングルはこれに特に敏感なので注意してください。</para>
 
-            <para><programlisting>
-73: Mac OS X 10.1の制限
+            <para><programlisting>73: Mac OS X 10.1の制限
 80: Mac OS X 10.4/10.5の制限 (デフォルト)
 255: 最近のMac OS Xの制限</programlisting>
             Mac OS 9以前はこれに影響されない。なぜならMac文字セットのボリューム名は常に27バイト制限がある。</para>
@@ -1432,7 +1429,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>ea = <replaceable>none|auto|sys|ad</replaceable>
+          <term>ea = <replaceable>none|auto|sys|ad|samba</replaceable>
           <type>(V)</type></term>
 
           <listitem>
@@ -1455,6 +1452,13 @@
                 <listitem>
                   <para>ファイルシステムの拡張属性を使う．</para>
                 </listitem>
+              </varlistentry>
+
+	      <varlistentry>
+                <term>samba</term>
+
+                <listitem>
+                  <para>ファイルシステムの拡張属性を使うが，Sambaのvfs_streams_xattrとの互換性の目的でそれぞれの拡張属性に一つのゼロのバイトを追加する．</para>                </listitem>
               </varlistentry>
 
               <varlistentry>
@@ -1543,7 +1547,7 @@ directory perm = 0770</programlisting></para>
           <type>(V)</type></term>
 
           <listitem>
-            <para>ボリュームがマウントされる時に実行されるコマンド．ユーザー定義ボリュームに対しては無視される．</para>
+            <para>ボリュームがマウントされる時に実行されるコマンド</para>
           </listitem>
         </varlistentry>
 
@@ -1552,7 +1556,7 @@ directory perm = 0770</programlisting></para>
           <type>(V)</type></term>
 
           <listitem>
-            <para>ボリュームが閉じられる時に実行されるコマンド．ユーザー定義ボリュームに対しては無視される．</para>
+            <para>ボリュームが閉じられる時に実行されるコマンド</para>
           </listitem>
         </varlistentry>
 
@@ -1561,7 +1565,7 @@ directory perm = 0770</programlisting></para>
           <type>(V)</type></term>
 
           <listitem>
-            <para>ボリュームがマウントされる時にルート権限で実行されるコマンド．ユーザー定義ボリュームに対しては無視される．</para>
+            <para>ボリュームがマウントされる時にルート権限で実行されるコマンド</para>
           </listitem>
         </varlistentry>
 
@@ -1570,7 +1574,7 @@ directory perm = 0770</programlisting></para>
           <type>(V)</type></term>
 
           <listitem>
-            <para>ボリュームが閉じられる時にルート権限で実行されるコマンド．ユーザー定義ボリュームに対しては無視される．</para>
+            <para>ボリュームが閉じられる時にルート権限で実行されるコマンド</para>
           </listitem>
         </varlistentry>
 
@@ -1794,33 +1798,17 @@ directory perm = 0770</programlisting></para>
 
     <para>OS XでAppleはAFP3プロトコルを導入した。最も重要な変更の一つは、AFP3は分解済UTF-8 としてエンコードされたUnicode名を用いることである。以前のAFP及びOSバージョンはMacRomanやMacCentralEuropeといったコードページを用いた。</para>
 
-    <para><command>afpd</command>がunixファイルシステム上にファイルを保存するとき、拡張されたMacintosh文字やunixファイル名としては不正な文字を維持する方法が必要である。初期のバージョンはいわゆるCAPエンコーディングを用いた。一つの拡張文字(&gt;0x7F)は一つの :xx シーケンスに変換された。例えば、Appleロゴ (MacRoman: 0xF0)は<literal>:f0</literal>として保存された。幾つかの特殊な文字も :xx表記として変換される。「<keycode>/</keycode>」は<literal>:2f</literal>にエンコードされ、<option>usedots</option>が指定されなければ先頭のドット「<keycode>.</keycode>」は<literal>:2e</literal>にエンコードされる。</para>
+    <para><command>afpd</command>がunixファイルシステム上にファイルを保存するとき、拡張されたMacintosh文字やunixファイル名としては不正な文字を維持する方法が必要である。現在のバージョンは今、名前のためのデフォルトエンコーディングとしてUTF-8を用いる。「<keycode>/</keycode>」は「<keycode>:</keycode>」に変換される。</para>
 
-    <para>現在のバージョンは今、名前のためのデフォルトエンコーディングとしてUTF-8を用いる。「<keycode>/</keycode>」は「<keycode>:</keycode>」に変換される。</para>
+    <para>初期のバージョンはいわゆるCAPエンコーディングを用いた。一つの拡張文字(&gt;0x7F)は一つの :xx シーケンスに変換された。例えば、Appleロゴ (MacRoman: 0xF0)は<literal>:f0</literal>として保存された。幾つかの特殊な文字も :xx表記として変換された。「<keycode>/</keycode>」は<literal>:2f</literal>にエンコードされ、先頭のドット「<keycode>.</keycode>」は<literal>:2e</literal>にエンコードされた。</para>
 
-    <para><option>vol charset</option>オプションは他のボリュームエンコーディングを選べるようにする。例えば、西欧ユーザの別の便利な設定はvol charset ISO-8859-15かもしれない。<command>afpd</command>は
+    <para><option>vol charset</option>オプションは他のボリュームエンコーディングを選べるようにする。<command>afpd</command>は
     <citerefentry>
         <refentrytitle><command>iconv</command></refentrytitle>
 
         <manvolnum>1</manvolnum>
       </citerefentry>
-      が提供する如何なる文字セットも受け入れる。文字を<option>mac charset</option>から<option>vol charset</option>へ変換できない場合、<command>afpd</command>はCAPエンコードされた文字としてそれを保存する。AFP3クライアントでは、<command>afpd</command>は最初にUTF-8<indexterm>
-        <primary>UTF8</primary>
-
-        <secondary>afpd's vol charset setting</secondary>
-      </indexterm><indexterm>
-        <primary>UTF8-MAC</primary>
-
-        <secondary>afpd's vol charset setting</secondary>
-      </indexterm><indexterm>
-        <primary>ISO-8859-15</primary>
-
-        <secondary>afpd's vol charset setting</secondary>
-      </indexterm><indexterm>
-        <primary>ISO-8859-1</primary>
-
-        <secondary>afpd's vol charset setting</secondary>
-      </indexterm>文字を<option>mac charset</option>に変換する。この変換が失敗した場合、Mac上で-50エラーを受信する。</para>
+    が提供する如何なる文字セットも受け入れる。デフォルトのUTF-8を使うことをを強く推奨する。</para>
 
     <para><emphasis>注記</emphasis>: 可能な限りデフォルトのUTF-8ボリュームフォーマットを使ってください。</para>
   </refsect1>
