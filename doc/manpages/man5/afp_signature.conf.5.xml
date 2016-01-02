@@ -14,9 +14,7 @@
   <refnamediv>
     <refname>afp_signature.conf</refname>
 
-    <refpurpose>サーバシグネチャを指定するためにafpd(8)が利用する設定ファイル<indexterm>
-        <primary>afp_signature.conf</primary>
-      </indexterm></refpurpose>
+    <refpurpose>サーバシグネチャを指定するためにafpd(8)が利用する設定ファイル</refpurpose>
   </refnamediv>
 
   <refsect1>
@@ -24,7 +22,7 @@
 
     <para><filename>@localstatedir@/netatalk/afp_signature.conf</filename>はサーバシグネチャを魔法のように自動的に指定するために<command>afpd</command>が利用する設定ファイルである。設定行は以下のように構成される。</para>
 
-    <para><replaceable>"server name"</replaceable>
+    <para><replaceable>"server name" </replaceable>
     <replaceable>hexa-string</replaceable></para>
 
     <para>最初のフィールドはサーバ名である。 サーバ名がスペースを含む場合、それを引用符で囲まなければならない。第二のフィールドは16バイトのサーバシグネチャのための32文字の16進数文字列である。</para>
