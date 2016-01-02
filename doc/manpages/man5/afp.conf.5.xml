@@ -650,7 +650,7 @@
             <itemizedlist>
               <listitem><para> <option>ignore</option> - UNIXのchmod()要求を完全に無視する。新規作成を上書きして親ディレクトリのACL継承に完全コントロールさせるためにこのオプションを使う。</para></listitem>
               <listitem><para>
-                <option>preserve</option> - ユーザメイトグループ名のためのZFS ACEやPOSIX ACLグループマスクを維持する
+                <option>preserve</option> - 名前付きユーザとグループのためのZFS ACEやPOSIX ACLグループマスクを維持する
 		      </para></listitem>
               <listitem><para>
 		<option>simple</option> -  いかなる追加の手順も踏まず、単に要求通りにchmod()する
