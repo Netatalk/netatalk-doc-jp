@@ -7,7 +7,7 @@
       <surname>UDA（日本語訳）</surname>
     </author>
     
-    <pubdate>2016 年 1 月 2 日（訳）</pubdate>
+    <pubdate>2016 年 7 月 26 日（訳）</pubdate>
     
   </chapterinfo>
 
@@ -634,13 +634,9 @@ basedir regex = /usr/home</programlisting></para>
               もあり得る．</para>
 
               <para>もし，あるキャラクターが <option>mac charset</option> から選定した 
-              <option>vol charset</option> への変換ができない場合，
-              afpd は CAP エンコードしたキャラクターとして保存するであろう．
-              AFP3 のクライアントに対しては，afpd は UTF8 のキャラクターをまず <option>mac
-              charset</option> に変換する．
-              もしこの変換に失敗すると，マック上では -50 エラーを受け取るだろう．
+              <option>vol charset</option> への変換ができない場合，マック上で -50 エラーを受け取るだろう．
               <emphasis>注意</emphasis>：
-              可能な限り常に，デフォルトの UTF8 ボリュームフォーマットから離れないでいただきたい．
+              可能な限り常に，デフォルトの UTF8 ボリュームフォーマットにしてください．
                             <citerefentry>
                   <refentrytitle>afp.conf</refentrytitle>
 
@@ -1519,9 +1515,11 @@ aclmode = passthrough</screen>
         Spotlight が無効にされたことになるその他全てのボリュームでは全く検索できないようになる．</para>
       </warning>
 
-      <para><command>dbus-daemon</command> の実行バイナリが，パス
-      <filename>/bin/dbus-daemon</filename> にインストールされていない場合，
-      正しいパスを指示するためにグローバルオプション <option>dbus daemon</option> を用いなければならない．
+      <para>The <command>dbus-daemon</command> バイナリは Spotlight 機能のためにインストールしなければならない．
+      dbus-daemon へのパスは "configure" の --with-dbus-daemon オプションで決定する．</para>
+
+      <para><command>dbus-daemon</command> バイナリが，他のパスにインストールされている場合，
+      パスを指示するためにグローバルオプション <option>dbus daemon</option> を用いなければならない．
       例えば Solaris 上で OpenCSW 由来の Tracker を用いている場合は以下のようにする：
       <screen>dbus daemon = /opt/csw/bin/dbus-daemon</screen></para>
     </sect2>
@@ -1569,28 +1567,58 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=$PREFIX/var/netatalk/spotlight.ipc"
       も以下のように更新する：<screen># export PATH=/opt/csw/bin:$PATH</screen></para>
 
       <sect3>
-        <title>Tracker の起動と停止</title>
+        <title>Tracker の状態の問い合わせ</title>
 
         <variablelist>
           <varlistentry>
-            <term>Tracker の状態の問い合わせ</term>
-
+            <term>最近の Tracker:</term>
             <listitem>
-              <screen># tracker-control -S</screen>
+              <screen># tracker daemon</screen>
             </listitem>
           </varlistentry>
 
           <varlistentry>
-            <term>Tracker の停止</term>
+          <term>古い Tracker:</term>
+          <listitem>
+            <screen># tracker-control -S</screen>
+          </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
 
+      <sect3>
+        <title>Tracker の停止</title>
+
+        <variablelist>
+          <varlistentry>
+            <term>最近の Tracker:</term>
+            <listitem>
+              <screen># tracker daemon -t</screen>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>古い Tracker:</term>
             <listitem>
               <screen># tracker-control -t</screen>
             </listitem>
           </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3>
+        <title>Tracker の開始</title>
+
+        <variablelist>
+          <varlistentry>
+            <term>最近の Tracker:</term>
+            <listitem>
+              <screen># tracker daemon -s</screen>
+            </listitem>
+          </varlistentry>
 
           <varlistentry>
-            <term>Tracker の開始</term>
-
+            <term>古い Tracker:</term>
             <listitem>
               <screen># tracker-control -s</screen>
             </listitem>
@@ -1599,22 +1627,65 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=$PREFIX/var/netatalk/spotlight.ipc"
       </sect3>
 
       <sect3>
-        <title>ディレクトリの再インデックス化</title>
+        <title>ディレクトリの再インデックス</title>
 
-        <screen># tracker-control -f PATH</screen>
-      </sect3>
+        <variablelist>
+          <varlistentry>
+            <term>最近の Tracker:</term>
+            <listitem>
+              <screen># tracker index -f PATH</screen>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>古い Tracker:</term>
+            <listitem>
+              <screen># tracker-control -f PATH</screen>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+        </sect3>
 
       <sect3>
-        <title>Tracker にファイル・ディレクトリ情報を照会</title>
+        <title>Tracker にファイルやディレクトリの情報を問い合わせる</title>
 
-        <screen># tracker-info PATH</screen>
-      </sect3>
+        <variablelist>
+          <varlistentry>
+            <term>最近の Tracker:</term>
+            <listitem>
+              <screen># tracker info PATH</screen>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>古い Tracker:</term>
+            <listitem>
+              <screen># tracker-info PATH</screen>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+        </sect3>
 
       <sect3>
         <title>Tracker で検索</title>
 
-        <screen># tracker-search QUERY</screen>
-      </sect3>
+        <variablelist>
+          <varlistentry>
+            <term>最近の Tracker:</term>
+            <listitem>
+              <screen># tracker search QUERY</screen>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>古い Tracker:</term>
+            <listitem>
+              <screen># tracker-search QUERY</screen>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+
+        </sect3>
     </sect2>
 
     <sect2>
