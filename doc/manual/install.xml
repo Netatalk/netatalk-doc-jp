@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="installation">
   <chapterinfo>
-    <date>22.8.2014</date>
+    <date>17.1.2015</date>
     
     <author role="first-last">
       <firstname>Eiichirou</firstname>
@@ -9,7 +9,7 @@
       <surname>UDA（日本語訳）</surname>
     </author>
     
-    <pubdate>2015 年 6 月 10 日（訳）</pubdate>
+    <pubdate>2016 年 7 月 26 日（訳）</pubdate>
     
   </chapterinfo>
 
@@ -261,7 +261,7 @@ remote: Counting objects: 2503, done.
 
         <itemizedlist>
           <listitem>
-            <para><option>--with-init-style</option>=redhat-sysv|redhat-systemd|suse-sysv|suse-systemd|gentoo|netbsd|debian-sysv|debian-systemd|solaris|systemd</para>
+            <para><option>--with-init-style</option>=redhat-sysv|redhat-systemd|suse-sysv|suse-systemd|gentoo-openrc|gentoo-systemd|netbsd|debian-sysv|debian-systemd|solaris|openrc|systemd</para>
 
             <para>このオプションがスタートアップスクリプトをどこにインストールするかの助けになる．</para>
           </listitem>
