@@ -5,7 +5,7 @@
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">26 Oct 2015</refmiscinfo>
+    <refmiscinfo class="date">04 Apr 2016</refmiscinfo>
 
     <refmiscinfo class="source">@NETATALK_VERSION@</refmiscinfo>
   </refmeta>
@@ -233,6 +233,33 @@
         </varlistentry>
 
         <varlistentry>
+          <term>admin group = <replaceable>group</replaceable>
+          <type>(G)</type></term>
+
+          <listitem>
+            <para>信頼できるグループのユーザがログインしたときスーパユーザとして見えるようにする。このオプションはデフォルトで無効である。</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>force user = <replaceable>USER</replaceable>
+          <type>(G)</type></term>
+
+          <listitem>
+            <para>このサーバに接続する全ユーザへ、デフォルトユーザとして割り当てるUNIXユーザ名を指定する。これは共有ファイルに役立つ。間違ってセキュリティ問題を引き起こすような使い方が可能なので、それにも注意して利用すべきである。</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>force group = <replaceable>GROUP</replaceable>
+          <type>(G)</type></term>
+
+          <listitem>
+            <para>このサーバに接続する全ユーザへ、デフォルトプライマリグループとして割り当てるUNIXグループ名を指定する。</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
           <term>k5 keytab = <replaceable>path</replaceable>
           <type>(G)</type></term>
 
@@ -304,7 +331,7 @@
               </varlistentry>
 
               <varlistentry>
-                <term>uams_randum.so</term>
+                <term>uams_randnum.so</term>
 
                 <listitem>
                   <para>認証のための乱数および双方向乱数交換を許可する (パスワードを含んだファイル、つまり@pkgconfdir@/afppasswdファイルか"<option>passwd file</option>"で指定したファイルのどちらかが必要)。詳細は
@@ -605,15 +632,6 @@
 
       <variablelist>
         <varlistentry>
-          <term>admin group = <replaceable>group</replaceable>
-          <type>(G)</type></term>
-
-          <listitem>
-            <para>信頼できるグループのユーザがログインしたときスーパユーザとして見えるようにする。このオプションはデフォルトで無効である。</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
           <term>afp read locks = <replaceable>BOOLEAN</replaceable> (デフォルト:
           <emphasis>no</emphasis>) <type>(G)</type></term>
 
@@ -718,7 +736,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>Spotlight機能が使用するdbus-daemon実行ファイルのパスを設定する。デフォルトは<filename>/bin/dbus-daemon</filename>である。</para>
+            <para>Spotlight機能が使用するdbus-daemon実行ファイルのパスを設定する。デフォルト値 <filename>[@DBUS_DAEMON_PATH@]</filename> はnetatalkのビルド時に決定される。</para>
           </listitem>
         </varlistentry>
 
@@ -877,7 +895,7 @@
           <emphasis>yes</emphasis>) <type>(G)</type></term>
 
           <listitem>
-            <para><emphasis>tracker-control -s</emphasis>によってTrackerを開始するかどうか。</para>
+            <para>"<command>tracker daemon -s</command>"によってTrackerを開始するかどうか。古いTrackerの場合、"<command>tracker-control -s</command>"が代わりに使われる。</para>
           </listitem>
         </varlistentry>
 
@@ -1809,8 +1827,6 @@ directory perm = 0770</programlisting></para>
         <manvolnum>1</manvolnum>
       </citerefentry>
     が提供する如何なる文字セットも受け入れる。デフォルトのUTF-8を使うことをを強く推奨する。</para>
-
-    <para><emphasis>注記</emphasis>: 可能な限りデフォルトのUTF-8ボリュームフォーマットを使ってください。</para>
   </refsect1>
 
   <refsect1>
