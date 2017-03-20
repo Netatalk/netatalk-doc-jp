@@ -814,7 +814,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>クライアント上に表示されるアイコンモデルを指定する。デフォルトではオフになっている。afpdがZeroconfをサポートしなければならないことに注意してください。例: RackMac (same as Xserve), PowerBook, PowerMac,
+            <para>クライアント上に表示されるアイコンモデルを指定する。デフォルトではオフになっている。netatalkがZeroconfをサポートしなければならないことに注意してください。例: RackMac (same as Xserve), PowerBook, PowerMac,
             Macmini, iMac, MacBook, MacBookPro, MacBookAir, MacPro,
             AppleTV1,1, AirPort.</para>
           </listitem>
