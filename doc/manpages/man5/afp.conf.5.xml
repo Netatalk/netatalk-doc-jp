@@ -954,7 +954,7 @@
           <type>(G)</type></term>
 
           <listitem>
-            <para>登録サービスを一意に記述し人間に読むことのできるnameを設定する。このzeroconf nameは最大長63オクテット（バイト）のUTF-8で宣伝される。netatalkがZeroconfをサポートしなければならないことに注意してください。</para>
+            <para>登録サービスをユニークに表した、人間が読めるnameを設定する。このzeroconf nameは最大長63オクテット（バイト）のUTF-8で宣伝される。netatalkがZeroconfをサポートしなければならないことに注意してください。</para>
           </listitem>
         </varlistentry>
       </variablelist>
